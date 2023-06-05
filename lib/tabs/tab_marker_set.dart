@@ -1,8 +1,8 @@
 import "package:flutter/material.dart";
 import "package:vector_math/vector_math.dart" as vector_math;
 
-import "schemas/marker_set.dart";
-import "schemas/marker_poi.dart";
+import "../schemas/marker_set.dart";
+import "../schemas/marker_poi.dart";
 
 class MarkerSetTab extends StatefulWidget {
   final String label;
@@ -10,18 +10,18 @@ class MarkerSetTab extends StatefulWidget {
 
   MarkerSetTab({required this.label, super.key})
       : markerSet = MarkerSet(
-    label: label,
-    markers: {
-      "marker1": MarkerPOI(
-        position: vector_math.Vector3(1, 2, 3),
-        label: "Marker 1",
-      ),
-      "marker2": MarkerPOI(
-        position: vector_math.Vector3(4, 5, 6),
-        label: "Marker 2",
-      ),
-    },
-  );
+          label: label,
+          markers: {
+            "marker1": MarkerPOI(
+              position: vector_math.Vector3(1, 2, 3),
+              label: "Marker 1",
+            ),
+            "marker2": MarkerPOI(
+              position: vector_math.Vector3(4, 5, 6),
+              label: "Marker 2",
+            ),
+          },
+        );
 
   @override
   State<MarkerSetTab> createState() => _MarkerSetTabState();

@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 
-import "tab.dart";
+import "tabs/tab_add.dart";
+import "tabs/tab_marker_set.dart";
 
 void main() {
   runApp(const MyApp());
@@ -19,7 +20,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: "Flutter Demo",
+      title: "BlueMap Marker Generator",
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         useMaterial3: false,
@@ -47,38 +48,39 @@ class _MyAppState extends State<MyApp> {
         length: tabs.length + 1,
         child: Scaffold(
           appBar: AppBar(
-            title: const Text("BlueMap Static Marker Generator"),
+            title: const Text("BlueMap Marker Generator"),
             bottom: TabBar(
               isScrollable: true,
               tabs: [
-                for (MarkerSetTab markerSet in tabs.values)
+                for (MapEntry<String, MarkerSetTab> entry in tabs.entries)
                   Tab(
-                    text: markerSet.markerSet.label,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(entry.value.markerSet.label),
+                        Text(
+                          entry.key,
+                          style: const TextStyle(fontStyle: FontStyle.italic),
+                        ),
+                      ],
+                    ),
                   ),
-                const Tab(text: "Add")
+                const Tab(
+                  child: Row(
+                    children: [
+                      Icon(Icons.add),
+                      Text("Add"),
+                      SizedBox(width: 8),
+                    ],
+                  ),
+                )
               ],
             ),
           ),
           body: TabBarView(
             children: [
               for (MarkerSetTab markerSet in tabs.values) markerSet,
-              Center(
-                child: Column(
-                  children: [
-                    const Text("Add a new tab"),
-                    ElevatedButton(
-                      onPressed: () {
-                        setState(() {
-                          tabs["test${tabs.length}"] = MarkerSetTab(
-                            label: "Test ${tabs.length}",
-                          );
-                        });
-                      },
-                      child: const Text("Add"),
-                    )
-                  ],
-                ),
-              ),
+              TabAdd(tabs, setState),
             ],
           ),
         ),
