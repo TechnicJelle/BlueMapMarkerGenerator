@@ -30,12 +30,36 @@ class MarkerSet {
       child: ListView.separated(
         controller: scrollController,
         itemCount: markers.length,
-        padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 8),
         itemBuilder: (context, index) {
-          return markers.values.elementAt(index).toWidget(setState);
+          MapEntry<String, Marker> entry = markers.entries.elementAt(index);
+          return InkWell(
+            onTap: () {
+              print("MarkerSet.toWidget: ${entry.key} tapped");
+            },
+            onLongPress: () {
+              print("MarkerSet.toWidget: ${entry.key} long pressed");
+            },
+            onSecondaryTap: () {
+              print("MarkerSet.toWidget: ${entry.key} secondary tapped");
+            },
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 8),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    entry.key,
+                    style: const TextStyle(fontStyle: FontStyle.italic),
+                  ),
+                  const SizedBox(height: 4),
+                  entry.value.toWidget(setState),
+                ],
+              ),
+            ),
+          );
         },
         separatorBuilder: (context, index) {
-          return const Divider();
+          return const Divider(indent: 4, height: 0);
         },
       ),
     );

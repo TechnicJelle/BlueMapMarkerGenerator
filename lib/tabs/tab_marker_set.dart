@@ -1,6 +1,8 @@
 import "package:flutter/material.dart";
 import "package:vector_math/vector_math.dart" as vector_math;
 
+import "../dialog_add.dart";
+import "../schemas/marker.dart";
 import "../schemas/marker_set.dart";
 import "../schemas/marker_poi.dart";
 
@@ -30,15 +32,17 @@ class MarkerSetTab extends StatefulWidget {
 class _MarkerSetTabState extends State<MarkerSetTab> {
   MarkerSet get markerSet => widget.markerSet;
 
-  void _addMarker() {
+  void _addMarker() async {
+    (String, Marker)? newMarker = await showDialog<(String, Marker)>(
+      context: context,
+      builder: (context) {
+        return DialogAdd(markerSet: markerSet);
+      },
+    );
+    if (newMarker == null) return; // Cancelled
+
     setState(() {
-      markerSet.add(
-        "marker3",
-        MarkerPOI(
-          position: vector_math.Vector3(7, 8, 9),
-          label: "Marker 3",
-        ),
-      );
+      markerSet.add(newMarker.$1, newMarker.$2);
     });
   }
 
