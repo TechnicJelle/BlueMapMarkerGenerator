@@ -16,8 +16,6 @@ class _TabAddState extends State<TabAdd> {
   Map<String, MarkerSetTab> get tabs => widget.tabs;
 
   final formKey = GlobalKey<FormState>();
-  final idKey = GlobalKey<FormFieldState>();
-  final labelKey = GlobalKey<FormFieldState>();
 
   final idController = TextEditingController();
   final labelController = TextEditingController();
@@ -31,8 +29,8 @@ class _TabAddState extends State<TabAdd> {
   }
 
   void validateAndAdd() {
-    if (formKey.currentState == null) return;
-    if (formKey.currentState!.validate()) {
+    final formState = formKey.currentState;
+    if (formState != null && formState.validate()) {
       addTab(idController.text, labelController.text);
     }
   }
@@ -48,15 +46,12 @@ class _TabAddState extends State<TabAdd> {
             const Text("Add a new Marker Set"),
             //ID
             TextFormField(
-              key: idKey,
               controller: idController,
               autofocus: true,
               decoration: const InputDecoration(labelText: "ID"),
               textInputAction: TextInputAction.next,
               textCapitalization: TextCapitalization.none,
-              onChanged: (String s) {
-                idKey.currentState!.validate();
-              },
+              autovalidateMode: AutovalidateMode.onUserInteraction,
               validator: (String? s) {
                 if (s == null || s.trim().isEmpty) {
                   return "Cannot be empty";
@@ -70,14 +65,13 @@ class _TabAddState extends State<TabAdd> {
                 return null;
               },
             ),
-            //Label
             TextFormField(
-              key: labelKey,
               controller: labelController,
               autofocus: false,
               decoration: const InputDecoration(labelText: "Label"),
               textInputAction: TextInputAction.done,
               textCapitalization: TextCapitalization.words,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
               validator: (String? s) {
                 if (s == null || s.trim().isEmpty) {
                   return "Cannot be empty";
