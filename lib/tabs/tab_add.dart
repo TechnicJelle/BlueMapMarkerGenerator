@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 
+import "../lang.dart";
 import "tab_marker_set.dart";
 
 class TabAdd extends StatefulWidget {
@@ -54,13 +55,13 @@ class _TabAddState extends State<TabAdd> {
               autovalidateMode: AutovalidateMode.onUserInteraction,
               validator: (String? s) {
                 if (s == null || s.trim().isEmpty) {
-                  return "Cannot be empty";
+                  return cannotBeEmpty;
                 }
                 if (tabs.containsKey(s)) {
-                  return "Can't have a duplicate ID";
+                  return noDuplicateIDs;
                 }
-                if (!RegExp(r"^[a-zA-Z0-9_-]+$").hasMatch(s)) {
-                  return "Invalid character";
+                if (!idRegex.hasMatch(s)) {
+                  return invalidCharacter;
                 }
                 return null;
               },
@@ -74,7 +75,7 @@ class _TabAddState extends State<TabAdd> {
               autovalidateMode: AutovalidateMode.onUserInteraction,
               validator: (String? s) {
                 if (s == null || s.trim().isEmpty) {
-                  return "Cannot be empty";
+                  return cannotBeEmpty;
                 }
                 return null;
               },

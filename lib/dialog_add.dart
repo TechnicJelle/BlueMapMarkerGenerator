@@ -5,6 +5,7 @@ import "schemas/marker.dart";
 import "schemas/marker_line.dart";
 import "schemas/marker_poi.dart";
 import "schemas/marker_set.dart";
+import "lang.dart";
 
 // ignore: must_be_immutable
 class DialogAdd extends StatelessWidget {
