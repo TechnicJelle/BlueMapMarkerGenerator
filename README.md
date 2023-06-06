@@ -1,3 +1,3 @@
 # BlueMap Marker Generator
 
-A new WIP Flutter project.
+A webapp that helps generate BlueMap markers
