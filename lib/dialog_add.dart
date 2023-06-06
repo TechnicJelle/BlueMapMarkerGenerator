@@ -13,14 +13,26 @@ class DialogAdd extends StatelessWidget {
 
   DialogAdd({super.key, required this.markerSet});
 
-  String? id;
+  final formKey = GlobalKey<FormState>();
+
+  final idController = TextEditingController();
+
   Marker? marker;
+
+  void validateAndAdd(context) {
+    final formState = formKey.currentState;
+    if (formState != null && formState.validate()) {
+      Navigator.of(context).pop((idController.text, marker));
+      marker = null;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
       title: const Text("Add Marker"),
       content: Form(
+        key: formKey,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -43,42 +55,63 @@ class DialogAdd extends StatelessWidget {
                   child: const Text("Line"),
                 ),
               ],
-              onChanged: (Marker? value) {
-                marker = value;
-              },
-            ),
-            TextFormField(
-              decoration: const InputDecoration(labelText: "ID"),
-              textInputAction: TextInputAction.next,
-              textCapitalization: TextCapitalization.none,
-              onChanged: (String s) {
-                id = s;
-              },
-              validator: (String? s) {
-                if (s == null || s.isEmpty) {
-                  return "ID cannot be empty";
-                }
-                if (markerSet.markers.containsKey(s)) {
-                  return "ID already exists";
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              validator: (Marker? m) {
+                if (m == null) {
+                  return cannotBeEmpty;
                 }
                 return null;
               },
+              onChanged: (Marker? m) => marker = m,
+            ),
+            TextFormField(
+              controller: idController,
+              autofocus: false,
+              decoration: const InputDecoration(labelText: "ID"),
+              textInputAction: TextInputAction.next,
+              textCapitalization: TextCapitalization.none,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              validator: (String? s) {
+                if (s == null || s.isEmpty) {
+                  return cannotBeEmpty;
+                }
+                if (markerSet.markers.containsKey(s)) {
+                  //Prevent this validator from activating when just added:
+                  if (marker == null) return null;
+                  return noDuplicateIDs;
+                }
+                if (!idRegex.hasMatch(s)) {
+                  return invalidCharacter;
+                }
+                return null;
+              },
+            ),
+            TextFormField(
+              autofocus: false,
+              decoration: const InputDecoration(labelText: "Label"),
+              textInputAction: TextInputAction.done,
+              textCapitalization: TextCapitalization.words,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              validator: (String? s) {
+                if (s == null || s.trim().isEmpty) {
+                  return cannotBeEmpty;
+                }
+                return null;
+              },
+              onChanged: (String s) => marker?.label = s,
+              onFieldSubmitted: (_) => validateAndAdd(context),
             ),
           ],
         ),
       ),
       actions: [
         TextButton(
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
+          autofocus: false,
+          onPressed: () => Navigator.of(context).pop(),
           child: const Text("Cancel"),
         ),
         TextButton(
-          onPressed: () {
-            if (id == null || marker == null) return;
-            Navigator.of(context).pop((id, marker));
-          },
+          onPressed: () => validateAndAdd(context),
           child: const Text("Add"),
         ),
       ],
