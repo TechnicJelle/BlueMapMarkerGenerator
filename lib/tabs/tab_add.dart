@@ -45,7 +45,7 @@ class _TabAddState extends State<TabAdd> {
         key: formKey,
         child: Column(
           children: [
-            const Text("Add a new tab"),
+            const Text("Add a new Marker Set"),
             //ID
             TextFormField(
               key: idKey,
@@ -71,23 +71,20 @@ class _TabAddState extends State<TabAdd> {
               },
             ),
             //Label
-            Focus(
-              canRequestFocus: false,
-              child: TextFormField(
-                key: labelKey,
-                controller: labelController,
-                autofocus: false,
-                decoration: const InputDecoration(labelText: "Label"),
-                textInputAction: TextInputAction.done,
-                textCapitalization: TextCapitalization.words,
-                validator: (String? s) {
-                  if (s == null || s.trim().isEmpty) {
-                    return "Cannot be empty";
-                  }
-                  return null;
-                },
-                onFieldSubmitted: (_) => validateAndAdd(),
-              ),
+            TextFormField(
+              key: labelKey,
+              controller: labelController,
+              autofocus: false,
+              decoration: const InputDecoration(labelText: "Label"),
+              textInputAction: TextInputAction.done,
+              textCapitalization: TextCapitalization.words,
+              validator: (String? s) {
+                if (s == null || s.trim().isEmpty) {
+                  return "Cannot be empty";
+                }
+                return null;
+              },
+              onFieldSubmitted: (_) => validateAndAdd(),
             ),
             const SizedBox(height: 16),
             ElevatedButton(
