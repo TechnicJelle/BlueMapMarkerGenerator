@@ -3,7 +3,8 @@ import "package:flutter/material.dart";
 import "marker.dart";
 
 class MarkerSet {
-  ScrollController scrollController = ScrollController();
+  final ScrollController scrollController = ScrollController();
+  late Offset mouse;
 
   String label;
   bool? toggleable;
@@ -36,12 +37,12 @@ class MarkerSet {
             onTap: () {
               print("MarkerSet.toWidget: ${entry.key} tapped");
             },
-            onLongPress: () {
-              print("MarkerSet.toWidget: ${entry.key} long pressed");
-            },
-            onSecondaryTap: () {
-              print("MarkerSet.toWidget: ${entry.key} secondary tapped");
-            },
+            onTapDown: (TapDownDetails details) =>
+                mouse = details.globalPosition,
+            onLongPress: () => rightClickMenu(context, setState, entry.key),
+            onSecondaryTapDown: (TapDownDetails details) =>
+                mouse = details.globalPosition,
+            onSecondaryTap: () => rightClickMenu(context, setState, entry.key),
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 8),
               child: Column(
@@ -62,6 +63,23 @@ class MarkerSet {
           return const Divider(indent: 4, height: 0);
         },
       ),
+    );
+  }
+
+  void rightClickMenu(BuildContext context, StateSetter setState, String key) {
+    showMenu(
+      context: context,
+      position: RelativeRect.fromLTRB(mouse.dx, mouse.dy, double.infinity, 0),
+      items: [
+        PopupMenuItem(
+          child: const Text("Delete Marker"),
+          onTap: () {
+            setState(() {
+              markers.remove(key);
+            });
+          },
+        ),
+      ],
     );
   }
 }
