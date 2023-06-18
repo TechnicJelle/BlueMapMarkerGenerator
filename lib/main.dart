@@ -79,7 +79,7 @@ class _MyAppState extends State<MyApp> {
           ),
           body: TabBarView(
             children: [
-              for (MarkerSetTab markerSet in tabs.values) markerSet,
+              for (MarkerSetTab markerSetTab in tabs.values) markerSetTab,
               TabAdd(tabs, setState),
             ],
           ),
