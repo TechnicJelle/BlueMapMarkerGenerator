@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:flutter/services.dart";
 
 import "../dialog_add.dart";
 import "../schemas/marker.dart";
@@ -38,12 +39,21 @@ class _MarkerSetTabState extends State<MarkerSetTab> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: markerSet.markers.isEmpty
-          ? const Center(child: Text("Press the + button to add a marker"))
-          : markerSet.toWidget(setState),
+      body: CallbackShortcuts(
+        bindings: {
+          const SingleActivator(LogicalKeyboardKey.keyN, control: true): () =>
+              _addMarker(),
+        },
+        child: Focus(
+          autofocus: true,
+          child: markerSet.markers.isEmpty
+              ? const Center(child: Text("Press the + button to add a marker"))
+              : markerSet.toWidget(setState),
+        ),
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: _addMarker,
-        tooltip: "Add Marker",
+        tooltip: "Add Marker (Ctrl+N)",
         child: const Icon(Icons.add),
       ),
     );
