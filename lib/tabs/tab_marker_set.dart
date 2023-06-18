@@ -1,10 +1,8 @@
 import "package:flutter/material.dart";
-import "package:vector_math/vector_math.dart" as vector_math;
 
 import "../dialog_add.dart";
 import "../schemas/marker.dart";
 import "../schemas/marker_set.dart";
-import "../schemas/marker_poi.dart";
 
 class MarkerSetTab extends StatefulWidget {
   final String label;
@@ -13,16 +11,7 @@ class MarkerSetTab extends StatefulWidget {
   MarkerSetTab({required this.label, super.key})
       : markerSet = MarkerSet(
           label: label,
-          markers: {
-            "marker1": MarkerPOI(
-              position: vector_math.Vector3(1, 2, 3),
-              label: "Marker 1",
-            ),
-            "marker2": MarkerPOI(
-              position: vector_math.Vector3(4, 5, 6),
-              label: "Marker 2",
-            ),
-          },
+          markers: {},
         );
 
   @override
@@ -49,7 +38,9 @@ class _MarkerSetTabState extends State<MarkerSetTab> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: markerSet.toWidget(setState),
+      body: markerSet.markers.isEmpty
+          ? const Center(child: Text("Press the + button to add a marker"))
+          : markerSet.toWidget(setState),
       floatingActionButton: FloatingActionButton(
         onPressed: _addMarker,
         tooltip: "Add Marker",
