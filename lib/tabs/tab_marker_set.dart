@@ -41,8 +41,7 @@ class _MarkerSetTabState extends State<MarkerSetTab> {
     return Scaffold(
       body: CallbackShortcuts(
         bindings: {
-          const SingleActivator(LogicalKeyboardKey.keyN, control: true): () =>
-              _addMarker(),
+          const SingleActivator(LogicalKeyboardKey.keyN): () => _addMarker(),
         },
         child: Focus(
           autofocus: true,
@@ -53,7 +52,7 @@ class _MarkerSetTabState extends State<MarkerSetTab> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _addMarker,
-        tooltip: "Add Marker (Ctrl+N)",
+        tooltip: "Add Marker (N)",
         child: const Icon(Icons.add),
       ),
     );
