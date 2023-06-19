@@ -1,6 +1,8 @@
-import "package:flutter/material.dart";
-import "package:vector_math/vector_math.dart" as vector_math;
+import "dart:math";
 
+import "package:flutter/material.dart";
+
+import "math/vector.dart";
 import "schemas/marker.dart";
 import "schemas/marker_line.dart";
 import "schemas/marker_poi.dart";
@@ -42,15 +44,19 @@ class DialogAdd extends StatelessWidget {
               items: [
                 DropdownMenuItem(
                   value: MarkerPOI(
-                    position: vector_math.Vector3.random(),
+                    position: Vector3.random(),
                     label: "Marker",
                   ),
                   child: const Text("POI"),
                 ),
                 DropdownMenuItem(
                   value: MarkerLine(
-                    position: vector_math.Vector3.random(),
+                    position: Vector3.random(),
                     label: "Line",
+                    line: [
+                      for (int i = 0; i < Random().nextInt(10); i++)
+                        Vector3.random(),
+                    ],
                   ),
                   child: const Text("Line"),
                 ),

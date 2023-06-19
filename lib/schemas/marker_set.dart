@@ -82,4 +82,12 @@ class MarkerSet {
       ],
     );
   }
+
+  Map<String, dynamic> toJson() => {
+        "label": label,
+        "toggleable": toggleable,
+        "defaultHidden": defaultHidden,
+        "sorting": sorting,
+        "markers": markers.map((key, value) => MapEntry(key, value.toJson())),
+      };
 }

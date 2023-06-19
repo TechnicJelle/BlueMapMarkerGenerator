@@ -1,41 +1,26 @@
 import "package:flutter/material.dart";
 
-import "package:vector_math/vector_math.dart";
-
+import "../math/vector.dart";
 import "marker.dart";
 
-class MarkerLine implements Marker {
-  @override
-  String type = "line";
-
-  @override
-  String label;
-
-  @override
-  Vector3 position;
-
-  @override
-  int? sorting;
-
-  @override
-  bool? listed;
-
-  @override
-  double? maxDistance;
-
-  @override
-  double? minDistance;
-
-  //TODO: Implement other Line marker properties
+class MarkerLine extends Marker {
+  List<Vector3> line;
+  String? detail;
+  String? link;
+  bool? newTab;
+  bool? depthTest;
+  double? lineWidth;
+  Color? lineColor;
 
   MarkerLine({
-    required this.position,
-    required this.label,
-    this.listed,
-    this.minDistance,
-    this.maxDistance,
-    this.sorting,
-  });
+    required super.position,
+    required super.label,
+    required this.line,
+    super.sorting,
+    super.listed,
+    super.minDistance,
+    super.maxDistance,
+  }) : super(type: "line");
 
   @override
   Widget toWidget(StateSetter setState) {
@@ -52,9 +37,24 @@ class MarkerLine implements Marker {
           children: [
             Text(label, style: const TextStyle(fontWeight: FontWeight.bold)),
             Text("Position: ${position.x}, ${position.y}, ${position.z}"),
+            const Text("Line:"),
+            for (final point in line)
+              Text("  ${point.x}, ${point.y}, ${point.z}"),
           ],
         )
       ],
     );
   }
+
+  @override
+  Map<String, dynamic> toJson() => {
+        ...super.toJson(),
+        "line": line.map((e) => e.toJson()).toList(),
+        "detail": detail,
+        "link": link,
+        "newTab": newTab,
+        "depthTest": depthTest,
+        "lineWidth": lineWidth,
+        "lineColor": lineColor,
+      };
 }

@@ -1,38 +1,21 @@
 import "package:flutter/material.dart";
-import "package:vector_math/vector_math.dart" as vector_math;
 
+import "../math/vector.dart";
 import "marker.dart";
 
-class MarkerPOI implements Marker {
-  @override
-  String type = "poi";
-
-  @override
-  vector_math.Vector3 position;
-
-  @override
-  String label;
-
-  @override
-  int? sorting;
-
-  @override
-  bool? listed;
-
-  @override
-  double? minDistance;
-
-  @override
-  double? maxDistance;
+class MarkerPOI extends Marker {
+  String? detail;
+  String? icon;
+  Vector2? anchor;
 
   MarkerPOI({
-    required this.position,
-    required this.label,
-    this.listed,
-    this.minDistance,
-    this.maxDistance,
-    this.sorting,
-  });
+    required super.position,
+    required super.label,
+    super.sorting,
+    super.listed,
+    super.minDistance,
+    super.maxDistance,
+  }) : super(type: "poi");
 
   @override
   Widget toWidget(StateSetter setState) {
@@ -54,4 +37,12 @@ class MarkerPOI implements Marker {
       ],
     );
   }
+
+  @override
+  Map<String, dynamic> toJson() => {
+        ...super.toJson(),
+        "detail": detail,
+        "icon": icon,
+        "anchor": anchor,
+      };
 }

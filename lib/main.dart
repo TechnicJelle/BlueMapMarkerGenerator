@@ -1,4 +1,7 @@
+import "dart:convert";
+
 import "package:flutter/material.dart";
+import "package:flutter/services.dart";
 
 import "tabs/tab_add.dart";
 import "tabs/tab_marker_set.dart";
@@ -49,6 +52,27 @@ class _MyAppState extends State<MyApp> {
         child: Scaffold(
           appBar: AppBar(
             title: const Text("BlueMap Marker Generator"),
+            actions: [
+              IconButton(
+                icon: const Icon(Icons.copy),
+                tooltip: "Copy Marker Sets to Clipboard",
+                onPressed: () {
+                  JsonEncoder encoder = const JsonEncoder.withIndent("\t");
+                  Map<String, dynamic> json = {
+                    "marker-sets": {
+                      for (MapEntry<String, MarkerSetTab> entry in tabs.entries)
+                        entry.key: entry.value.markerSet.toJson(),
+                    },
+                  };
+                  String string = encoder.convert(json);
+                  string = string
+                      .substring(1, string.length - 1)
+                      .replaceAll("\n\t", "\n");
+                  print(string);
+                  Clipboard.setData(ClipboardData(text: string));
+                },
+              ),
+            ],
             bottom: TabBar(
               isScrollable: true,
               tabs: [

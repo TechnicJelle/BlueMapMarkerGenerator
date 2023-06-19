@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
-import "package:vector_math/vector_math.dart";
+
+import "../math/vector.dart";
 
 abstract class Marker {
   String type;
@@ -21,4 +22,14 @@ abstract class Marker {
   });
 
   Widget toWidget(StateSetter setState);
+
+  Map<String, dynamic> toJson() => {
+        "type": type,
+        "position": position.toJson(),
+        "label": label,
+        "sorting": sorting,
+        "listed": listed,
+        "minDistance": minDistance,
+        "maxDistance": maxDistance,
+      };
 }
