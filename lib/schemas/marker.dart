@@ -29,7 +29,7 @@ abstract class Marker {
         "label": label,
         "sorting": sorting,
         "listed": listed,
-        "minDistance": minDistance,
-        "maxDistance": maxDistance,
+        "min-distance": minDistance,
+        "max-distance": maxDistance,
       };
 }

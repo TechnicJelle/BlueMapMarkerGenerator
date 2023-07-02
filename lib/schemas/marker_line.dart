@@ -52,9 +52,9 @@ class MarkerLine extends Marker {
         "line": line.map((e) => e.toJson()).toList(),
         "detail": detail,
         "link": link,
-        "newTab": newTab,
-        "depthTest": depthTest,
-        "lineWidth": lineWidth,
-        "lineColor": lineColor,
+        "new-tab": newTab,
+        "depth-test": depthTest,
+        "line-width": lineWidth,
+        "line-color": lineColor,
       };
 }
