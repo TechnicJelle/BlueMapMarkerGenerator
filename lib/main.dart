@@ -23,97 +23,103 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: "BlueMap Marker Generator",
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        useMaterial3: false,
-        colorScheme: const ColorScheme.light(
-          primary: Colors.blue,
-          secondary: Colors.lightBlueAccent,
+    return CallbackShortcuts(
+      bindings: {
+        const SingleActivator(LogicalKeyboardKey.keyS, control: true): () =>
+            _saveFile(),
+      },
+      child: MaterialApp(
+        title: "BlueMap Marker Generator",
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          useMaterial3: false,
+          colorScheme: const ColorScheme.light(
+            primary: Colors.blue,
+            secondary: Colors.lightBlueAccent,
+          ),
+          appBarTheme: const AppBarTheme(
+            color: Colors.blue,
+          ),
         ),
-        appBarTheme: const AppBarTheme(
-          color: Colors.blue,
+        darkTheme: ThemeData(
+          useMaterial3: false,
+          colorScheme: const ColorScheme.dark(
+            primary: Colors.blue,
+            secondary: Colors.lightBlueAccent,
+          ),
+          appBarTheme: const AppBarTheme(
+            color: Colors.blue,
+          ),
         ),
-      ),
-      darkTheme: ThemeData(
-        useMaterial3: false,
-        colorScheme: const ColorScheme.dark(
-          primary: Colors.blue,
-          secondary: Colors.lightBlueAccent,
-        ),
-        appBarTheme: const AppBarTheme(
-          color: Colors.blue,
-        ),
-      ),
-      // themeMode: ThemeMode.light,
-      themeMode: ThemeMode.dark,
-      home: DefaultTabController(
-        length: tabs.length + 1,
-        child: Scaffold(
-          appBar: AppBar(
-            title: const Text("BlueMap Marker Generator"),
-            actions: [
-              IconButton(
-                icon: const Icon(Icons.save_alt),
-                tooltip: "Save Marker Sets",
-                onPressed: () {
-                  JsonEncoder encoder = const JsonEncoder.withIndent("\t");
-                  Map<String, dynamic> json = {
-                    "marker-sets": {
-                      for (MapEntry<String, MarkerSetTab> entry in tabs.entries)
-                        entry.key: entry.value.markerSet.toJson(),
-                    },
-                  };
-                  String string = encoder.convert(json);
-                  string = string
-                      .substring(1, string.length - 1)
-                      .replaceAll("\n\t", "\n");
-                  print(string);
-                  FileSaver.instance.saveFile(
-                    name: "markers",
-                    ext: "conf",
-                    bytes: Uint8List.fromList(string.codeUnits),
-                  );
-                },
-              ),
-            ],
-            bottom: TabBar(
-              isScrollable: true,
-              tabs: [
-                for (MapEntry<String, MarkerSetTab> entry in tabs.entries)
-                  Tab(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
+        // themeMode: ThemeMode.light,
+        themeMode: ThemeMode.dark,
+        home: DefaultTabController(
+          length: tabs.length + 1,
+          child: Scaffold(
+            appBar: AppBar(
+              title: const Text("BlueMap Marker Generator"),
+              actions: [
+                IconButton(
+                  icon: const Icon(Icons.save_alt),
+                  tooltip: "Save Marker Set (Ctrl+S)",
+                  onPressed: () => _saveFile(),
+                ),
+              ],
+              bottom: TabBar(
+                isScrollable: true,
+                tabs: [
+                  for (MapEntry<String, MarkerSetTab> entry in tabs.entries)
+                    Tab(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(entry.value.markerSet.label),
+                          Text(
+                            entry.key,
+                            style: const TextStyle(fontStyle: FontStyle.italic),
+                          ),
+                        ],
+                      ),
+                    ),
+                  const Tab(
+                    child: Row(
                       children: [
-                        Text(entry.value.markerSet.label),
-                        Text(
-                          entry.key,
-                          style: const TextStyle(fontStyle: FontStyle.italic),
-                        ),
+                        Icon(Icons.add),
+                        Text("Add"),
+                        SizedBox(width: 8),
                       ],
                     ),
-                  ),
-                const Tab(
-                  child: Row(
-                    children: [
-                      Icon(Icons.add),
-                      Text("Add"),
-                      SizedBox(width: 8),
-                    ],
-                  ),
-                )
+                  )
+                ],
+              ),
+            ),
+            body: TabBarView(
+              children: [
+                for (MarkerSetTab markerSetTab in tabs.values) markerSetTab,
+                TabAdd(tabs, setState),
               ],
             ),
           ),
-          body: TabBarView(
-            children: [
-              for (MarkerSetTab markerSetTab in tabs.values) markerSetTab,
-              TabAdd(tabs, setState),
-            ],
-          ),
         ),
       ),
+    );
+  }
+
+  void _saveFile() {
+    JsonEncoder encoder = const JsonEncoder.withIndent("\t");
+    Map<String, dynamic> json = {
+      "marker-sets": {
+        for (MapEntry<String, MarkerSetTab> entry in tabs.entries)
+          entry.key: entry.value.markerSet.toJson(),
+      },
+    };
+    String string = encoder.convert(json);
+    string = string.substring(1, string.length - 1).replaceAll("\n\t", "\n");
+    print(string);
+    FileSaver.instance.saveFile(
+      name: "markers",
+      ext: "conf",
+      bytes: Uint8List.fromList(string.codeUnits),
     );
   }
 }
