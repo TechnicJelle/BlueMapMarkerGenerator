@@ -38,55 +38,60 @@ class _TabAddState extends State<TabAdd> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Form(
-        key: formKey,
-        child: Column(
-          children: [
-            const Text("Add a new Marker Set"),
-            //ID
-            TextFormField(
-              controller: idController,
-              autofocus: true,
-              decoration: const InputDecoration(labelText: "ID"),
-              textInputAction: TextInputAction.next,
-              textCapitalization: TextCapitalization.none,
-              autovalidateMode: AutovalidateMode.onUserInteraction,
-              validator: (String? s) {
-                if (s == null || s.trim().isEmpty) {
-                  return cannotBeEmpty;
-                }
-                if (tabs.containsKey(s)) {
-                  return noDuplicateIDs;
-                }
-                if (!idRegex.hasMatch(s)) {
-                  return invalidCharacter;
-                }
-                return null;
-              },
+    return Center(
+      child: ConstrainedBox(
+        constraints: const BoxConstraints(maxWidth: 700),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Form(
+            key: formKey,
+            child: Column(
+              children: [
+                const Text("Add a new Marker Set"),
+                //ID
+                TextFormField(
+                  controller: idController,
+                  autofocus: true,
+                  decoration: const InputDecoration(labelText: "ID"),
+                  textInputAction: TextInputAction.next,
+                  textCapitalization: TextCapitalization.none,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  validator: (String? s) {
+                    if (s == null || s.trim().isEmpty) {
+                      return cannotBeEmpty;
+                    }
+                    if (tabs.containsKey(s)) {
+                      return noDuplicateIDs;
+                    }
+                    if (!idRegex.hasMatch(s)) {
+                      return invalidCharacter;
+                    }
+                    return null;
+                  },
+                ),
+                TextFormField(
+                  controller: labelController,
+                  autofocus: false,
+                  decoration: const InputDecoration(labelText: "Label"),
+                  textInputAction: TextInputAction.done,
+                  textCapitalization: TextCapitalization.words,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  validator: (String? s) {
+                    if (s == null || s.trim().isEmpty) {
+                      return cannotBeEmpty;
+                    }
+                    return null;
+                  },
+                  onFieldSubmitted: (_) => validateAndAdd(),
+                ),
+                const SizedBox(height: 16),
+                ElevatedButton(
+                  onPressed: () => validateAndAdd(),
+                  child: const Text("Add"),
+                ),
+              ],
             ),
-            TextFormField(
-              controller: labelController,
-              autofocus: false,
-              decoration: const InputDecoration(labelText: "Label"),
-              textInputAction: TextInputAction.done,
-              textCapitalization: TextCapitalization.words,
-              autovalidateMode: AutovalidateMode.onUserInteraction,
-              validator: (String? s) {
-                if (s == null || s.trim().isEmpty) {
-                  return cannotBeEmpty;
-                }
-                return null;
-              },
-              onFieldSubmitted: (_) => validateAndAdd(),
-            ),
-            const SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: () => validateAndAdd(),
-              child: const Text("Add"),
-            ),
-          ],
+          ),
         ),
       ),
     );
