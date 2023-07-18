@@ -1,5 +1,6 @@
 import "dart:convert";
 
+import "package:file_saver/file_saver.dart";
 import "package:flutter/material.dart";
 import "package:flutter/services.dart";
 
@@ -54,8 +55,8 @@ class _MyAppState extends State<MyApp> {
             title: const Text("BlueMap Marker Generator"),
             actions: [
               IconButton(
-                icon: const Icon(Icons.copy),
-                tooltip: "Copy Marker Sets to Clipboard",
+                icon: const Icon(Icons.save_alt),
+                tooltip: "Save Marker Sets",
                 onPressed: () {
                   JsonEncoder encoder = const JsonEncoder.withIndent("\t");
                   Map<String, dynamic> json = {
@@ -69,7 +70,11 @@ class _MyAppState extends State<MyApp> {
                       .substring(1, string.length - 1)
                       .replaceAll("\n\t", "\n");
                   print(string);
-                  Clipboard.setData(ClipboardData(text: string));
+                  FileSaver.instance.saveFile(
+                    name: "markers",
+                    ext: "conf",
+                    bytes: Uint8List.fromList(string.codeUnits),
+                  );
                 },
               ),
             ],
