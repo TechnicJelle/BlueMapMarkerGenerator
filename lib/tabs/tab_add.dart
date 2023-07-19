@@ -23,8 +23,8 @@ class _TabAddState extends State<TabAdd> {
 
   void addTab(String id, String label) {
     widget.setState(() {
-      tabs[id] = MarkerSetTab(
-        label: label,
+      tabs[id] = MarkerSetTab.empty(
+        markerSetLabel: label,
       );
     });
   }

@@ -6,12 +6,16 @@ import "../schemas/marker.dart";
 import "../schemas/marker_set.dart";
 
 class MarkerSetTab extends StatefulWidget {
-  final String label;
   final MarkerSet markerSet;
 
-  MarkerSetTab({required this.label, super.key})
+  const MarkerSetTab.withMarkerSet({
+    required this.markerSet,
+    super.key,
+  });
+
+  MarkerSetTab.empty({required String markerSetLabel, super.key})
       : markerSet = MarkerSet(
-          label: label,
+          label: markerSetLabel,
           markers: {},
         );
 

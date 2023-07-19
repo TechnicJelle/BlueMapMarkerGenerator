@@ -1,11 +1,15 @@
 import "dart:convert";
 
+import "package:file_picker/file_picker.dart";
 import "package:file_saver/file_saver.dart";
 import "package:flutter/material.dart";
 import "package:flutter/services.dart";
 
+import "schemas/marker_set.dart";
 import "tabs/tab_add.dart";
 import "tabs/tab_marker_set.dart";
+
+const String _jsonKeyMarkerSets = "marker-sets";
 
 void main() {
   runApp(const MyApp());
@@ -27,6 +31,8 @@ class _MyAppState extends State<MyApp> {
       bindings: {
         const SingleActivator(LogicalKeyboardKey.keyS, control: true): () =>
             _saveFile(),
+        const SingleActivator(LogicalKeyboardKey.keyO, control: true): () =>
+            _loadFile(),
       },
       child: MaterialApp(
         title: "BlueMap Marker Generator",
@@ -59,6 +65,11 @@ class _MyAppState extends State<MyApp> {
             appBar: AppBar(
               title: const Text("BlueMap Marker Generator"),
               actions: [
+                IconButton(
+                  icon: const Icon(Icons.folder_open),
+                  tooltip: "Load Marker Set (Ctrl+O)",
+                  onPressed: () => _loadFile(),
+                ),
                 IconButton(
                   icon: const Icon(Icons.save_alt),
                   tooltip: "Save Marker Set (Ctrl+S)",
@@ -108,18 +119,43 @@ class _MyAppState extends State<MyApp> {
   void _saveFile() {
     JsonEncoder encoder = const JsonEncoder.withIndent("\t");
     Map<String, dynamic> json = {
-      "marker-sets": {
+      _jsonKeyMarkerSets: {
         for (MapEntry<String, MarkerSetTab> entry in tabs.entries)
           entry.key: entry.value.markerSet.toJson(),
       },
     };
     String string = encoder.convert(json);
     string = string.substring(1, string.length - 1).replaceAll("\n\t", "\n");
-    print(string);
+
     FileSaver.instance.saveFile(
       name: "markers",
       ext: "conf",
       bytes: Uint8List.fromList(string.codeUnits),
     );
+  }
+
+  Future<void> _loadFile() async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: ["conf"],
+    );
+
+    if (result == null) return;
+
+    Uint8List bytes = result.files.single.bytes!;
+    String string = String.fromCharCodes(bytes);
+
+    Map<String, dynamic> json = jsonDecode("{$string}");
+
+    setState(() {
+      for (MapEntry<String, dynamic> entry
+          in json[_jsonKeyMarkerSets].entries) {
+        MarkerSetTab tab = MarkerSetTab.withMarkerSet(
+          markerSet: MarkerSet.fromJson(entry.value),
+        );
+
+        tabs[entry.key] = tab;
+      }
+    });
   }
 }

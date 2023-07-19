@@ -4,6 +4,15 @@ import "../math/vector.dart";
 import "marker.dart";
 
 class MarkerLine extends Marker {
+  static const typeLine = "line";
+  static const _jsonKeyLine = "line";
+  static const _jsonKeyDetail = "detail";
+  static const _jsonKeyLink = "link";
+  static const _jsonKeyNewTab = "new-tab";
+  static const _jsonKeyDepthTest = "depth-test";
+  static const _jsonKeyLineWidth = "line-width";
+  static const _jsonKeyLineColor = "line-color";
+
   List<Vector3> line;
   String? detail;
   String? link;
@@ -20,7 +29,22 @@ class MarkerLine extends Marker {
     super.listed,
     super.minDistance,
     super.maxDistance,
-  }) : super(type: "line");
+  }) : super(type: typeLine);
+
+  @override
+  MarkerLine.fromJson(super.json)
+      : line = (json[_jsonKeyLine] as List<dynamic>)
+            .map((e) => Vector3.fromJson(e))
+            .toList(),
+        detail = json[_jsonKeyDetail],
+        link = json[_jsonKeyLink],
+        newTab = json[_jsonKeyNewTab],
+        depthTest = json[_jsonKeyDepthTest],
+        lineWidth = json[_jsonKeyLineWidth],
+        lineColor = json[_jsonKeyLineColor] == null
+            ? null
+            : Color(json[_jsonKeyLineColor]),
+        super.fromJson();
 
   @override
   Widget toWidget(StateSetter setState) {
@@ -49,12 +73,12 @@ class MarkerLine extends Marker {
   @override
   Map<String, dynamic> toJson() => {
         ...super.toJson(),
-        "line": line.map((e) => e.toJson()).toList(),
-        "detail": detail,
-        "link": link,
-        "new-tab": newTab,
-        "depth-test": depthTest,
-        "line-width": lineWidth,
-        "line-color": lineColor,
+        _jsonKeyLine: line.map((e) => e.toJson()).toList(),
+        _jsonKeyDetail: detail,
+        _jsonKeyLink: link,
+        _jsonKeyNewTab: newTab,
+        _jsonKeyDepthTest: depthTest,
+        _jsonKeyLineWidth: lineWidth,
+        _jsonKeyLineColor: lineColor,
       };
 }

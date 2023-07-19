@@ -13,6 +13,13 @@ class Vector2 {
         "x": x,
         "y": y,
       };
+
+  static Vector2 fromJson(Map<String, dynamic> json) {
+    return Vector2(
+      json["x"],
+      json["y"],
+    );
+  }
 }
 
 class Vector3 {
@@ -35,4 +42,12 @@ class Vector3 {
         "y": y,
         "z": z,
       };
+
+  static Vector3 fromJson(Map<String, dynamic> json) {
+    return Vector3(
+      json["x"],
+      json["y"],
+      json["z"],
+    );
+  }
 }

@@ -3,6 +3,12 @@ import "package:flutter/material.dart";
 import "marker.dart";
 
 class MarkerSet {
+  static const String _jsonKeyLabel = "label";
+  static const String _jsonKeyToggleable = "toggleable";
+  static const String _jsonKeyDefaultHidden = "default-hidden";
+  static const String _jsonKeySorting = "sorting";
+  static const String _jsonKeyMarkers = "markers";
+
   final ScrollController scrollController = ScrollController();
   late Offset mouse;
 
@@ -19,6 +25,17 @@ class MarkerSet {
     this.sorting,
     required this.markers,
   });
+
+  MarkerSet.fromJson(Map<String, dynamic> json)
+      : label = json[_jsonKeyLabel],
+        toggleable = json[_jsonKeyToggleable],
+        defaultHidden = json[_jsonKeyDefaultHidden],
+        sorting = json[_jsonKeySorting],
+        markers = {} {
+    for (MapEntry<String, dynamic> entry in json[_jsonKeyMarkers].entries) {
+      markers[entry.key] = Marker.newFromJson(entry.value);
+    }
+  }
 
   void add(String id, Marker marker) {
     markers[id] = marker;
@@ -84,10 +101,11 @@ class MarkerSet {
   }
 
   Map<String, dynamic> toJson() => {
-        "label": label,
-        "toggleable": toggleable,
-        "default-hidden": defaultHidden,
-        "sorting": sorting,
-        "markers": markers.map((key, value) => MapEntry(key, value.toJson())),
+        _jsonKeyLabel: label,
+        _jsonKeyToggleable: toggleable,
+        _jsonKeyDefaultHidden: defaultHidden,
+        _jsonKeySorting: sorting,
+        _jsonKeyMarkers:
+            markers.map((key, value) => MapEntry(key, value.toJson())),
       };
 }

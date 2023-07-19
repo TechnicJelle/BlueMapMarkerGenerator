@@ -1,8 +1,18 @@
 import "package:flutter/material.dart";
 
 import "../math/vector.dart";
+import "marker_line.dart";
+import "marker_poi.dart";
 
 abstract class Marker {
+  static const _jsonKeyType = "type";
+  static const _jsonKeyPosition = "position";
+  static const _jsonKeyLabel = "label";
+  static const _jsonKeySorting = "sorting";
+  static const _jsonKeyListed = "listed";
+  static const _jsonKeyMinDistance = "min-distance";
+  static const _jsonKeyMaxDistance = "max-distance";
+
   String type;
   Vector3 position;
   String label;
@@ -21,15 +31,35 @@ abstract class Marker {
     this.maxDistance,
   });
 
+  Marker.fromJson(Map<String, dynamic> json)
+      : type = json[_jsonKeyType],
+        position = Vector3.fromJson(json[_jsonKeyPosition]),
+        label = json[_jsonKeyLabel],
+        sorting = json[_jsonKeySorting],
+        listed = json[_jsonKeyListed],
+        minDistance = json[_jsonKeyMinDistance],
+        maxDistance = json[_jsonKeyMaxDistance];
+
   Widget toWidget(StateSetter setState);
 
   Map<String, dynamic> toJson() => {
-        "type": type,
-        "position": position.toJson(),
-        "label": label,
-        "sorting": sorting,
-        "listed": listed,
-        "min-distance": minDistance,
-        "max-distance": maxDistance,
+        _jsonKeyType: type,
+        _jsonKeyPosition: position.toJson(),
+        _jsonKeyLabel: label,
+        _jsonKeySorting: sorting,
+        _jsonKeyListed: listed,
+        _jsonKeyMinDistance: minDistance,
+        _jsonKeyMaxDistance: maxDistance,
       };
+
+  static Marker newFromJson(Map<String, dynamic> json) {
+    switch (json[_jsonKeyType]) {
+      case MarkerPOI.typePOI:
+        return MarkerPOI.fromJson(json);
+      case MarkerLine.typeLine:
+        return MarkerLine.fromJson(json);
+      default:
+        throw Exception("Unknown marker type: ${json[_jsonKeyType]}");
+    }
+  }
 }
