@@ -19,7 +19,7 @@ class WebUnloadConfirmationPopupWeb extends WebUnloadConfirmationPopupPlatform {
 
   @override
   void activate() {
-    subscription = html.window.onBeforeUnload.listen((event) {
+    subscription ??= html.window.onBeforeUnload.listen((event) {
       if (event is html.BeforeUnloadEvent) {
         event.returnValue = "activated";
       }
@@ -31,5 +31,6 @@ class WebUnloadConfirmationPopupWeb extends WebUnloadConfirmationPopupPlatform {
     if (subscription == null) return;
 
     subscription!.cancel();
+    subscription = null;
   }
 }
