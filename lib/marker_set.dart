@@ -39,8 +39,6 @@ class MarkerSet {
     for (MapEntry<String, dynamic> entry in json[_jsonKeyMarkers].entries) {
       markers[entry.key] = Marker.newFromJson(entry.value);
     }
-
-    WebUnloadConfirmationPopup.activate();
   }
 
   void add(String id, Marker marker) {

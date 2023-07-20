@@ -41,9 +41,7 @@ abstract class Marker {
         sorting = json[_jsonKeySorting],
         listed = json[_jsonKeyListed],
         minDistance = json[_jsonKeyMinDistance],
-        maxDistance = json[_jsonKeyMaxDistance] {
-    WebUnloadConfirmationPopup.activate();
-  }
+        maxDistance = json[_jsonKeyMaxDistance];
 
   Widget toWidget(StateSetter setState);
 
