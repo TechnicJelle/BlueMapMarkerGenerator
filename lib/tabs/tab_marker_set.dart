@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 import "package:flutter/services.dart";
 
 import "../dialog_add.dart";
+import "../lang.dart";
 import "../marker_set.dart";
 import "../marker_types/marker_base.dart";
 
@@ -50,13 +51,13 @@ class _MarkerSetTabState extends State<MarkerSetTab> {
         child: Focus(
           autofocus: true,
           child: markerSet.markers.isEmpty
-              ? const Center(child: Text("Press the + button to add a marker"))
+              ? const Center(child: Text(markerSetTabHint))
               : markerSet.toWidget(setState),
         ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _addMarker,
-        tooltip: "Add Marker (N)",
+        tooltip: markerSetTabFABTooltip,
         child: const Icon(Icons.add),
       ),
     );

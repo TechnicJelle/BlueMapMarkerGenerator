@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import "package:web_unload_confirmation_popup/web_unload_confirmation_popup.dart";
 
+import "lang.dart";
 import "marker_types/marker_base.dart";
 
 class MarkerSet {
@@ -94,7 +95,7 @@ class MarkerSet {
       position: RelativeRect.fromLTRB(mouse.dx, mouse.dy, double.infinity, 0),
       items: [
         PopupMenuItem(
-          child: const Text("Delete Marker"),
+          child: const Text(deleteMarker),
           onTap: () {
             setState(() {
               markers.remove(key);

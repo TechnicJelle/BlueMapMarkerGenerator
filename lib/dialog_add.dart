@@ -32,7 +32,7 @@ class DialogAdd extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text("Add Marker"),
+      title: const Text(addMarkerTitle),
       content: Form(
         key: formKey,
         child: Column(
@@ -40,25 +40,25 @@ class DialogAdd extends StatelessWidget {
           children: [
             DropdownButtonFormField<Marker>(
               autofocus: true,
-              decoration: const InputDecoration(labelText: "Type"),
+              decoration: const InputDecoration(labelText: addMarkerMarkerType),
               items: [
                 DropdownMenuItem(
                   value: MarkerPOI(
                     position: Vector3.random(),
-                    label: "Marker",
+                    label: addMarkerTypePOI,
                   ),
-                  child: const Text("POI"),
+                  child: const Text(addMarkerTypePOI),
                 ),
                 DropdownMenuItem(
                   value: MarkerLine(
                     position: Vector3.random(),
-                    label: "Line",
+                    label: addMarkerTypeLine,
                     line: [
                       for (int i = 0; i < Random().nextInt(10); i++)
                         Vector3.random(),
                     ],
                   ),
-                  child: const Text("Line"),
+                  child: const Text(addMarkerTypeLine),
                 ),
               ],
               autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -73,7 +73,7 @@ class DialogAdd extends StatelessWidget {
             TextFormField(
               controller: idController,
               autofocus: false,
-              decoration: const InputDecoration(labelText: "ID"),
+              decoration: const InputDecoration(labelText: propertyID),
               textInputAction: TextInputAction.next,
               textCapitalization: TextCapitalization.none,
               autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -94,7 +94,7 @@ class DialogAdd extends StatelessWidget {
             ),
             TextFormField(
               autofocus: false,
-              decoration: const InputDecoration(labelText: "Label"),
+              decoration: const InputDecoration(labelText: propertyLabel),
               textInputAction: TextInputAction.done,
               textCapitalization: TextCapitalization.words,
               autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -114,11 +114,11 @@ class DialogAdd extends StatelessWidget {
         TextButton(
           autofocus: false,
           onPressed: () => Navigator.of(context).pop(),
-          child: const Text("Cancel"),
+          child: const Text(cancel),
         ),
         TextButton(
           onPressed: () => validateAndAdd(context),
-          child: const Text("Add"),
+          child: const Text(add),
         ),
       ],
     );

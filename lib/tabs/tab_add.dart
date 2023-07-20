@@ -47,12 +47,12 @@ class _TabAddState extends State<TabAdd> {
             key: formKey,
             child: Column(
               children: [
-                const Text("Add a new Marker Set"),
+                const Text(addMarkerSetTabHint),
                 //ID
                 TextFormField(
                   controller: idController,
                   autofocus: true,
-                  decoration: const InputDecoration(labelText: "ID"),
+                  decoration: const InputDecoration(labelText: propertyID),
                   textInputAction: TextInputAction.next,
                   textCapitalization: TextCapitalization.none,
                   autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -72,7 +72,7 @@ class _TabAddState extends State<TabAdd> {
                 TextFormField(
                   controller: labelController,
                   autofocus: false,
-                  decoration: const InputDecoration(labelText: "Label"),
+                  decoration: const InputDecoration(labelText: propertyLabel),
                   textInputAction: TextInputAction.done,
                   textCapitalization: TextCapitalization.words,
                   autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -87,7 +87,7 @@ class _TabAddState extends State<TabAdd> {
                 const SizedBox(height: 16),
                 ElevatedButton(
                   onPressed: () => validateAndAdd(),
-                  child: const Text("Add"),
+                  child: const Text(add),
                 ),
               ],
             ),

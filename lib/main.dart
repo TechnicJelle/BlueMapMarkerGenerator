@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 
 import "home.dart";
+import "lang.dart";
 
 void main() {
   runApp(const MyApp());
@@ -12,7 +13,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: "BlueMap Marker Generator",
+      title: appName,
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         useMaterial3: false,

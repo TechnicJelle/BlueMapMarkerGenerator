@@ -6,11 +6,14 @@ import "package:flutter/material.dart";
 import "package:flutter/services.dart";
 import "package:web_unload_confirmation_popup/web_unload_confirmation_popup.dart";
 
+import "lang.dart";
 import "marker_set.dart";
 import "tabs/tab_add.dart";
 import "tabs/tab_marker_set.dart";
 
 const String _jsonKeyMarkerSets = "marker-sets";
+const String _fileName = "markers";
+const String _fileExtension = "conf";
 
 class MyHome extends StatefulWidget {
   const MyHome({super.key});
@@ -36,31 +39,31 @@ class _MyHomeState extends State<MyHome> {
         length: tabs.length + 1,
         child: Scaffold(
           appBar: AppBar(
-            title: const Text("BlueMap Marker Generator"),
+            title: const Text(appName),
             actions: [
               IconButton(
                 icon: const Icon(Icons.upload_file),
-                tooltip: "Load Marker Set (Ctrl+O)",
+                tooltip: loadButtonTooltip,
                 onPressed: () => _loadFile(),
               ),
               IconButton(
                 icon: const Icon(Icons.save_alt),
-                tooltip: "Save Marker Set (Ctrl+S)",
+                tooltip: saveButtonTooltip,
                 onPressed: () async {
                   if (showTutorial) {
                     bool? show = await showDialog<bool>(
                       context: context,
                       builder: (BuildContext context) => AlertDialog(
-                        title: const Text("Usage Information"),
+                        title: const Text(usageInformationTitle),
                         content: const UsageInformation(),
                         actions: <Widget>[
                           TextButton(
                             onPressed: () => Navigator.pop(context, false),
-                            child: const Text("Don't show again this session"),
+                            child: const Text(usageInformationDoNotShowAgain),
                           ),
                           ElevatedButton(
                             onPressed: () => Navigator.pop(context, true),
-                            child: const Text("Understood"),
+                            child: const Text(usageInformationUnderstood),
                           ),
                         ],
                       ),
@@ -94,7 +97,7 @@ class _MyHomeState extends State<MyHome> {
                   child: Row(
                     children: [
                       Icon(Icons.add),
-                      Text("Add"),
+                      Text(add),
                       SizedBox(width: 8),
                     ],
                   ),
@@ -125,8 +128,8 @@ class _MyHomeState extends State<MyHome> {
     string = string.substring(1, string.length - 1).replaceAll("\n\t", "\n");
 
     FileSaver.instance.saveFile(
-      name: "markers",
-      ext: "conf",
+      name: _fileName,
+      ext: _fileExtension,
       bytes: Uint8List.fromList(string.codeUnits),
     );
 
@@ -136,7 +139,7 @@ class _MyHomeState extends State<MyHome> {
   Future<void> _loadFile() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
-      allowedExtensions: ["conf"],
+      allowedExtensions: [_fileExtension],
     );
 
     if (result == null) return;
@@ -168,9 +171,7 @@ class UsageInformation extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: [
-        Text(
-            "To use the marker file that will download after this dialog, place it somewhere sensible.\n"
-            "Then, in your map's .conf file, replace this:"),
+        Text(usageInformationText1),
         SizedBox(
           width: double.infinity,
           child: Code(
@@ -182,16 +183,15 @@ marker-sets: {
             copy: false,
           ),
         ),
-        Text("With this:"),
+        Text(usageInformationText2),
         SizedBox(
           width: double.infinity,
           child: Code(
-            "include required(file(\"path/to/markers.conf\"))",
+            """include required(file("$usageInformationPathTo$_fileName.$_fileExtension"))""",
             copy: true,
           ),
         ),
-        Text(
-            "Make sure to replace the path here with the correct path to the .conf file!"),
+        Text(usageInformationText3),
       ],
     );
   }

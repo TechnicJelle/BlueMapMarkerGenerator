@@ -45,7 +45,7 @@ class MarkerPOI extends Marker {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(label, style: const TextStyle(fontWeight: FontWeight.bold)),
-            Text("Position: ${position.x}, ${position.y}, ${position.z}"),
+            Text("$position: ${position.x}, ${position.y}, ${position.z}"),
           ],
         )
       ],

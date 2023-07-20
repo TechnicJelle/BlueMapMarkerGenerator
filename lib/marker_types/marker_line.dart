@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 
+import "../lang.dart";
 import "../math/vector.dart";
 import "marker_base.dart";
 
@@ -60,8 +61,8 @@ class MarkerLine extends Marker {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(label, style: const TextStyle(fontWeight: FontWeight.bold)),
-            Text("Position: ${position.x}, ${position.y}, ${position.z}"),
-            const Text("Line:"),
+            Text("$position: ${position.x}, ${position.y}, ${position.z}"),
+            const Text("$propertyLine:"),
             for (final point in line)
               Text("  ${point.x}, ${point.y}, ${point.z}"),
           ],
