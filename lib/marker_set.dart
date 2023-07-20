@@ -1,7 +1,7 @@
 import "package:flutter/material.dart";
 import "package:web_unload_confirmation_popup/web_unload_confirmation_popup.dart";
 
-import "marker.dart";
+import "marker_types/marker_base.dart";
 
 class MarkerSet {
   static const String _jsonKeyLabel = "label";

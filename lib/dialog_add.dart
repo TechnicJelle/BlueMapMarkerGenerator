@@ -2,12 +2,12 @@ import "dart:math";
 
 import "package:flutter/material.dart";
 
-import "math/vector.dart";
-import "schemas/marker.dart";
-import "schemas/marker_line.dart";
-import "schemas/marker_poi.dart";
-import "schemas/marker_set.dart";
 import "lang.dart";
+import "marker_set.dart";
+import "marker_types/marker_base.dart";
+import "marker_types/marker_line.dart";
+import "marker_types/marker_poi.dart";
+import "math/vector.dart";
 
 // ignore: must_be_immutable
 class DialogAdd extends StatelessWidget {

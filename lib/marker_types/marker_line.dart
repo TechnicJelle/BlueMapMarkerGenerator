@@ -1,7 +1,7 @@
 import "package:flutter/material.dart";
 
 import "../math/vector.dart";
-import "marker.dart";
+import "marker_base.dart";
 
 class MarkerLine extends Marker {
   static const typeLine = "line";

@@ -2,8 +2,8 @@ import "package:flutter/material.dart";
 import "package:flutter/services.dart";
 
 import "../dialog_add.dart";
-import "../schemas/marker.dart";
-import "../schemas/marker_set.dart";
+import "../marker_set.dart";
+import "../marker_types/marker_base.dart";
 
 class MarkerSetTab extends StatefulWidget {
   final MarkerSet markerSet;

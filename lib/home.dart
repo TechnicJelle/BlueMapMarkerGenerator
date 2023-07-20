@@ -6,7 +6,7 @@ import "package:flutter/material.dart";
 import "package:flutter/services.dart";
 import "package:web_unload_confirmation_popup/web_unload_confirmation_popup.dart";
 
-import "schemas/marker_set.dart";
+import "marker_set.dart";
 import "tabs/tab_add.dart";
 import "tabs/tab_marker_set.dart";
 
