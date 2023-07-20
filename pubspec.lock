@@ -301,6 +301,13 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.4"
+  web_unload_confirmation_popup:
+    dependency: "direct main"
+    description:
+      path: "plugin/web_unload_confirmation_popup"
+      relative: true
+    source: path
+    version: "1.0.0"
   win32:
     dependency: transitive
     description:
@@ -318,5 +325,5 @@ packages:
     source: hosted
     version: "1.0.1"
 sdks:
-  dart: ">=3.0.2 <4.0.0"
+  dart: ">=3.0.5 <4.0.0"
   flutter: ">=3.3.0"

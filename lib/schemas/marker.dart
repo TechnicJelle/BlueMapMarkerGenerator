@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:web_unload_confirmation_popup/web_unload_confirmation_popup.dart";
 
 import "../math/vector.dart";
 import "marker_line.dart";
@@ -29,7 +30,9 @@ abstract class Marker {
     this.listed,
     this.minDistance,
     this.maxDistance,
-  });
+  }) {
+    WebUnloadConfirmationPopup.activate();
+  }
 
   Marker.fromJson(Map<String, dynamic> json)
       : type = json[_jsonKeyType],
@@ -38,7 +41,9 @@ abstract class Marker {
         sorting = json[_jsonKeySorting],
         listed = json[_jsonKeyListed],
         minDistance = json[_jsonKeyMinDistance],
-        maxDistance = json[_jsonKeyMaxDistance];
+        maxDistance = json[_jsonKeyMaxDistance] {
+    WebUnloadConfirmationPopup.activate();
+  }
 
   Widget toWidget(StateSetter setState);
 

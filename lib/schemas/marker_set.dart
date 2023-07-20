@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:web_unload_confirmation_popup/web_unload_confirmation_popup.dart";
 
 import "marker.dart";
 
@@ -24,7 +25,9 @@ class MarkerSet {
     this.defaultHidden,
     this.sorting,
     required this.markers,
-  });
+  }) {
+    WebUnloadConfirmationPopup.activate();
+  }
 
   MarkerSet.fromJson(Map<String, dynamic> json)
       : label = json[_jsonKeyLabel],
@@ -35,6 +38,8 @@ class MarkerSet {
     for (MapEntry<String, dynamic> entry in json[_jsonKeyMarkers].entries) {
       markers[entry.key] = Marker.newFromJson(entry.value);
     }
+
+    WebUnloadConfirmationPopup.activate();
   }
 
   void add(String id, Marker marker) {

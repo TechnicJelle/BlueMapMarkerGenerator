@@ -21,19 +21,19 @@ class _TabAddState extends State<TabAdd> {
   final idController = TextEditingController();
   final labelController = TextEditingController();
 
+  void validateAndAdd() {
+    final formState = formKey.currentState;
+    if (formState != null && formState.validate()) {
+      addTab(idController.text, labelController.text);
+    }
+  }
+
   void addTab(String id, String label) {
     widget.setState(() {
       tabs[id] = MarkerSetTab.empty(
         markerSetLabel: label,
       );
     });
-  }
-
-  void validateAndAdd() {
-    final formState = formKey.currentState;
-    if (formState != null && formState.validate()) {
-      addTab(idController.text, labelController.text);
-    }
   }
 
   @override

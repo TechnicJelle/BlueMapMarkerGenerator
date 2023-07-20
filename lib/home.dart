@@ -4,6 +4,7 @@ import "package:file_picker/file_picker.dart";
 import "package:file_saver/file_saver.dart";
 import "package:flutter/material.dart";
 import "package:flutter/services.dart";
+import "package:web_unload_confirmation_popup/web_unload_confirmation_popup.dart";
 
 import "schemas/marker_set.dart";
 import "tabs/tab_add.dart";
@@ -128,6 +129,8 @@ class _MyHomeState extends State<MyHome> {
       ext: "conf",
       bytes: Uint8List.fromList(string.codeUnits),
     );
+
+    WebUnloadConfirmationPopup.deactivate();
   }
 
   Future<void> _loadFile() async {

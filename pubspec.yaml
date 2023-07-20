@@ -28,6 +28,8 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  web_unload_confirmation_popup:
+    path: plugin/web_unload_confirmation_popup
   file_picker: ^5.3.2
   file_saver: ^0.2.7
   flutter:

@@ -1,0 +1,9 @@
+include: package:flutter_lints/flutter.yaml
+
+linter:
+  rules:
+    prefer_double_quotes: true
+    prefer_relative_imports: true
+    always_declare_return_types: true
+    eol_at_end_of_file: true
+    use_super_parameters: true
