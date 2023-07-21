@@ -59,7 +59,7 @@ class _MyHomeState extends State<MyHome> {
                       builder: (BuildContext context) => AlertDialog(
                         title: const Text(usageInformationTitle),
                         content: const UsageInformation(),
-                        actions: <Widget>[
+                        actions: [
                           TextButton(
                             onPressed: () => Navigator.pop(context, false),
                             child: const Text(usageInformationDoNotShowAgain),
@@ -91,7 +91,11 @@ class _MyHomeState extends State<MyHome> {
                         Text(entry.value.markerSet.label),
                         Text(
                           entry.key,
-                          style: const TextStyle(fontStyle: FontStyle.italic),
+                          style: const TextStyle(
+                            fontFamily: monospaceFont,
+                            fontStyle: FontStyle.italic,
+                            color: Color(0xEEFFFFFF),
+                          ),
                         ),
                       ],
                     ),
