@@ -45,8 +45,8 @@ class MarkerPOI extends Marker {
   @override
   Map<String, dynamic> toJson() => {
         ...super.toJson(),
-        _jsonKeyDetail: detail,
-        _jsonKeyIcon: icon,
-        _jsonKeyAnchor: anchor,
+        if (detail != null) _jsonKeyDetail: detail,
+        if (icon != null) _jsonKeyIcon: icon,
+        if (anchor != null) _jsonKeyAnchor: anchor,
       };
 }

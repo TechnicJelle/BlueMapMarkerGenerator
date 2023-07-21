@@ -66,11 +66,11 @@ class MarkerLine extends Marker {
   Map<String, dynamic> toJson() => {
         ...super.toJson(),
         _jsonKeyLine: line.map((e) => e.toJson()).toList(),
-        _jsonKeyDetail: detail,
-        _jsonKeyLink: link,
-        _jsonKeyNewTab: newTab,
-        _jsonKeyDepthTest: depthTest,
-        _jsonKeyLineWidth: lineWidth,
-        _jsonKeyLineColor: lineColor,
+        if (detail != null) _jsonKeyDetail: detail,
+        if (link != null) _jsonKeyLink: link,
+        if (newTab != null) _jsonKeyNewTab: newTab,
+        if (depthTest != null) _jsonKeyDepthTest: depthTest,
+        if (lineWidth != null) _jsonKeyLineWidth: lineWidth,
+        if (lineColor != null) _jsonKeyLineColor: lineColor,
       };
 }

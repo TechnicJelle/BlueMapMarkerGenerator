@@ -89,10 +89,10 @@ abstract class Marker {
         _jsonKeyType: type,
         _jsonKeyPosition: position.toJson(),
         _jsonKeyLabel: label,
-        _jsonKeySorting: sorting,
-        _jsonKeyListed: listed,
-        _jsonKeyMinDistance: minDistance,
-        _jsonKeyMaxDistance: maxDistance,
+        if (sorting != null) _jsonKeySorting: sorting,
+        if (listed != null) _jsonKeyListed: listed,
+        if (minDistance != null) _jsonKeyMinDistance: minDistance,
+        if (maxDistance != null) _jsonKeyMaxDistance: maxDistance,
       };
 
   static Marker newFromJson(Map<String, dynamic> json) {

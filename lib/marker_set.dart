@@ -125,9 +125,9 @@ class MarkerSet {
 
   Map<String, dynamic> toJson() => {
         _jsonKeyLabel: label,
-        _jsonKeyToggleable: toggleable,
-        _jsonKeyDefaultHidden: defaultHidden,
-        _jsonKeySorting: sorting,
+        if (toggleable != null) _jsonKeyToggleable: toggleable,
+        if (defaultHidden != null) _jsonKeyDefaultHidden: defaultHidden,
+        if (sorting != null) _jsonKeySorting: sorting,
         _jsonKeyMarkers:
             markers.map((key, value) => MapEntry(key, value.toJson())),
       };
