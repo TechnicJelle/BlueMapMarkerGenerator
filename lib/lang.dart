@@ -1,20 +1,32 @@
 final RegExp idRegex = RegExp(r"^[a-zA-Z0-9_-]+$");
+const String monospaceFont = "Inconsolata";
 
 const String appName = "BlueMap Marker Generator";
 
 const String cancel = "Cancel";
 const String add = "Add";
+const String delete = "Delete";
+const String areYouSure = "Are you sure?";
 
 //Properties
 //  Shared
 const String propertyID = "ID";
 const String propertyLabel = "Label";
+const String propertyNull = "Not set";
+const String propertyDetail = "Detail";
 //  Marker Set
 //  Marker Base
 const String propertyPosition = "Position";
 //  Marker Poi
+const String propertyIcon = "Icon";
+const String propertyAnchor = "Anchor";
 //  Marker Line
 const String propertyLine = "Line";
+const String propertyLink = "Link";
+const String propertyNewTab = "New Tab";
+const String propertyDepthTest = "Depth Test";
+const String propertyLineWidth = "Line Width";
+const String propertyLineColor = "Line Color";
 
 //Text field error hints
 const String cannotBeEmpty = "Can't be empty";

@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import "package:web_unload_confirmation_popup/web_unload_confirmation_popup.dart";
 
+import "../lang.dart";
 import "../math/vector.dart";
 import "marker_line.dart";
 import "marker_poi.dart";
@@ -43,7 +44,46 @@ abstract class Marker {
         minDistance = json[_jsonKeyMinDistance],
         maxDistance = json[_jsonKeyMaxDistance];
 
-  Widget toWidget(StateSetter setState);
+  Widget toWidget(String id) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Icon(displayIcon),
+        const SizedBox(width: 16),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text.rich(
+              TextSpan(
+                children: [
+                  TextSpan(
+                    text: label,
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  TextSpan(
+                    text: " ($id)",
+                    style: const TextStyle(
+                      fontFamily: monospaceFont,
+                      fontStyle: FontStyle.italic,
+                      color: Colors.grey,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Text(
+                "$propertyPosition: ${position.x}, ${position.y}, ${position.z}"),
+            ...getProperties(),
+          ],
+        )
+      ],
+    );
+  }
+
+  IconData get displayIcon;
+
+  List<Widget> getProperties();
 
   Map<String, dynamic> toJson() => {
         _jsonKeyType: type,

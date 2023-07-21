@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 
+import "../lang.dart";
 import "../math/vector.dart";
 import "marker_base.dart";
 
@@ -8,6 +9,9 @@ class MarkerPOI extends Marker {
   static const _jsonKeyDetail = "detail";
   static const _jsonKeyIcon = "icon";
   static const _jsonKeyAnchor = "anchor";
+
+  @override
+  IconData get displayIcon => Icons.place;
 
   String? detail;
   String? icon;
@@ -32,25 +36,11 @@ class MarkerPOI extends Marker {
         super.fromJson();
 
   @override
-  Widget toWidget(StateSetter setState) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        const Padding(
-          padding: EdgeInsets.all(4),
-          child: Icon(Icons.place),
-        ),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(label, style: const TextStyle(fontWeight: FontWeight.bold)),
-            Text("$position: ${position.x}, ${position.y}, ${position.z}"),
-          ],
-        )
-      ],
-    );
-  }
+  List<Widget> getProperties() => [
+        Text("$propertyDetail: ${detail ?? propertyNull}"),
+        Text("$propertyIcon: ${icon ?? propertyNull}"),
+        Text("$propertyAnchor: ${anchor ?? propertyNull}"),
+      ];
 
   @override
   Map<String, dynamic> toJson() => {

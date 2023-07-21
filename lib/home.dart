@@ -221,7 +221,7 @@ class Code extends StatelessWidget {
           Expanded(
             child: SelectableText(
               text,
-              style: const TextStyle(fontFamily: "Inconsolata", fontSize: 19),
+              style: const TextStyle(fontFamily: monospaceFont, fontSize: 19),
             ),
           ),
           if (copy)

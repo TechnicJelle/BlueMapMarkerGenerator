@@ -14,6 +14,9 @@ class MarkerLine extends Marker {
   static const _jsonKeyLineWidth = "line-width";
   static const _jsonKeyLineColor = "line-color";
 
+  @override
+  IconData get displayIcon => Icons.line_axis;
+
   List<Vector3> line;
   String? detail;
   String? link;
@@ -48,28 +51,16 @@ class MarkerLine extends Marker {
         super.fromJson();
 
   @override
-  Widget toWidget(StateSetter setState) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        const Padding(
-          padding: EdgeInsets.all(4),
-          child: Icon(Icons.line_axis),
-        ),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(label, style: const TextStyle(fontWeight: FontWeight.bold)),
-            Text("$position: ${position.x}, ${position.y}, ${position.z}"),
-            const Text("$propertyLine:"),
-            for (final point in line)
-              Text("  ${point.x}, ${point.y}, ${point.z}"),
-          ],
-        )
-      ],
-    );
-  }
+  List<Widget> getProperties() => [
+        Text("$propertyDetail: ${detail ?? propertyNull}"),
+        Text("$propertyLink: ${link ?? propertyNull}"),
+        Text("$propertyNewTab: ${newTab ?? propertyNull}"),
+        Text("$propertyDepthTest: ${depthTest ?? propertyNull}"),
+        Text("$propertyLineWidth: ${lineWidth ?? propertyNull}"),
+        Text("$propertyLineColor: ${lineColor ?? propertyNull}"),
+        const Text("$propertyLine:"),
+        for (final point in line) Text("  ${point.x}, ${point.y}, ${point.z}"),
+      ];
 
   @override
   Map<String, dynamic> toJson() => {

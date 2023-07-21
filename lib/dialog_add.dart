@@ -54,7 +54,7 @@ class DialogAdd extends StatelessWidget {
                     position: Vector3.random(),
                     label: addMarkerTypeLine,
                     line: [
-                      for (int i = 0; i < Random().nextInt(10); i++)
+                      for (int i = 0; i < Random().nextInt(8) + 2; i++)
                         Vector3.random(),
                     ],
                   ),

@@ -58,23 +58,42 @@ class MarkerSet {
             onTap: () {
               print("MarkerSet.toWidget: ${entry.key} tapped");
             },
-            onTapDown: (TapDownDetails details) =>
-                mouse = details.globalPosition,
+            onTapDown: (details) => mouse = details.globalPosition,
             onLongPress: () => rightClickMenu(context, setState, entry.key),
-            onSecondaryTapDown: (TapDownDetails details) =>
-                mouse = details.globalPosition,
+            onSecondaryTapDown: (details) => mouse = details.globalPosition,
             onSecondaryTap: () => rightClickMenu(context, setState, entry.key),
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 8),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              child: Row(
                 children: [
-                  Text(
-                    entry.key,
-                    style: const TextStyle(fontStyle: FontStyle.italic),
-                  ),
-                  const SizedBox(height: 4),
-                  entry.value.toWidget(setState),
+                  Expanded(child: entry.value.toWidget(entry.key)),
+                  // IconButton(
+                  //   onPressed: () {
+                  //     showDialog(
+                  //       context: context,
+                  //       builder: (context) => AlertDialog(
+                  //         title: const Text(deleteMarker),
+                  //         content: const Text(areYouSure),
+                  //         actions: [
+                  //           TextButton(
+                  //             onPressed: () => Navigator.pop(context),
+                  //             child: const Text(cancel),
+                  //           ),
+                  //           TextButton(
+                  //             onPressed: () {
+                  //               setState(() {
+                  //                 markers.remove(entry.key);
+                  //               });
+                  //               Navigator.pop(context);
+                  //             },
+                  //             child: const Text(delete),
+                  //           ),
+                  //         ],
+                  //       ),
+                  //     );
+                  //   },
+                  //   icon: const Icon(Icons.delete_forever),
+                  // )
                 ],
               ),
             ),
