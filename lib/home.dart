@@ -1,7 +1,9 @@
 import "dart:convert";
+import "dart:io";
 
 import "package:file_picker/file_picker.dart";
 import "package:file_saver/file_saver.dart";
+import "package:flutter/foundation.dart";
 import "package:flutter/material.dart";
 import "package:flutter/services.dart";
 import "package:web_unload_confirmation_popup/web_unload_confirmation_popup.dart";
@@ -142,10 +144,16 @@ class _MyHomeState extends State<MyHome> {
       allowedExtensions: [_fileExtension],
     );
 
-    if (result == null) return;
+    if (result == null) return; // Dialog was canceled
 
-    Uint8List bytes = result.files.single.bytes!;
-    String string = String.fromCharCodes(bytes);
+    String string;
+    if (kIsWeb) {
+      Uint8List bytes = result.files.single.bytes!;
+      string = String.fromCharCodes(bytes);
+    } else {
+      File file = File(result.files.single.path!);
+      string = await file.readAsString();
+    }
 
     Map<String, dynamic> json = jsonDecode("{$string}");
 
