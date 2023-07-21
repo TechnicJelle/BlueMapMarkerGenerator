@@ -1,4 +1,7 @@
-final RegExp idRegex = RegExp(r"^[a-zA-Z0-9_-]+$");
+final RegExp regexIDValidation = RegExp(r"^[a-zA-Z0-9_-]+$");
+final RegExp regexLabelToID = RegExp(r"\W|-+");
+final RegExp regexMultipleSpaces = RegExp(r" +");
+
 const String monospaceFont = "Inconsolata";
 
 const String appName = "BlueMap Marker Generator";

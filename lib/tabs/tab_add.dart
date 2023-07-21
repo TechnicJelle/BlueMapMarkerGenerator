@@ -48,32 +48,11 @@ class _TabAddState extends State<TabAdd> {
             child: Column(
               children: [
                 const Text(addMarkerSetTabHint),
-                //ID
-                TextFormField(
-                  controller: idController,
-                  autofocus: true,
-                  decoration: const InputDecoration(labelText: propertyID),
-                  textInputAction: TextInputAction.next,
-                  textCapitalization: TextCapitalization.none,
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  validator: (String? s) {
-                    if (s == null || s.trim().isEmpty) {
-                      return cannotBeEmpty;
-                    }
-                    if (tabs.containsKey(s)) {
-                      return noDuplicateIDs;
-                    }
-                    if (!idRegex.hasMatch(s)) {
-                      return invalidCharacter;
-                    }
-                    return null;
-                  },
-                ),
                 TextFormField(
                   controller: labelController,
-                  autofocus: false,
+                  autofocus: true,
                   decoration: const InputDecoration(labelText: propertyLabel),
-                  textInputAction: TextInputAction.done,
+                  textInputAction: TextInputAction.next,
                   textCapitalization: TextCapitalization.words,
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   validator: (String? s) {
@@ -82,7 +61,45 @@ class _TabAddState extends State<TabAdd> {
                     }
                     return null;
                   },
-                  onFieldSubmitted: (_) => validateAndAdd(),
+                  onChanged: (String s) {
+                    idController.text = s
+                        .toLowerCase()
+                        .replaceAll(regexLabelToID, " ")
+                        .trim()
+                        .replaceAll(regexMultipleSpaces, "-");
+                  },
+                ),
+                Focus(
+                  canRequestFocus: false,
+                  onFocusChange: (bool gained) {
+                    if (gained) {
+                      idController.selection = TextSelection(
+                        baseOffset: 0,
+                        extentOffset: idController.text.length,
+                      );
+                    }
+                  },
+                  child: TextFormField(
+                    controller: idController,
+                    autofocus: true,
+                    decoration: const InputDecoration(labelText: propertyID),
+                    textInputAction: TextInputAction.done,
+                    textCapitalization: TextCapitalization.none,
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    validator: (String? s) {
+                      if (s == null || s.trim().isEmpty) {
+                        return cannotBeEmpty;
+                      }
+                      if (tabs.containsKey(s)) {
+                        return noDuplicateIDs;
+                      }
+                      if (!regexIDValidation.hasMatch(s)) {
+                        return invalidCharacter;
+                      }
+                      return null;
+                    },
+                    onFieldSubmitted: (_) => validateAndAdd(),
+                  ),
                 ),
                 const SizedBox(height: 16),
                 ElevatedButton(
