@@ -48,7 +48,7 @@ const String usageInformationText2 = """
 With this:""";
 const String usageInformationPathTo = "path/to/";
 const String usageInformationText3 = """
-"Make sure to replace the path here with the correct path to the .conf file!""";
+Make sure to replace the path here with the correct path to the .conf file!""";
 
 //Add Marker Set Tab
 const String addMarkerSetTabHint = "Add a new Marker Set";
