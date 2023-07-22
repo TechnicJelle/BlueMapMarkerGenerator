@@ -58,7 +58,19 @@ class _MyHomeState extends State<MyHome> {
                       context: context,
                       builder: (BuildContext context) => AlertDialog(
                         title: const Text(usageInformationTitle),
-                        content: const UsageInformation(),
+                        content: Theme(
+                          data: Theme.of(context).copyWith(
+                            scrollbarTheme: ScrollbarThemeData(
+                              thickness: MaterialStateProperty.all(2),
+                              thumbVisibility: MaterialStateProperty.all(true),
+                              interactive: false,
+                            ),
+                          ),
+                          child: SingleChildScrollView(
+                            controller: PrimaryScrollController.of(context),
+                            child: const UsageInformation(),
+                          ),
+                        ),
                         actions: [
                           TextButton(
                             onPressed: () => Navigator.pop(context, false),
