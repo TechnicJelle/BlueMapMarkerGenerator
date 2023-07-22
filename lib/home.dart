@@ -42,7 +42,26 @@ class _MyHomeState extends State<MyHome> {
         length: tabs.length + 1,
         child: Scaffold(
           appBar: AppBar(
-            title: const Text(appName),
+            leading: Padding(
+              padding: const EdgeInsets.all(4),
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(6),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.2),
+                      blurRadius: 3,
+                      offset: const Offset(2, 1),
+                    ),
+                  ],
+                ),
+                child: Image.asset(
+                  "assets/images/icons/icon.png",
+                  filterQuality: FilterQuality.medium,
+                ),
+              ),
+            ),
+            title: const Text(appName, maxLines: 2),
             actions: [
               IconButton(
                 icon: const Icon(Icons.upload_file),
