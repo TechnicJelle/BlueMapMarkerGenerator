@@ -59,7 +59,7 @@ const String addMarkerSetTabHint = "Add a new Marker Set";
 //Marker Set Tab
 const String deleteMarker = "Delete Marker";
 const String markerSetTabHint = "Press the + button to add a marker";
-const String markerSetTabFABTooltip = "Add Marker (N)";
+const String markerSetTabFABTooltip = "Add Marker (Ctrl+/)";
 
 //Add Marker Dialog
 const String addMarkerTitle = "Add Marker";

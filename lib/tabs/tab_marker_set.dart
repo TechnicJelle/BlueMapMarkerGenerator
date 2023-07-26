@@ -46,13 +46,20 @@ class _MarkerSetTabState extends State<MarkerSetTab> {
     return Scaffold(
       body: CallbackShortcuts(
         bindings: {
-          const SingleActivator(LogicalKeyboardKey.keyN): () => _addMarker(),
+          const SingleActivator(LogicalKeyboardKey.slash, control: true): () =>
+              _addMarker(),
         },
         child: Focus(
           autofocus: true,
-          child: markerSet.markers.isEmpty
-              ? const Center(child: Text(markerSetTabHint))
-              : markerSet.toWidget(setState),
+          child: IndexedStack(
+            index: markerSet.markers.isEmpty ? 0 : 1,
+            children: [
+              const Center(
+                child: Text(markerSetTabHint),
+              ),
+              markerSet.toWidget(setState),
+            ],
+          ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
