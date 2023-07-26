@@ -5,7 +5,14 @@
 
 	<meta charset="UTF-8">
 	<meta content="IE=Edge" http-equiv="X-UA-Compatible">
+
 	<meta name="description" content="A webapp that helps generate BlueMap markers">
+	<meta name="og:description" content="A webapp that helps generate BlueMap markers">
+
+	<meta name="theme-color" content="#165DD6">
+	<meta name="og:title" content="BlueMap Marker Generator">
+	<meta name="og:image"
+		  content="https://raw.githubusercontent.com/TechnicJelle/BlueMapMarkerGenerator/main/web/icons/Icon-512.png">
 
 	<!-- iOS meta tags & icons -->
 	<meta name="apple-mobile-web-app-capable" content="yes">
@@ -29,19 +36,19 @@
 </head>
 <body>
 <script>
-    window.addEventListener('load', function(ev) {
-      // Download main.dart.js
-      _flutter.loader.loadEntrypoint({
-        serviceWorker: {
-          serviceWorkerVersion: serviceWorkerVersion,
-        },
-        onEntrypointLoaded: function(engineInitializer) {
-          engineInitializer.initializeEngine().then(function(appRunner) {
-            appRunner.runApp();
-          });
-        }
-      });
-    });
+	window.addEventListener('load', function(ev) {
+		// Download main.dart.js
+		_flutter.loader.loadEntrypoint({
+			serviceWorker: {
+				serviceWorkerVersion: serviceWorkerVersion,
+			},
+			onEntrypointLoaded: function(engineInitializer) {
+				engineInitializer.initializeEngine().then(function(appRunner) {
+					appRunner.runApp();
+				});
+			}
+		});
+	});
 
 </script>
 </body>
