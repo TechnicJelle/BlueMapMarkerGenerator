@@ -1,6 +1,8 @@
 import "package:flutter/material.dart";
 import "package:web_unload_confirmation_popup/web_unload_confirmation_popup.dart";
 
+import "../input_fields/label.dart";
+import "../input_fields/vector3.dart";
 import "../lang.dart";
 import "../math/vector.dart";
 import "marker_line.dart";
@@ -44,7 +46,7 @@ abstract class Marker {
         minDistance = json[_jsonKeyMinDistance],
         maxDistance = json[_jsonKeyMaxDistance];
 
-  Widget toWidget(String id) {
+  Widget toWidget(String id, StateSetter setState) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -54,27 +56,23 @@ abstract class Marker {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text.rich(
-              TextSpan(
-                children: [
-                  TextSpan(
-                    text: label,
-                    style: const TextStyle(fontWeight: FontWeight.bold),
+            Row(
+              children: [
+                LabelField(label: label, onChanged: (s) => label = s),
+                const SizedBox(width: 4),
+                Text(
+                  "($id)",
+                  style: const TextStyle(
+                    fontFamily: monospaceFont,
+                    fontStyle: FontStyle.italic,
+                    color: Colors.grey,
                   ),
-                  TextSpan(
-                    text: " ($id)",
-                    style: const TextStyle(
-                      fontFamily: monospaceFont,
-                      fontStyle: FontStyle.italic,
-                      color: Colors.grey,
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
-            Text(
-                "$propertyPosition: ${position.x}, ${position.y}, ${position.z}"),
-            ...getProperties(),
+            const SizedBox(height: 4),
+            Vector3Field(label: propertyPosition, vector: position),
+            ...getProperties(setState),
           ],
         )
       ],
@@ -83,7 +81,7 @@ abstract class Marker {
 
   IconData get displayIcon;
 
-  List<Widget> getProperties();
+  List<Widget> getProperties(StateSetter setState);
 
   Map<String, dynamic> toJson() => {
         _jsonKeyType: type,

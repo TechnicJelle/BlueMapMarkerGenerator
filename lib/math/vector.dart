@@ -1,5 +1,3 @@
-import "dart:math";
-
 class Vector2 {
   double x;
   double y;
@@ -28,11 +26,6 @@ class Vector3 {
   double z;
 
   Vector3(this.x, this.y, this.z);
-
-  Vector3.random()
-      : x = Random().nextDouble(),
-        y = Random().nextDouble(),
-        z = Random().nextDouble();
 
   @override
   String toString() => "Vector3($x, $y, $z)";

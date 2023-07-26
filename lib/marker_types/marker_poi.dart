@@ -36,7 +36,7 @@ class MarkerPOI extends Marker {
         super.fromJson();
 
   @override
-  List<Widget> getProperties() => [
+  List<Widget> getProperties(StateSetter setState) => [
         Text("$propertyDetail: ${detail ?? propertyNull}"),
         Text("$propertyIcon: ${icon ?? propertyNull}"),
         Text("$propertyAnchor: ${anchor ?? propertyNull}"),

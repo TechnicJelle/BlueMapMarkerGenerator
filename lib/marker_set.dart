@@ -11,8 +11,8 @@ class MarkerSet {
   static const String _jsonKeySorting = "sorting";
   static const String _jsonKeyMarkers = "markers";
 
-  final ScrollController scrollController = ScrollController();
-  late Offset mouse;
+  final ScrollController _scrollController = ScrollController();
+  late Offset _mouse;
 
   String label;
   bool? toggleable;
@@ -48,25 +48,23 @@ class MarkerSet {
   Widget toWidget(StateSetter setState) {
     return Scrollbar(
       thumbVisibility: true,
-      controller: scrollController,
+      controller: _scrollController,
       child: ListView.separated(
-        controller: scrollController,
+        controller: _scrollController,
         itemCount: markers.length,
         itemBuilder: (context, index) {
           MapEntry<String, Marker> entry = markers.entries.elementAt(index);
           return InkWell(
-            onTap: () {
-              print("MarkerSet.toWidget: ${entry.key} tapped");
-            },
-            onTapDown: (details) => mouse = details.globalPosition,
+            mouseCursor: SystemMouseCursors.basic,
+            onTapDown: (details) => _mouse = details.globalPosition,
             onLongPress: () => rightClickMenu(context, setState, entry.key),
-            onSecondaryTapDown: (details) => mouse = details.globalPosition,
+            onSecondaryTapDown: (details) => _mouse = details.globalPosition,
             onSecondaryTap: () => rightClickMenu(context, setState, entry.key),
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               child: Row(
                 children: [
-                  Expanded(child: entry.value.toWidget(entry.key)),
+                  Expanded(child: entry.value.toWidget(entry.key, setState)),
                   // IconButton(
                   //   onPressed: () {
                   //     showDialog(
@@ -109,7 +107,7 @@ class MarkerSet {
   void rightClickMenu(BuildContext context, StateSetter setState, String key) {
     showMenu(
       context: context,
-      position: RelativeRect.fromLTRB(mouse.dx, mouse.dy, double.infinity, 0),
+      position: RelativeRect.fromLTRB(_mouse.dx, _mouse.dy, double.infinity, 0),
       items: [
         PopupMenuItem(
           child: const Text(deleteMarker),

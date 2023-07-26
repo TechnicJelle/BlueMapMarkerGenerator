@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 
+import "../input_fields/vector3.dart";
 import "../lang.dart";
 import "../math/vector.dart";
 import "marker_base.dart";
@@ -13,6 +14,8 @@ class MarkerLine extends Marker {
   static const _jsonKeyDepthTest = "depth-test";
   static const _jsonKeyLineWidth = "line-width";
   static const _jsonKeyLineColor = "line-color";
+
+  static const int minLinePoints = 2;
 
   @override
   IconData get displayIcon => Icons.line_axis;
@@ -51,7 +54,7 @@ class MarkerLine extends Marker {
         super.fromJson();
 
   @override
-  List<Widget> getProperties() => [
+  List<Widget> getProperties(StateSetter setState) => [
         Text("$propertyDetail: ${detail ?? propertyNull}"),
         Text("$propertyLink: ${link ?? propertyNull}"),
         Text("$propertyNewTab: ${newTab ?? propertyNull}"),
@@ -59,7 +62,24 @@ class MarkerLine extends Marker {
         Text("$propertyLineWidth: ${lineWidth ?? propertyNull}"),
         Text("$propertyLineColor: ${lineColor ?? propertyNull}"),
         const Text("$propertyLine:"),
-        for (final point in line) Text("  ${point.x}, ${point.y}, ${point.z}"),
+        for (int i = 0; i < line.length; i++)
+          Row(
+            children: [
+              Vector3Field(label: "$i", vector: line[i]),
+              if (line.length > minLinePoints)
+                Focus(
+                  descendantsAreTraversable: false,
+                  child: IconButton(
+                    onPressed: () => setState(() => line.removeAt(i)),
+                    icon: const Icon(Icons.delete_forever),
+                  ),
+                ),
+            ],
+          ),
+        IconButton(
+          onPressed: () => setState(() => line.add(Vector3(0, 0, 0))),
+          icon: const Icon(Icons.add),
+        ),
       ];
 
   @override
