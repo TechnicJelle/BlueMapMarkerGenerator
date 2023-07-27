@@ -47,19 +47,21 @@ abstract class Marker {
         maxDistance = json[_jsonKeyMaxDistance];
 
   Widget toWidget(String id, StateSetter setState) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.center,
+    return Wrap(
+      crossAxisAlignment: WrapCrossAlignment.center,
+      spacing: 16,
+      runSpacing: 8,
       children: [
         Icon(displayIcon),
-        const SizedBox(width: 16),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        Wrap(
+          direction: Axis.vertical,
+          spacing: 4,
           children: [
-            Row(
+            Wrap(
+              crossAxisAlignment: WrapCrossAlignment.center,
+              spacing: 4,
               children: [
                 LabelField(label: label, onChanged: (s) => label = s),
-                const SizedBox(width: 4),
                 Text(
                   "($id)",
                   style: const TextStyle(
@@ -70,7 +72,6 @@ abstract class Marker {
                 ),
               ],
             ),
-            const SizedBox(height: 4),
             Vector3Field(label: propertyPosition, vector: position),
             ...getProperties(setState),
           ],

@@ -63,17 +63,20 @@ class MarkerLine extends Marker {
         Text("$propertyLineColor: ${lineColor ?? propertyNull}"),
         const Text("$propertyLine:"),
         for (int i = 0; i < line.length; i++)
-          Row(
+          Wrap(
+            crossAxisAlignment: WrapCrossAlignment.center,
             children: [
               Vector3Field(label: "$i", vector: line[i]),
-              if (line.length > minLinePoints)
-                Focus(
+              Visibility(
+                visible: line.length > minLinePoints,
+                child: Focus(
                   descendantsAreTraversable: false,
                   child: IconButton(
                     onPressed: () => setState(() => line.removeAt(i)),
                     icon: const Icon(Icons.delete_forever),
                   ),
                 ),
+              ),
             ],
           ),
         IconButton(
