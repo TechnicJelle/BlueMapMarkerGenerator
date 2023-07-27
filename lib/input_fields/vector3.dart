@@ -6,8 +6,14 @@ import "number.dart";
 class Vector3Field extends StatelessWidget {
   final String label;
   final Vector3 vector;
+  final TextStyle? labelStyle;
 
-  const Vector3Field({required this.label, required this.vector, super.key});
+  const Vector3Field({
+    required this.label,
+    required this.vector,
+    this.labelStyle,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +23,7 @@ class Vector3Field extends StatelessWidget {
       alignment: WrapAlignment.start,
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
-        Text("$label:"),
+        Text("$label:", style: labelStyle),
         NumberField(
           label: "X",
           number: vector.x,

@@ -2,6 +2,11 @@ final RegExp regexIDValidation = RegExp(r"^[a-zA-Z0-9_-]+$");
 final RegExp regexLabelToID = RegExp(r"\W|-+");
 final RegExp regexMultipleSpaces = RegExp(r" +");
 
+String padToMax(int num, int maxNum) {
+  int maxLen = maxNum.toString().length;
+  return num.toString().padLeft(maxLen);
+}
+
 const String monospaceFont = "Inconsolata";
 
 const String appName = "BlueMap Marker Generator";

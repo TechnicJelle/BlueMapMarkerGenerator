@@ -66,7 +66,11 @@ class MarkerLine extends Marker {
           Wrap(
             crossAxisAlignment: WrapCrossAlignment.center,
             children: [
-              Vector3Field(label: "$i", vector: line[i]),
+              Vector3Field(
+                label: padToMax(i + 1, line.length),
+                labelStyle: const TextStyle(fontFamily: monospaceFont),
+                vector: line[i],
+              ),
               Visibility(
                 visible: line.length > minLinePoints,
                 child: Focus(
