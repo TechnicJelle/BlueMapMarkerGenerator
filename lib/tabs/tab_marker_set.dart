@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 import "package:flutter/services.dart";
 
 import "../dialog_add_marker.dart";
+import "../input_fields/int.dart";
 import "../lang.dart";
 import "../marker_set.dart";
 import "../marker_types/marker_base.dart";
@@ -43,7 +44,71 @@ class _MarkerSetTabState extends State<MarkerSetTab> {
 
   @override
   Widget build(BuildContext context) {
+    const double singleHeight = 48;
+    const double totalHeight = singleHeight * 3;
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor:
+            Theme.of(context).colorScheme.secondary.withOpacity(0.7),
+        toolbarHeight: totalHeight,
+        centerTitle: true,
+        title: SizedBox(
+          width: 300,
+          height: totalHeight,
+          child: ListView(
+            children: [
+              // ListTile(
+              //   leading: Text(propertyLabel,
+              //       style: Theme.of(context).textTheme.titleMedium),
+              //   titleAlignment: ListTileTitleAlignment.center,
+              //   title: ConstrainedBox(
+              //     constraints: const BoxConstraints(maxHeight: 32),
+              //     child: TextField(
+              //       decoration: const InputDecoration(
+              //         border: OutlineInputBorder(),
+              //         contentPadding: EdgeInsets.symmetric(horizontal: 8),
+              //       ),
+              //       onChanged: (String s) => setState(() {
+              //         markerSet.label = s;
+              //       }),
+              //     ),
+              //   ),
+              // ),
+              CheckboxListTile(
+                title: const Text(propertyToggleable),
+                value: markerSet.toggleable,
+                tristate: true,
+                onChanged: (bool? value) => setState(() {
+                  markerSet.toggleable = value ?? false;
+                }),
+              ),
+              CheckboxListTile(
+                title: const Text(propertyDefaultHidden),
+                value: markerSet.defaultHidden,
+                tristate: true,
+                onChanged: (bool? value) => setState(() {
+                  markerSet.defaultHidden = value ?? false;
+                }),
+              ),
+              ConstrainedBox(
+                constraints: const BoxConstraints(maxHeight: singleHeight),
+                child: ListTile(
+                  leading: Text(propertySorting,
+                      style: Theme.of(context).textTheme.titleMedium),
+                  titleAlignment: ListTileTitleAlignment.center,
+                  title: IntField(
+                    hint: "0",
+                    number: markerSet.sorting,
+                    onFinished: (int? result) => setState(() {
+                      markerSet.sorting = result;
+                    }),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
       body: CallbackShortcuts(
         bindings: {
           const SingleActivator(LogicalKeyboardKey.slash, control: true): () =>

@@ -23,6 +23,9 @@ const String propertyLabel = "Label";
 const String propertyNull = "Not set";
 const String propertyDetail = "Detail";
 //  Marker Set
+const String propertyToggleable = "Toggleable";
+const String propertyDefaultHidden = "Default Hidden";
+const String propertySorting = "Sorting";
 //  Marker Base
 const String propertyPosition = "Position";
 //  Marker Poi

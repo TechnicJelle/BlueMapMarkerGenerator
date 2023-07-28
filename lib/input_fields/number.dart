@@ -1,14 +1,14 @@
 import "package:flutter/material.dart";
 import "package:flutter/services.dart";
 
-class NumberField extends StatelessWidget {
+class DoubleField extends StatelessWidget {
   final String label;
   final double number;
   final Function(double result) onFinished;
 
   final TextEditingController _controller;
 
-  NumberField({
+  DoubleField({
     required this.label,
     required this.number,
     required this.onFinished,
@@ -43,7 +43,7 @@ class NumberField extends StatelessWidget {
                 signed: true,
               ),
               inputFormatters: [
-                FilteringTextInputFormatter.allow(RegExp(r"[0-9\-.]")),
+                FilteringTextInputFormatter.allow(RegExp(r"[0-9\-.eE]")),
               ],
               decoration: InputDecoration(
                 labelText: label,

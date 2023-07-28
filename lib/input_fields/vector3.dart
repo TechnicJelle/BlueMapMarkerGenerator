@@ -24,17 +24,17 @@ class Vector3Field extends StatelessWidget {
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
         Text("$label:", style: labelStyle),
-        NumberField(
+        DoubleField(
           label: "X",
           number: vector.x,
           onFinished: (result) => vector.x = result,
         ),
-        NumberField(
+        DoubleField(
           label: "Y",
           number: vector.y,
           onFinished: (result) => vector.y = result,
         ),
-        NumberField(
+        DoubleField(
           label: "Z",
           number: vector.z,
           onFinished: (result) => vector.z = result,
