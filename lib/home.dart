@@ -66,7 +66,31 @@ class _MyHomeState extends State<MyHome> {
               IconButton(
                 icon: const Icon(Icons.upload_file),
                 tooltip: loadButtonTooltip,
-                onPressed: () => _loadFile(),
+                onPressed: () async {
+                  try {
+                    await _loadFile();
+                  } catch (e) {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) => AlertDialog(
+                        title: const Text(
+                          errorOpeningFile,
+                          style: TextStyle(color: Colors.red),
+                        ),
+                        content: Text(
+                          e.toString(),
+                          style: const TextStyle(fontFamily: monospaceFont),
+                        ),
+                        actions: [
+                          TextButton(
+                            onPressed: () => Navigator.pop(context),
+                            child: const Text(understood),
+                          ),
+                        ],
+                      ),
+                    );
+                  }
+                },
               ),
               IconButton(
                 icon: const Icon(Icons.save_alt),
@@ -97,7 +121,7 @@ class _MyHomeState extends State<MyHome> {
                           ),
                           ElevatedButton(
                             onPressed: () => Navigator.pop(context, true),
-                            child: const Text(usageInformationUnderstood),
+                            child: const Text(understood),
                           ),
                         ],
                       ),

@@ -15,6 +15,7 @@ const String cancel = "Cancel";
 const String add = "Add";
 const String delete = "Delete";
 const String areYouSure = "Are you sure?";
+const String understood = "Understood";
 
 //Properties
 //  Shared
@@ -48,10 +49,12 @@ const String invalidCharacter = "Invalid character";
 const String loadButtonTooltip = "Load Marker Set (Ctrl+O)";
 const String saveButtonTooltip = "Save Marker Set (Ctrl+S)";
 
+//Error Dialog
+const String errorOpeningFile = "Error while opening file:";
+
 //Usage Information Dialog
 const String usageInformationTitle = "Usage Information";
 const String usageInformationDoNotShowAgain = "Don't show again this session";
-const String usageInformationUnderstood = "Understood";
 const String usageInformationText1 = """
 To use the marker file that will download after this dialog, place it somewhere sensible.
 Then, in your map's .conf file, replace this:""";
