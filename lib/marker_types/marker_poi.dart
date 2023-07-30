@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 
 import "../lang.dart";
 import "../math/vector_types.dart";
+import "../property_fields/string_prop.dart";
 import "marker_base.dart";
 
 class MarkerPOI extends Marker {
@@ -37,7 +38,11 @@ class MarkerPOI extends Marker {
 
   @override
   List<Widget> getProperties(StateSetter setState) => [
-        Text("$propertyDetail: ${detail ?? propertyNull}"),
+        PropertyString(
+          label: propertyDetail,
+          hint: label,
+          onFinished: (String? result) => detail = result,
+        ),
         Text("$propertyIcon: ${icon ?? propertyNull}"),
         Text("$propertyAnchor: ${anchor ?? propertyNull}"),
       ];

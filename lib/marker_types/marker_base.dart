@@ -64,7 +64,11 @@ abstract class Marker {
               crossAxisAlignment: WrapCrossAlignment.center,
               spacing: 4,
               children: [
-                PropertyLabel(label: label, onChanged: (s) => label = s),
+                PropertyLabel(
+                  label: label,
+                  onChanged: (s) => label = s,
+                  onFinished: (s) => setState(() => label = s),
+                ),
                 Text(
                   "($id)",
                   style: const TextStyle(

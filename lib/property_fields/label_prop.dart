@@ -5,11 +5,16 @@ import "../lang.dart";
 class PropertyLabel extends StatelessWidget {
   final String label;
   final Function(String label) onChanged;
+  final Function(String label)? onFinished;
 
   final TextEditingController _controller;
 
-  PropertyLabel({required this.label, required this.onChanged, super.key})
-      : _controller = TextEditingController(text: label);
+  PropertyLabel({
+    required this.label,
+    required this.onChanged,
+    this.onFinished,
+    super.key,
+  }) : _controller = TextEditingController(text: label);
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +26,10 @@ class PropertyLabel extends StatelessWidget {
             baseOffset: 0,
             extentOffset: _controller.text.length,
           );
+        } else {
+          if (onFinished != null) {
+            onFinished!(_controller.text);
+          }
         }
       },
       child: IntrinsicWidth(
