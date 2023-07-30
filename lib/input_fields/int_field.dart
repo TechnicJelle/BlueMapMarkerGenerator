@@ -1,14 +1,14 @@
 import "package:flutter/material.dart";
 import "package:flutter/services.dart";
 
-class IntField extends StatelessWidget {
+class FieldInt extends StatelessWidget {
   final String hint;
   final int? number;
   final void Function(int? result) onFinished;
 
   final TextEditingController _controller;
 
-  IntField({
+  FieldInt({
     required this.hint,
     required this.number,
     required this.onFinished,

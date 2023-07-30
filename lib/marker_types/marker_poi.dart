@@ -1,7 +1,7 @@
 import "package:flutter/material.dart";
 
 import "../lang.dart";
-import "../math/vector.dart";
+import "../math/vector_types.dart";
 import "marker_base.dart";
 
 class MarkerPOI extends Marker {

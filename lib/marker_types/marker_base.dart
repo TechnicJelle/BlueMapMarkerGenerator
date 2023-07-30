@@ -1,10 +1,10 @@
 import "package:flutter/material.dart";
 import "package:web_unload_confirmation_popup/web_unload_confirmation_popup.dart";
 
-import "../input_fields/label.dart";
-import "../input_fields/vector3.dart";
 import "../lang.dart";
-import "../math/vector.dart";
+import "../math/vector_types.dart";
+import "../property_fields/label_prop.dart";
+import "../property_fields/vector3_prop.dart";
 import "marker_line.dart";
 import "marker_poi.dart";
 
@@ -61,7 +61,7 @@ abstract class Marker {
               crossAxisAlignment: WrapCrossAlignment.center,
               spacing: 4,
               children: [
-                LabelField(label: label, onChanged: (s) => label = s),
+                PropertyLabel(label: label, onChanged: (s) => label = s),
                 Text(
                   "($id)",
                   style: const TextStyle(
@@ -72,7 +72,12 @@ abstract class Marker {
                 ),
               ],
             ),
-            Vector3Field(label: propertyPosition, vector: position),
+            PropertyVector3(label: propertyPosition, vector: position),
+            Text("$propertySorting: ${sorting ?? propertyNull}"),
+            Text("$propertyListed: ${listed ?? propertyNull}"),
+            Text("$propertyMinDistance: ${minDistance ?? propertyNull}"),
+            Text("$propertyMaxDistance: ${maxDistance ?? propertyNull}"),
+            const SizedBox(height: 1),
             ...getProperties(setState),
           ],
         )

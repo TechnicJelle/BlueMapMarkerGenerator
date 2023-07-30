@@ -2,13 +2,13 @@ import "package:flutter/material.dart";
 
 import "../lang.dart";
 
-class LabelField extends StatelessWidget {
+class PropertyLabel extends StatelessWidget {
   final String label;
   final Function(String label) onChanged;
 
   final TextEditingController _controller;
 
-  LabelField({required this.label, required this.onChanged, super.key})
+  PropertyLabel({required this.label, required this.onChanged, super.key})
       : _controller = TextEditingController(text: label);
 
   @override

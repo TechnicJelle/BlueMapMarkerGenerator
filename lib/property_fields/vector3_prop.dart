@@ -1,14 +1,14 @@
 import "package:flutter/material.dart";
 
-import "../math/vector.dart";
-import "number.dart";
+import "../input_fields/double_field.dart";
+import "../math/vector_types.dart";
 
-class Vector3Field extends StatelessWidget {
+class PropertyVector3 extends StatelessWidget {
   final String label;
   final Vector3 vector;
   final TextStyle? labelStyle;
 
-  const Vector3Field({
+  const PropertyVector3({
     required this.label,
     required this.vector,
     this.labelStyle,
@@ -24,18 +24,18 @@ class Vector3Field extends StatelessWidget {
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
         Text("$label:", style: labelStyle),
-        DoubleField(
-          label: "X",
+        FieldDouble(
+          hint: "X",
           number: vector.x,
           onFinished: (result) => vector.x = result,
         ),
-        DoubleField(
-          label: "Y",
+        FieldDouble(
+          hint: "Y",
           number: vector.y,
           onFinished: (result) => vector.y = result,
         ),
-        DoubleField(
-          label: "Z",
+        FieldDouble(
+          hint: "Z",
           number: vector.z,
           onFinished: (result) => vector.z = result,
         ),

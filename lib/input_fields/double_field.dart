@@ -1,15 +1,15 @@
 import "package:flutter/material.dart";
 import "package:flutter/services.dart";
 
-class DoubleField extends StatelessWidget {
-  final String label;
+class FieldDouble extends StatelessWidget {
+  final String hint;
   final double number;
   final Function(double result) onFinished;
 
   final TextEditingController _controller;
 
-  DoubleField({
-    required this.label,
+  FieldDouble({
+    required this.hint,
     required this.number,
     required this.onFinished,
     super.key,
@@ -46,7 +46,7 @@ class DoubleField extends StatelessWidget {
                 FilteringTextInputFormatter.allow(RegExp(r"[0-9\-.eE]")),
               ],
               decoration: InputDecoration(
-                labelText: label,
+                labelText: hint,
                 border: const OutlineInputBorder(),
                 contentPadding: const EdgeInsets.symmetric(horizontal: 8),
                 errorStyle: const TextStyle(height: 0),

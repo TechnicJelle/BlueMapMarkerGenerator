@@ -1,8 +1,8 @@
 import "package:flutter/material.dart";
 
-import "../input_fields/vector3.dart";
 import "../lang.dart";
-import "../math/vector.dart";
+import "../math/vector_types.dart";
+import "../property_fields/vector3_prop.dart";
 import "marker_base.dart";
 
 class MarkerLine extends Marker {
@@ -66,7 +66,7 @@ class MarkerLine extends Marker {
           Wrap(
             crossAxisAlignment: WrapCrossAlignment.center,
             children: [
-              Vector3Field(
+              PropertyVector3(
                 label: padToMax(i + 1, line.length),
                 labelStyle: const TextStyle(fontFamily: monospaceFont),
                 vector: line[i],

@@ -22,13 +22,17 @@ const String understood = "Understood";
 const String propertyID = "ID";
 const String propertyLabel = "Label";
 const String propertyNull = "Not set";
+const String propertySorting = "Sorting";
+//  Shared Markers
 const String propertyDetail = "Detail";
 //  Marker Set
 const String propertyToggleable = "Toggleable";
 const String propertyDefaultHidden = "Default Hidden";
-const String propertySorting = "Sorting";
 //  Marker Base
 const String propertyPosition = "Position";
+const String propertyListed = "Listed";
+const String propertyMinDistance = "Min Distance";
+const String propertyMaxDistance = "Max Distance";
 //  Marker Poi
 const String propertyIcon = "Icon";
 const String propertyAnchor = "Anchor";

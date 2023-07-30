@@ -2,7 +2,7 @@ import "package:flutter/material.dart";
 import "package:flutter/services.dart";
 
 import "../dialog_add_marker.dart";
-import "../input_fields/int.dart";
+import "../input_fields/int_field.dart";
 import "../lang.dart";
 import "../marker_set.dart";
 import "../marker_types/marker_base.dart";
@@ -96,7 +96,7 @@ class _MarkerSetTabState extends State<MarkerSetTab> {
                   leading: Text(propertySorting,
                       style: Theme.of(context).textTheme.titleMedium),
                   titleAlignment: ListTileTitleAlignment.center,
-                  title: IntField(
+                  title: FieldInt(
                     hint: "0",
                     number: markerSet.sorting,
                     onFinished: (int? result) => setState(() {
