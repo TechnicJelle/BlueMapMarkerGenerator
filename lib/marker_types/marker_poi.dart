@@ -43,7 +43,12 @@ class MarkerPOI extends Marker {
           hint: label,
           onFinished: (String? result) => detail = result,
         ),
-        Text("$propertyIcon: ${icon ?? propertyNull}"),
+        PropertyString(
+          label: propertyIcon,
+          hint: propertyNull,
+          hintStyle: const TextStyle(fontStyle: FontStyle.italic),
+          onFinished: (String? result) => icon = result,
+        ),
         Text("$propertyAnchor: ${anchor ?? propertyNull}"),
       ];
 
