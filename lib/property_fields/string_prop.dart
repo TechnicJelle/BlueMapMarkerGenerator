@@ -34,7 +34,12 @@ class PropertyString extends StatelessWidget {
                   extentOffset: _controller.text.length,
                 );
               } else {
-                onFinished(_controller.text);
+                _controller.text = _controller.text.trim();
+                if (_controller.text.isEmpty) {
+                  onFinished(null);
+                } else {
+                  onFinished(_controller.text);
+                }
               }
             },
             child: IntrinsicWidth(
