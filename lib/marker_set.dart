@@ -55,6 +55,7 @@ class MarkerSet {
         itemBuilder: (context, index) {
           MapEntry<String, Marker> entry = markers.entries.elementAt(index);
           return InkWell(
+            canRequestFocus: false,
             mouseCursor: SystemMouseCursors.basic,
             onTapDown: (details) => _mouse = details.globalPosition,
             onLongPress: () => rightClickMenu(context, setState, entry.key),
