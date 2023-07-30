@@ -7,14 +7,14 @@ class PropertyInt extends StatelessWidget {
   final String label;
   final String hint;
   final int? number;
-  final TextStyle? labelStyle;
+  final TextStyle? hintStyle;
   final void Function(int? result) onFinished;
 
   const PropertyInt({
     required this.label,
     required this.hint,
     required this.number,
-    this.labelStyle,
+    this.hintStyle,
     required this.onFinished,
     super.key,
   });
@@ -23,10 +23,10 @@ class PropertyInt extends StatelessWidget {
   Widget build(BuildContext context) {
     return PropertyWrapper(
       label: label,
-      labelStyle: labelStyle,
       children: [
         FieldInt(
           hint: hint,
+          hintStyle: hintStyle,
           number: number,
           onFinished: onFinished,
         ),

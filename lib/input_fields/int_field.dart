@@ -5,6 +5,7 @@ import "package:flutter/services.dart";
 class FieldInt extends StatelessWidget {
   final String? label;
   final String? hint;
+  final TextStyle? hintStyle;
   final int? number;
   final void Function(int? result) onFinished;
   final TextAlign? textAlign;
@@ -14,6 +15,7 @@ class FieldInt extends StatelessWidget {
   FieldInt({
     this.label,
     this.hint,
+    this.hintStyle,
     required this.number,
     required this.onFinished,
     this.textAlign,
@@ -54,6 +56,7 @@ class FieldInt extends StatelessWidget {
             decoration: InputDecoration(
               labelText: label,
               hintText: hint,
+              hintStyle: hintStyle,
               border: const OutlineInputBorder(),
               contentPadding: const EdgeInsets.symmetric(horizontal: 8),
               errorStyle: const TextStyle(height: 0),

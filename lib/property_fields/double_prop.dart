@@ -8,7 +8,7 @@ class PropertyDouble extends StatelessWidget {
   final String hint;
   final double? number;
   final bool nullable;
-  final TextStyle? labelStyle;
+  final TextStyle? hintStyle;
   final void Function(double? result) onFinished;
 
   const PropertyDouble({
@@ -16,7 +16,7 @@ class PropertyDouble extends StatelessWidget {
     required this.hint,
     required this.number,
     this.nullable = false,
-    this.labelStyle,
+    this.hintStyle,
     required this.onFinished,
     super.key,
   });
@@ -25,10 +25,10 @@ class PropertyDouble extends StatelessWidget {
   Widget build(BuildContext context) {
     return PropertyWrapper(
       label: label,
-      labelStyle: labelStyle,
       children: [
         FieldDouble(
           hint: hint,
+          hintStyle: hintStyle,
           number: number,
           nullable: nullable,
           onFinished: onFinished,

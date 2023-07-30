@@ -5,6 +5,7 @@ import "wrapper.dart";
 class PropertyString extends StatelessWidget {
   final String label;
   final String hint;
+  final TextStyle? hintStyle;
   final void Function(String? result) onFinished;
 
   final TextEditingController _controller;
@@ -12,6 +13,7 @@ class PropertyString extends StatelessWidget {
   PropertyString({
     required this.label,
     required this.hint,
+    this.hintStyle,
     required this.onFinished,
     super.key,
   }) : _controller = TextEditingController();
@@ -40,6 +42,7 @@ class PropertyString extends StatelessWidget {
                 controller: _controller,
                 decoration: InputDecoration(
                   hintText: hint,
+                  hintStyle: hintStyle,
                   border: const OutlineInputBorder(),
                   contentPadding: const EdgeInsets.symmetric(horizontal: 8),
                 ),

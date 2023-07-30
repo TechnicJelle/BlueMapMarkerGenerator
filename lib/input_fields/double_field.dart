@@ -5,6 +5,7 @@ import "package:flutter/services.dart";
 class FieldDouble extends StatelessWidget {
   final String? label;
   final String? hint;
+  final TextStyle? hintStyle;
   final double? number;
   final bool nullable;
   final void Function(double? result) onFinished;
@@ -14,6 +15,7 @@ class FieldDouble extends StatelessWidget {
   FieldDouble({
     this.label,
     this.hint,
+    this.hintStyle,
     this.number,
     this.nullable = false,
     required this.onFinished,
@@ -57,6 +59,7 @@ class FieldDouble extends StatelessWidget {
             decoration: InputDecoration(
               labelText: label,
               hintText: hint,
+              hintStyle: hintStyle,
               border: const OutlineInputBorder(),
               contentPadding: const EdgeInsets.symmetric(horizontal: 8),
               errorStyle: const TextStyle(height: 0),

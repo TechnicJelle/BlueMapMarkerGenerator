@@ -83,6 +83,7 @@ abstract class Marker {
             PropertyInt(
               label: propertySorting,
               hint: propertyNull,
+              hintStyle: const TextStyle(fontStyle: FontStyle.italic),
               number: sorting,
               onFinished: (result) => sorting = result,
             ),
@@ -96,6 +97,7 @@ abstract class Marker {
             PropertyDouble(
               label: propertyMinDistance,
               hint: propertyNull,
+              hintStyle: const TextStyle(fontStyle: FontStyle.italic),
               number: minDistance,
               nullable: true,
               onFinished: (result) => minDistance = result,
@@ -103,6 +105,7 @@ abstract class Marker {
             PropertyDouble(
               label: propertyMaxDistance,
               hint: propertyNull,
+              hintStyle: const TextStyle(fontStyle: FontStyle.italic),
               number: maxDistance,
               nullable: true,
               onFinished: (result) => maxDistance = result,
