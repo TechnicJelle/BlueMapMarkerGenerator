@@ -57,7 +57,7 @@ abstract class Marker {
         Icon(displayIcon),
         Wrap(
           direction: Axis.vertical,
-          spacing: 4,
+          spacing: 12,
           children: [
             Wrap(
               crossAxisAlignment: WrapCrossAlignment.center,

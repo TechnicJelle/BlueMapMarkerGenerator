@@ -21,7 +21,7 @@ const String understood = "Understood";
 //  Shared
 const String propertyID = "ID";
 const String propertyLabel = "Label";
-const String propertyNull = "Not set";
+const String propertyNull = "auto";
 const String propertySorting = "Sorting";
 //  Shared Markers
 const String propertyDetail = "Detail";

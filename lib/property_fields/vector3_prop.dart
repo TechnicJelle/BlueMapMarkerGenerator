@@ -23,17 +23,17 @@ class PropertyVector3 extends StatelessWidget {
       labelStyle: labelStyle,
       children: [
         FieldDouble(
-          hint: "X",
+          label: "X",
           number: vector.x,
           onFinished: (result) => vector.x = result,
         ),
         FieldDouble(
-          hint: "Y",
+          label: "Y",
           number: vector.y,
           onFinished: (result) => vector.y = result,
         ),
         FieldDouble(
-          hint: "Z",
+          label: "Z",
           number: vector.z,
           onFinished: (result) => vector.z = result,
         ),

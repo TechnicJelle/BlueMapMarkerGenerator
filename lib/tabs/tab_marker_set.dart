@@ -99,6 +99,7 @@ class _MarkerSetTabState extends State<MarkerSetTab> {
                   title: FieldInt(
                     hint: "0",
                     number: markerSet.sorting,
+                    textAlign: TextAlign.right,
                     onFinished: (int? result) => setState(() {
                       markerSet.sorting = result;
                     }),
