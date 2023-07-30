@@ -3,11 +3,11 @@ import "package:web_unload_confirmation_popup/web_unload_confirmation_popup.dart
 
 import "../lang.dart";
 import "../math/vector_types.dart";
+import "../property_fields/bool_prop.dart";
 import "../property_fields/double_prop.dart";
 import "../property_fields/int_prop.dart";
 import "../property_fields/label_prop.dart";
 import "../property_fields/vector3d_prop.dart";
-import "../property_fields/wrapper.dart";
 import "marker_line.dart";
 import "marker_poi.dart";
 
@@ -86,17 +86,12 @@ abstract class Marker {
               number: sorting,
               onFinished: (result) => sorting = result,
             ),
-            PropertyWrapper(
+            PropertyBool(
               label: propertyListed,
-              children: [
-                Checkbox(
-                  value: listed,
-                  tristate: true,
-                  onChanged: (bool? value) => setState(
-                    () => listed = value ?? false,
-                  ),
-                )
-              ],
+              state: listed,
+              onChanged: (bool? result) => setState(
+                () => listed = result ?? false,
+              ),
             ),
             PropertyDouble(
               label: propertyMinDistance,
