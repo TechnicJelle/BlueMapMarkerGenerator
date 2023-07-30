@@ -1,10 +1,12 @@
 import "package:flutter/material.dart";
 import "package:web_unload_confirmation_popup/web_unload_confirmation_popup.dart";
 
+import "../input_fields/double_field.dart";
 import "../lang.dart";
 import "../math/vector_types.dart";
 import "../property_fields/label_prop.dart";
 import "../property_fields/vector3_prop.dart";
+import "../property_fields/wrapper.dart";
 import "marker_line.dart";
 import "marker_poi.dart";
 

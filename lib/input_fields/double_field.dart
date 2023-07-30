@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import "package:flutter/services.dart";
 
+///Not nullable; defaults to 0.
 class FieldDouble extends StatelessWidget {
   final String hint;
   final double number;

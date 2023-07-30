@@ -1,15 +1,15 @@
 import "package:flutter/material.dart";
 
-import "../input_fields/double_field.dart";
+import "../input_fields/int_field.dart";
 import "wrapper.dart";
 
-class PropertyDouble extends StatelessWidget {
+class PropertyInt extends StatelessWidget {
   final String label;
-  final double number;
+  final int? number;
   final TextStyle? labelStyle;
-  final void Function(double result) onFinished;
+  final void Function(int? result) onFinished;
 
-  const PropertyDouble({
+  const PropertyInt({
     required this.label,
     required this.number,
     this.labelStyle,
@@ -21,9 +21,8 @@ class PropertyDouble extends StatelessWidget {
   Widget build(BuildContext context) {
     return PropertyWrapper(
       label: label,
-      labelStyle: labelStyle,
       children: [
-        FieldDouble(
+        FieldInt(
           hint: label,
           number: number,
           onFinished: onFinished,

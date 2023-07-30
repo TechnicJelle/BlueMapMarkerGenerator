@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 
 import "../input_fields/double_field.dart";
 import "../math/vector_types.dart";
+import "wrapper.dart";
 
 class PropertyVector3 extends StatelessWidget {
   final String label;
@@ -17,13 +18,10 @@ class PropertyVector3 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Wrap(
-      spacing: 8,
-      runSpacing: 8,
-      alignment: WrapAlignment.start,
-      crossAxisAlignment: WrapCrossAlignment.center,
+    return PropertyWrapper(
+      label: label,
+      labelStyle: labelStyle,
       children: [
-        Text("$label:", style: labelStyle),
         FieldDouble(
           hint: "X",
           number: vector.x,

@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import "package:flutter/services.dart";
 
+///Nullable (when empty)
 class FieldInt extends StatelessWidget {
   final String hint;
   final int? number;
