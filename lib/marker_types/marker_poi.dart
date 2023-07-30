@@ -16,7 +16,7 @@ class MarkerPOI extends Marker {
 
   String? detail;
   String? icon;
-  Vector2? anchor;
+  Vector2i? anchor;
 
   MarkerPOI({
     required super.position,
@@ -33,7 +33,7 @@ class MarkerPOI extends Marker {
         icon = json[_jsonKeyIcon],
         anchor = json[_jsonKeyAnchor] == null
             ? null
-            : Vector2.fromJson(json[_jsonKeyAnchor]),
+            : Vector2i.fromJson(json[_jsonKeyAnchor]),
         super.fromJson();
 
   @override

@@ -42,18 +42,18 @@ class DialogAddMarker extends StatelessWidget {
               items: [
                 DropdownMenuItem(
                   value: MarkerPOI(
-                    position: Vector3(0, 0, 0),
+                    position: Vector3d(0, 0, 0),
                     label: addMarkerTypePOI,
                   ),
                   child: const Text(addMarkerTypePOI),
                 ),
                 DropdownMenuItem(
                   value: MarkerLine(
-                    position: Vector3(0, 0, 0),
+                    position: Vector3d(0, 0, 0),
                     label: addMarkerTypeLine,
                     line: [
                       for (int i = 0; i < MarkerLine.minLinePoints; i++)
-                        Vector3(0, 0, 0),
+                        Vector3d(0, 0, 0),
                     ],
                   ),
                   child: const Text(addMarkerTypeLine),

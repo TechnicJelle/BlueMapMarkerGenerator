@@ -2,7 +2,7 @@ import "package:flutter/material.dart";
 
 import "../lang.dart";
 import "../math/vector_types.dart";
-import "../property_fields/vector3_prop.dart";
+import "../property_fields/vector3d_prop.dart";
 import "marker_base.dart";
 
 class MarkerLine extends Marker {
@@ -20,7 +20,7 @@ class MarkerLine extends Marker {
   @override
   IconData get displayIcon => Icons.line_axis;
 
-  List<Vector3> line;
+  List<Vector3d> line;
   String? detail;
   String? link;
   bool? newTab;
@@ -41,7 +41,7 @@ class MarkerLine extends Marker {
   @override
   MarkerLine.fromJson(super.json)
       : line = (json[_jsonKeyLine] as List<dynamic>)
-            .map((e) => Vector3.fromJson(e))
+            .map((e) => Vector3d.fromJson(e))
             .toList(),
         detail = json[_jsonKeyDetail],
         link = json[_jsonKeyLink],
@@ -66,7 +66,7 @@ class MarkerLine extends Marker {
           Wrap(
             crossAxisAlignment: WrapCrossAlignment.center,
             children: [
-              PropertyVector3(
+              PropertyVector3d(
                 label: padToMax(i + 1, line.length),
                 labelStyle: const TextStyle(fontFamily: monospaceFont),
                 vector: line[i],
@@ -84,7 +84,7 @@ class MarkerLine extends Marker {
             ],
           ),
         IconButton(
-          onPressed: () => setState(() => line.add(Vector3(0, 0, 0))),
+          onPressed: () => setState(() => line.add(Vector3d(0, 0, 0))),
           icon: const Icon(Icons.add),
         ),
       ];

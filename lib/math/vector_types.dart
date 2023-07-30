@@ -1,34 +1,34 @@
-class Vector2 {
-  double x;
-  double y;
+class Vector2i {
+  int x;
+  int y;
 
-  Vector2(this.x, this.y);
+  Vector2i(this.x, this.y);
 
   @override
-  String toString() => "Vector2($x, $y)";
+  String toString() => "Vector2i($x, $y)";
 
   Map<String, dynamic> toJson() => {
         "x": x,
         "y": y,
       };
 
-  static Vector2 fromJson(Map<String, dynamic> json) {
-    return Vector2(
+  static Vector2i fromJson(Map<String, dynamic> json) {
+    return Vector2i(
       json["x"],
       json["y"],
     );
   }
 }
 
-class Vector3 {
+class Vector3d {
   double x;
   double y;
   double z;
 
-  Vector3(this.x, this.y, this.z);
+  Vector3d(this.x, this.y, this.z);
 
   @override
-  String toString() => "Vector3($x, $y, $z)";
+  String toString() => "Vector3d($x, $y, $z)";
 
   Map<String, dynamic> toJson() => {
         "x": x,
@@ -36,8 +36,8 @@ class Vector3 {
         "z": z,
       };
 
-  static Vector3 fromJson(Map<String, dynamic> json) {
-    return Vector3(
+  static Vector3d fromJson(Map<String, dynamic> json) {
+    return Vector3d(
       json["x"],
       json["y"],
       json["z"],

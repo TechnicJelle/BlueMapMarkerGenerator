@@ -6,7 +6,7 @@ import "../math/vector_types.dart";
 import "../property_fields/double_prop.dart";
 import "../property_fields/int_prop.dart";
 import "../property_fields/label_prop.dart";
-import "../property_fields/vector3_prop.dart";
+import "../property_fields/vector3d_prop.dart";
 import "../property_fields/wrapper.dart";
 import "marker_line.dart";
 import "marker_poi.dart";
@@ -21,7 +21,7 @@ abstract class Marker {
   static const _jsonKeyMaxDistance = "max-distance";
 
   String type;
-  Vector3 position;
+  Vector3d position;
   String label;
   int? sorting;
   bool? listed;
@@ -42,7 +42,7 @@ abstract class Marker {
 
   Marker.fromJson(Map<String, dynamic> json)
       : type = json[_jsonKeyType],
-        position = Vector3.fromJson(json[_jsonKeyPosition]),
+        position = Vector3d.fromJson(json[_jsonKeyPosition]),
         label = json[_jsonKeyLabel],
         sorting = json[_jsonKeySorting],
         listed = json[_jsonKeyListed],
@@ -79,7 +79,7 @@ abstract class Marker {
                 ),
               ],
             ),
-            PropertyVector3(label: propertyPosition, vector: position),
+            PropertyVector3d(label: propertyPosition, vector: position),
             PropertyInt(
               label: propertySorting,
               hint: propertyNull,

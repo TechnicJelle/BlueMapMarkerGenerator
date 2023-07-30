@@ -4,12 +4,12 @@ import "../input_fields/double_field.dart";
 import "../math/vector_types.dart";
 import "wrapper.dart";
 
-class PropertyVector3 extends StatelessWidget {
+class PropertyVector3d extends StatelessWidget {
   final String label;
-  final Vector3 vector;
+  final Vector3d vector;
   final TextStyle? labelStyle;
 
-  const PropertyVector3({
+  const PropertyVector3d({
     required this.label,
     required this.vector,
     this.labelStyle,
