@@ -34,11 +34,11 @@ class FieldInt extends StatelessWidget {
                 extentOffset: _controller.text.length,
               );
             } else {
-              int? d = int.tryParse(_controller.text);
-              if (d != null) {
-                _controller.text = d.toString();
+              int? i = int.tryParse(_controller.text);
+              if (i != null) {
+                _controller.text = i.toString();
               }
-              onFinished(d);
+              onFinished(i);
             }
           },
           child: TextFormField(
@@ -60,7 +60,7 @@ class FieldInt extends StatelessWidget {
             ),
             autovalidateMode: AutovalidateMode.onUserInteraction,
             validator: (String? s) {
-              if (s == null || s.isEmpty) {
+              if (s == null || s.trim().isEmpty) {
                 return null;
               }
               if (int.tryParse(s) == null) {

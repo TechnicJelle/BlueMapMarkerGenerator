@@ -1,22 +1,25 @@
 import "package:flutter/material.dart";
 import "package:flutter/services.dart";
 
-///Not nullable; defaults to 0.
+///Nullable (when empty)
 class FieldDouble extends StatelessWidget {
   final String? label;
   final String? hint;
-  final double number;
-  final void Function(double result) onFinished;
+  final double? number;
+  final bool nullable;
+  final void Function(double? result) onFinished;
 
   final TextEditingController _controller;
 
   FieldDouble({
     this.label,
     this.hint,
-    required this.number,
+    this.number,
+    this.nullable = false,
     required this.onFinished,
     super.key,
-  }) : _controller = TextEditingController(text: number.toString());
+  })  : assert(nullable || number != null),
+        _controller = TextEditingController(text: number?.toString());
 
   @override
   Widget build(BuildContext context) {
@@ -32,8 +35,13 @@ class FieldDouble extends StatelessWidget {
                 extentOffset: _controller.text.length,
               );
             } else {
-              double d = double.tryParse(_controller.text) ?? 0;
-              _controller.text = d.toString();
+              double? d = double.tryParse(_controller.text);
+              if (d == null && !nullable) {
+                d = 0;
+              }
+              if (d != null) {
+                _controller.text = d.toString();
+              }
               onFinished(d);
             }
           },
@@ -55,7 +63,10 @@ class FieldDouble extends StatelessWidget {
             ),
             autovalidateMode: AutovalidateMode.onUserInteraction,
             validator: (String? s) {
-              if (s == null || s.trim().isEmpty || double.tryParse(s) == null) {
+              if (nullable && (s == null || s.trim().isEmpty)) {
+                return null;
+              }
+              if (s == null || double.tryParse(s) == null) {
                 return "";
               }
               return null;
