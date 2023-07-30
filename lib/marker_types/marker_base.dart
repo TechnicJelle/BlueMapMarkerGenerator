@@ -1,9 +1,9 @@
 import "package:flutter/material.dart";
 import "package:web_unload_confirmation_popup/web_unload_confirmation_popup.dart";
 
-import "../input_fields/double_field.dart";
 import "../lang.dart";
 import "../math/vector_types.dart";
+import "../property_fields/int_prop.dart";
 import "../property_fields/label_prop.dart";
 import "../property_fields/vector3_prop.dart";
 import "../property_fields/wrapper.dart";
@@ -75,8 +75,24 @@ abstract class Marker {
               ],
             ),
             PropertyVector3(label: propertyPosition, vector: position),
-            Text("$propertySorting: ${sorting ?? propertyNull}"),
-            Text("$propertyListed: ${listed ?? propertyNull}"),
+            PropertyInt(
+              label: propertySorting,
+              hint: propertyNull,
+              number: sorting,
+              onFinished: (result) => sorting = result,
+            ),
+            PropertyWrapper(
+              label: propertyListed,
+              children: [
+                Checkbox(
+                  value: listed,
+                  tristate: true,
+                  onChanged: (bool? value) => setState(
+                    () => listed = value ?? false,
+                  ),
+                )
+              ],
+            ),
             Text("$propertyMinDistance: ${minDistance ?? propertyNull}"),
             Text("$propertyMaxDistance: ${maxDistance ?? propertyNull}"),
             const SizedBox(height: 1),
