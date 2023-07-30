@@ -3,6 +3,7 @@ import "package:web_unload_confirmation_popup/web_unload_confirmation_popup.dart
 
 import "../lang.dart";
 import "../math/vector_types.dart";
+import "../property_fields/double_prop.dart";
 import "../property_fields/int_prop.dart";
 import "../property_fields/label_prop.dart";
 import "../property_fields/vector3_prop.dart";
@@ -93,8 +94,20 @@ abstract class Marker {
                 )
               ],
             ),
-            Text("$propertyMinDistance: ${minDistance ?? propertyNull}"),
-            Text("$propertyMaxDistance: ${maxDistance ?? propertyNull}"),
+            PropertyDouble(
+              label: propertyMinDistance,
+              hint: propertyNull,
+              number: minDistance,
+              nullable: true,
+              onFinished: (result) => minDistance = result,
+            ),
+            PropertyDouble(
+              label: propertyMaxDistance,
+              hint: propertyNull,
+              number: maxDistance,
+              nullable: true,
+              onFinished: (result) => maxDistance = result,
+            ),
             const SizedBox(height: 1),
             ...getProperties(setState),
           ],
