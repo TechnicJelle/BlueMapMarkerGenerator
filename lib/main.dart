@@ -14,42 +14,57 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return TechApp(
       title: appName,
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        useMaterial3: false,
-        colorScheme: const ColorScheme.light(
-          primary: myBlue,
-          secondary: Colors.blue,
-        ),
-        appBarTheme: const AppBarTheme(
-          color: myBlue,
-        ),
-        checkboxTheme: const CheckboxThemeData(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(4)),
-          ),
-        ),
-      ),
-      darkTheme: ThemeData(
-        useMaterial3: false,
-        colorScheme: const ColorScheme.dark(
-          primary: myBlue,
-          secondary: Colors.blue,
-        ),
-        appBarTheme: const AppBarTheme(
-          color: myBlue,
-        ),
-        checkboxTheme: const CheckboxThemeData(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(4)),
-          ),
-        ),
-      ),
+      primaryColour: myBlue,
+      secondaryColour: Colors.blue,
       // themeMode: ThemeMode.light,
       themeMode: ThemeMode.dark,
       home: const MyHome(),
     );
   }
+}
+
+class TechApp extends MaterialApp {
+  final Color primaryColour;
+  final Color secondaryColour;
+
+  TechApp({
+    required super.title,
+    super.debugShowCheckedModeBanner = false,
+    required this.primaryColour,
+    required this.secondaryColour,
+    required super.themeMode,
+    super.routes,
+    required super.home,
+    super.key,
+  }) : super(
+          theme: ThemeData(
+            useMaterial3: false,
+            colorScheme: ColorScheme.light(
+              primary: primaryColour,
+              secondary: secondaryColour,
+            ),
+          ),
+          darkTheme: ThemeData(
+            useMaterial3: false,
+            colorScheme: ColorScheme.dark(
+              primary: primaryColour,
+              secondary: secondaryColour,
+            ),
+          ),
+          builder: (BuildContext context, Widget? child) {
+            return Theme(
+              data: Theme.of(context).copyWith(
+                appBarTheme: AppBarTheme(color: primaryColour),
+                checkboxTheme: const CheckboxThemeData(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(4)),
+                  ),
+                ),
+              ),
+              child: child!,
+            );
+          },
+        );
 }
