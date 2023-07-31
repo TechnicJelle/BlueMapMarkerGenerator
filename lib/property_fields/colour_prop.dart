@@ -24,48 +24,69 @@ class PropertyColour extends StatelessWidget {
     return PropertyWrapper(
       label: label,
       children: [
-        ElevatedButton(
-          style: ElevatedButton.styleFrom(backgroundColor: pickerColor),
-          onPressed: () async {
-            showDialog<Color>(
-              context: context,
-              builder: (BuildContext context) {
-                return AlertDialog(
-                  title: const Text(colourPickerTitle),
-                  content: SingleChildScrollView(
-                    child: ColorPicker(
-                      pickerColor: pickerColor,
-                      onColorChanged: (Color value) => pickerColor = value,
-                      hexInputBar: true,
-                      displayThumbColor: true,
-                      paletteType: PaletteType.hsv,
-                      labelTypes: const [
-                        ColorLabelType.rgb,
-                        ColorLabelType.hsv,
-                      ],
-                    ),
-                  ),
-                  actions: <Widget>[
-                    ElevatedButton(
-                      child: const Text(confirm),
-                      onPressed: () {
-                        Navigator.of(context).pop(pickerColor);
-                      },
-                    ),
-                  ],
-                );
-              },
-            ).then((Color? value) => onChanged.call(value ?? pickerColor));
-          },
-          child: Text(
-            initialColour == null ? setColour : changeColour,
-            style: TextStyle(
-              color: getTextColourForBackground(pickerColor),
+        IndexedStack(
+          index: initialColour == null ? 0 : 1,
+          children: [
+            OutlinedButton(
+              onPressed: () => showPopup(context, pickerColor),
+              child: Text(
+                setColour,
+                style: TextStyle(
+                  color: Theme.of(context).textTheme.bodyLarge?.color,
+                ),
+              ),
             ),
-          ),
-        )
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(backgroundColor: pickerColor),
+              onPressed: () => showPopup(context, pickerColor),
+              child: Text(
+                changeColour,
+                style: TextStyle(
+                  color: getTextColourForBackground(pickerColor),
+                ),
+              ),
+            )
+          ],
+        ),
       ],
     );
+  }
+
+  Future<void> showPopup(BuildContext context, Color pickerColor) async {
+    showDialog<Color>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text(colourPickerTitle),
+          content: SingleChildScrollView(
+            child: ColorPicker(
+              pickerColor: pickerColor,
+              onColorChanged: (Color value) => pickerColor = value,
+              hexInputBar: true,
+              displayThumbColor: true,
+              paletteType: PaletteType.hsv,
+              labelTypes: const [
+                ColorLabelType.rgb,
+                ColorLabelType.hsv,
+              ],
+            ),
+          ),
+          actions: [
+            TextButton(
+              child: const Text(cancel),
+              onPressed: () => Navigator.of(context).pop(null),
+            ),
+            TextButton(
+              child: const Text(confirm),
+              onPressed: () => Navigator.of(context).pop(pickerColor),
+            ),
+          ],
+        );
+      },
+    ).then((Color? value) {
+      if (value == null) return; //Dialog was dismissed
+      onChanged(value);
+    });
   }
 }
 
