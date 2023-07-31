@@ -85,6 +85,7 @@ class MarkerLine extends Marker {
         PropertyDouble(
           label: propertyLineWidth,
           hint: propertyNull,
+          hintStyle: const TextStyle(fontStyle: FontStyle.italic),
           number: lineWidth,
           nullable: true,
           onFinished: (result) => lineWidth = result,
