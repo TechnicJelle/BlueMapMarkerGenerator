@@ -2,6 +2,9 @@ import "package:flutter/material.dart";
 
 import "../lang.dart";
 import "../math/vector_types.dart";
+import "../property_fields/bool_prop.dart";
+import "../property_fields/double_prop.dart";
+import "../property_fields/string_prop.dart";
 import "../property_fields/vector3d_prop.dart";
 import "marker_base.dart";
 
@@ -55,11 +58,35 @@ class MarkerLine extends Marker {
 
   @override
   List<Widget> getProperties(StateSetter setState) => [
-        Text("$propertyDetail: ${detail ?? propertyNull}"),
-        Text("$propertyLink: ${link ?? propertyNull}"),
-        Text("$propertyNewTab: ${newTab ?? propertyNull}"),
-        Text("$propertyDepthTest: ${depthTest ?? propertyNull}"),
-        Text("$propertyLineWidth: ${lineWidth ?? propertyNull}"),
+        PropertyString(
+          label: propertyDetail,
+          hint: label,
+          onFinished: (String? result) => detail = result,
+        ),
+        PropertyString(
+          label: propertyLink,
+          hint: propertyNull,
+          hintStyle: const TextStyle(fontStyle: FontStyle.italic),
+          onFinished: (String? result) => link = result, //TODO: validate URL
+        ),
+        PropertyBool(
+          label: propertyNewTab,
+          state: newTab,
+          onChanged: (bool? result) => setState(() => newTab = result ?? false),
+        ),
+        PropertyBool(
+          label: propertyDepthTest,
+          state: depthTest,
+          onChanged: (bool? result) =>
+              setState(() => depthTest = result ?? false),
+        ),
+        PropertyDouble(
+          label: propertyLineWidth,
+          hint: propertyNull,
+          number: lineWidth,
+          nullable: true,
+          onFinished: (result) => lineWidth = result,
+        ),
         Text("$propertyLineColor: ${lineColor ?? propertyNull}"),
         const Text("$propertyLine:"),
         for (int i = 0; i < line.length; i++)
