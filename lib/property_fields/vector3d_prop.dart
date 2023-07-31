@@ -1,7 +1,7 @@
 import "package:flutter/material.dart";
 
+import "../custom_types/vector_types.dart";
 import "../input_fields/double_field.dart";
-import "../math/vector_types.dart";
 import "wrapper.dart";
 
 class PropertyVector3d extends StatelessWidget {

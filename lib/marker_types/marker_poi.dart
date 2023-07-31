@@ -1,7 +1,7 @@
 import "package:flutter/material.dart";
 
+import "../custom_types/vector_types.dart";
 import "../lang.dart";
-import "../math/vector_types.dart";
 import "../property_fields/string_prop.dart";
 import "marker_base.dart";
 

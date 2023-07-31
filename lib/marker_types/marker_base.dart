@@ -1,8 +1,8 @@
 import "package:flutter/material.dart";
 import "package:web_unload_confirmation_popup/web_unload_confirmation_popup.dart";
 
+import "../custom_types/vector_types.dart";
 import "../lang.dart";
-import "../math/vector_types.dart";
 import "../property_fields/bool_prop.dart";
 import "../property_fields/double_prop.dart";
 import "../property_fields/int_prop.dart";

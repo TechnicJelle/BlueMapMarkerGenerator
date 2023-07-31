@@ -1,8 +1,10 @@
 import "package:flutter/material.dart";
 
+import "../custom_types/colour_type.dart";
+import "../custom_types/vector_types.dart";
 import "../lang.dart";
-import "../math/vector_types.dart";
 import "../property_fields/bool_prop.dart";
+import "../property_fields/colour_prop.dart";
 import "../property_fields/double_prop.dart";
 import "../property_fields/string_prop.dart";
 import "../property_fields/vector3d_prop.dart";
@@ -29,7 +31,7 @@ class MarkerLine extends Marker {
   bool? newTab;
   bool? depthTest;
   double? lineWidth;
-  Color? lineColor;
+  Colour? lineColor;
 
   MarkerLine({
     required super.position,
@@ -53,7 +55,7 @@ class MarkerLine extends Marker {
         lineWidth = json[_jsonKeyLineWidth],
         lineColor = json[_jsonKeyLineColor] == null
             ? null
-            : Color(json[_jsonKeyLineColor]),
+            : Colour.fromJson(json[_jsonKeyLineColor]),
         super.fromJson();
 
   @override
@@ -87,7 +89,12 @@ class MarkerLine extends Marker {
           nullable: true,
           onFinished: (result) => lineWidth = result,
         ),
-        Text("$propertyLineColor: ${lineColor ?? propertyNull}"),
+        PropertyColour(
+          label: propertyLineColor,
+          initialColour: lineColor?.toColor(),
+          onChanged: (Color result) =>
+              setState(() => lineColor = Colour.fromColor(result)),
+        ),
         const Text("$propertyLine:"),
         for (int i = 0; i < line.length; i++)
           Wrap(

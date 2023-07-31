@@ -16,6 +16,7 @@ const String add = "Add";
 const String delete = "Delete";
 const String areYouSure = "Are you sure?";
 const String understood = "Understood";
+const String confirm = "Confirm";
 
 //Properties
 //  Shared
@@ -48,6 +49,11 @@ const String propertyLineColor = "Line Color";
 const String cannotBeEmpty = "Can't be empty";
 const String noDuplicateIDs = "Can't have a duplicate ID";
 const String invalidCharacter = "Invalid character";
+
+//Colour picker
+const String setColour = "Set Colour";
+const String changeColour = "Change Colour";
+const String colourPickerTitle = "Pick a colour";
 
 //Load Save Buttons
 const String loadButtonTooltip = "Load Marker Set (Ctrl+O)";
