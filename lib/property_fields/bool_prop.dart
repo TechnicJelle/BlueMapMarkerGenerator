@@ -19,19 +19,12 @@ class PropertyBool extends StatelessWidget {
     return PropertyWrapper(
       label: label,
       children: [
-        CheckboxTheme(
-          data: CheckboxThemeData(
-            shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(4)),
-            ),
-            fillColor:
-                state == null ? MaterialStateProperty.all(Colors.grey) : null,
-          ),
-          child: Checkbox(
-            value: state,
-            tristate: true,
-            onChanged: onChanged,
-          ),
+        Checkbox(
+          fillColor:
+              state == null ? MaterialStateProperty.all(Colors.grey) : null,
+          value: state,
+          tristate: true,
+          onChanged: onChanged,
         )
       ],
     );

@@ -26,6 +26,11 @@ class MyApp extends StatelessWidget {
         appBarTheme: const AppBarTheme(
           color: myBlue,
         ),
+        checkboxTheme: const CheckboxThemeData(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(4)),
+          ),
+        ),
       ),
       darkTheme: ThemeData(
         useMaterial3: false,
@@ -35,6 +40,11 @@ class MyApp extends StatelessWidget {
         ),
         appBarTheme: const AppBarTheme(
           color: myBlue,
+        ),
+        checkboxTheme: const CheckboxThemeData(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(4)),
+          ),
         ),
       ),
       // themeMode: ThemeMode.light,

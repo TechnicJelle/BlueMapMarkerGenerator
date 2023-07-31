@@ -78,6 +78,9 @@ class _MarkerSetTabState extends State<MarkerSetTab> {
                 title: const Text(propertyToggleable),
                 value: markerSet.toggleable,
                 tristate: true,
+                fillColor: markerSet.toggleable == null
+                    ? MaterialStateProperty.all(Colors.grey)
+                    : null,
                 onChanged: (bool? value) => setState(() {
                   markerSet.toggleable = value ?? false;
                 }),
@@ -86,6 +89,9 @@ class _MarkerSetTabState extends State<MarkerSetTab> {
                 title: const Text(propertyDefaultHidden),
                 value: markerSet.defaultHidden,
                 tristate: true,
+                fillColor: markerSet.defaultHidden == null
+                    ? MaterialStateProperty.all(Colors.grey)
+                    : null,
                 onChanged: (bool? value) => setState(() {
                   markerSet.defaultHidden = value ?? false;
                 }),
