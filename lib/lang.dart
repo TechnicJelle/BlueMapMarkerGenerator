@@ -51,8 +51,6 @@ const String noDuplicateIDs = "Can't have a duplicate ID";
 const String invalidCharacter = "Invalid character";
 
 //Colour picker
-const String setColour = "Set Colour";
-const String changeColour = "Change Colour";
 const String colourPickerTitle = "Pick a colour";
 
 //Load Save Buttons
