@@ -54,6 +54,7 @@ class MarkerSet {
         itemCount: markers.length,
         itemBuilder: (context, index) {
           MapEntry<String, Marker> entry = markers.entries.elementAt(index);
+          const padding = EdgeInsets.symmetric(horizontal: 16, vertical: 8);
           return InkWell(
             canRequestFocus: false,
             mouseCursor: SystemMouseCursors.basic,
@@ -62,7 +63,9 @@ class MarkerSet {
             onSecondaryTapDown: (details) => _mouse = details.globalPosition,
             onSecondaryTap: () => rightClickMenu(context, setState, entry.key),
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              padding: index == markers.length - 1
+                  ? padding.copyWith(bottom: 48)
+                  : padding,
               child: Row(
                 children: [
                   Expanded(child: entry.value.toWidget(entry.key, setState)),
