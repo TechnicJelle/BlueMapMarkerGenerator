@@ -48,6 +48,7 @@ class PropertyColour extends StatelessWidget {
               ),
             ),
             ElevatedButton.icon(
+              onPressed: () => showPopup(context, pickerColor),
               style: ElevatedButton.styleFrom(
                 backgroundColor: pickerColor,
                 shadowColor: pickerColor.opacity < 0.2
@@ -56,7 +57,6 @@ class PropertyColour extends StatelessWidget {
                         : Colors.white
                     : Colors.black,
               ),
-              onPressed: () => showPopup(context, pickerColor),
               icon: Icon(
                 Icons.color_lens,
                 color: getTextColourForBackground(pickerColor),
@@ -97,7 +97,7 @@ class PropertyColour extends StatelessWidget {
               TextFormField(
                 controller: controller,
                 decoration: const InputDecoration(
-                  labelText: "Hex",
+                  labelText: hex,
                   prefixText: "#",
                 ),
                 autofocus: true,
