@@ -1,14 +1,16 @@
 import "package:flutter/material.dart";
 import "package:flutter/services.dart";
 
-///Nullable (when empty)
 class FieldInt extends StatelessWidget {
   final String? label;
   final String? hint;
   final TextStyle? hintStyle;
   final int? number;
+  final bool nullable;
   final void Function(int? result) onFinished;
+
   final TextAlign? textAlign;
+  final bool autofocus;
 
   final TextEditingController _controller;
 
@@ -16,11 +18,14 @@ class FieldInt extends StatelessWidget {
     this.label,
     this.hint,
     this.hintStyle,
-    required this.number,
+    this.number,
+    this.nullable = false,
     required this.onFinished,
     this.textAlign,
+    this.autofocus = false,
     super.key,
-  }) : _controller = TextEditingController(text: number?.toString());
+  })  : assert(nullable || number != null),
+        _controller = TextEditingController(text: number?.toString());
 
   @override
   Widget build(BuildContext context) {
@@ -37,6 +42,9 @@ class FieldInt extends StatelessWidget {
               );
             } else {
               int? i = int.tryParse(_controller.text);
+              if (i == null && !nullable) {
+                i = 0;
+              }
               if (i != null) {
                 _controller.text = i.toString();
               }
@@ -45,6 +53,7 @@ class FieldInt extends StatelessWidget {
           },
           child: TextFormField(
             controller: _controller,
+            autofocus: autofocus,
             textAlign: textAlign ?? TextAlign.start,
             keyboardType: const TextInputType.numberWithOptions(
               decimal: false,
@@ -63,10 +72,10 @@ class FieldInt extends StatelessWidget {
             ),
             autovalidateMode: AutovalidateMode.onUserInteraction,
             validator: (String? s) {
-              if (s == null || s.trim().isEmpty) {
+              if (nullable && (s == null || s.trim().isEmpty)) {
                 return null;
               }
-              if (int.tryParse(s) == null) {
+              if (s == null || int.tryParse(s) == null) {
                 return "";
               }
               return null;

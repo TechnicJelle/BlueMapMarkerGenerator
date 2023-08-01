@@ -85,6 +85,7 @@ abstract class Marker {
               hint: propertyNull,
               hintStyle: const TextStyle(fontStyle: FontStyle.italic),
               number: sorting,
+              nullable: true,
               onFinished: (result) => sorting = result,
             ),
             PropertyBool(

@@ -7,6 +7,7 @@ class PropertyInt extends StatelessWidget {
   final String label;
   final String hint;
   final int? number;
+  final bool nullable;
   final TextStyle? hintStyle;
   final void Function(int? result) onFinished;
 
@@ -14,6 +15,7 @@ class PropertyInt extends StatelessWidget {
     required this.label,
     required this.hint,
     required this.number,
+    this.nullable = false,
     this.hintStyle,
     required this.onFinished,
     super.key,
@@ -28,6 +30,7 @@ class PropertyInt extends StatelessWidget {
           hint: hint,
           hintStyle: hintStyle,
           number: number,
+          nullable: nullable,
           onFinished: onFinished,
         ),
       ],

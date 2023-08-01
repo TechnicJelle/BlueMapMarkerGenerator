@@ -103,8 +103,9 @@ class _MarkerSetTabState extends State<MarkerSetTab> {
                       style: Theme.of(context).textTheme.titleMedium),
                   titleAlignment: ListTileTitleAlignment.center,
                   title: FieldInt(
-                    hint: "0",
+                    hint: propertyNull,
                     number: markerSet.sorting,
+                    nullable: true,
                     textAlign: TextAlign.right,
                     onFinished: (int? result) => setState(() {
                       markerSet.sorting = result;
