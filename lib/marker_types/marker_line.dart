@@ -111,6 +111,11 @@ class MarkerLine extends Marker {
                 child: Focus(
                   descendantsAreTraversable: false,
                   child: IconButton(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 0,
+                      horizontal: 8,
+                    ),
+                    constraints: const BoxConstraints(maxHeight: 32),
                     onPressed: () => setState(() => line.removeAt(i)),
                     icon: const Icon(Icons.delete_forever),
                   ),
