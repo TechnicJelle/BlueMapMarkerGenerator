@@ -52,7 +52,7 @@ class PropertyColour extends StatelessWidget {
     );
   }
 
-  Future<void> showPopup(BuildContext context, Color pickerColor) async {
+  void showPopup(BuildContext context, Color pickerColor) {
     showDialog<Color>(
       context: context,
       builder: (BuildContext context) {
