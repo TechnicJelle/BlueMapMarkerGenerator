@@ -71,7 +71,7 @@ class PropertyAnchor extends StatelessWidget {
       context: context,
       builder: (BuildContext context) {
         Vector2i vector = initialVector ?? Vector2i(0, 0);
-        return _Dialog(vector: vector);
+        return _Dialog(initialVector: vector);
       },
     ).then((Vector2i? value) {
       if (value == null) return; //Dialog was cancelled
@@ -80,21 +80,26 @@ class PropertyAnchor extends StatelessWidget {
   }
 }
 
-// ignore: must_be_immutable
 class _Dialog extends StatefulWidget {
-  Uint8List? imageBytes;
-  Vector2i? imageSize;
+  final Vector2i initialVector;
 
-  _Dialog({required this.vector});
-
-  final Vector2i vector;
+  const _Dialog({required this.initialVector});
 
   @override
   State<_Dialog> createState() => _DialogState();
 }
 
 class _DialogState extends State<_Dialog> {
+  late Vector2i vector;
+  Uint8List? imageBytes;
+  Vector2i? imageSize;
   final imageAreaKey = GlobalKey();
+
+  @override
+  void initState() {
+    super.initState();
+    vector = widget.initialVector;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -104,7 +109,7 @@ class _DialogState extends State<_Dialog> {
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          if (widget.imageBytes == null)
+          if (imageBytes == null)
             ElevatedButton.icon(
               onPressed: () async {
                 FilePickerResult? result = await FilePicker.platform.pickFiles(
@@ -122,10 +127,10 @@ class _DialogState extends State<_Dialog> {
                 }
 
                 ui.Image img = await decodeImageFromList(bytes);
-                widget.imageSize = Vector2i(img.width, img.height);
+                imageSize = Vector2i(img.width, img.height);
 
                 setState(() {
-                  widget.imageBytes = bytes;
+                  imageBytes = bytes;
                 });
               },
               icon: const Icon(Icons.upload),
@@ -134,26 +139,25 @@ class _DialogState extends State<_Dialog> {
           else
             Flexible(
               child: InteractiveViewer(
-                key: imageAreaKey,
                 minScale: 1,
                 maxScale: double.infinity,
                 child: GestureDetector(
                   onTapDown: (TapDownDetails details) {
                     Offset tapPos = details.localPosition;
-                    Vector2i imageSize = widget.imageSize!;
                     Size widgetSize = imageAreaKey.currentContext!.size!;
 
-                    double x = tapPos.dx * (imageSize.x / widgetSize.width);
-                    double y = tapPos.dy * (imageSize.y / widgetSize.height);
+                    double x = tapPos.dx * (imageSize!.x / widgetSize.width);
+                    double y = tapPos.dy * (imageSize!.y / widgetSize.height);
 
                     Vector2i clickPos = Vector2i(x.toInt(), y.toInt());
                     setState(() {
-                      widget.vector.x = clickPos.x;
-                      widget.vector.y = clickPos.y;
+                      vector.x = clickPos.x;
+                      vector.y = clickPos.y;
                     });
                   },
                   child: Image.memory(
-                    widget.imageBytes!,
+                    key: imageAreaKey,
+                    imageBytes!,
                     filterQuality: FilterQuality.none,
                   ),
                 ),
@@ -165,14 +169,14 @@ class _DialogState extends State<_Dialog> {
             children: [
               FieldInt(
                 label: "X",
-                number: widget.vector.x,
-                onFinished: (int? result) => widget.vector.x = result ?? 0,
+                number: vector.x,
+                onFinished: (int? result) => vector.x = result ?? 0,
               ),
               const SizedBox(width: 10),
               FieldInt(
                 label: "Y",
-                number: widget.vector.y,
-                onFinished: (int? result) => widget.vector.y = result ?? 0,
+                number: vector.y,
+                onFinished: (int? result) => vector.y = result ?? 0,
               ),
             ],
           ),
@@ -185,7 +189,7 @@ class _DialogState extends State<_Dialog> {
         ),
         TextButton(
           child: const Text(confirm),
-          onPressed: () => Navigator.of(context).pop(widget.vector),
+          onPressed: () => Navigator.of(context).pop(vector),
         ),
       ],
     );
