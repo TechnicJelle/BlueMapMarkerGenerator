@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 
 import "../custom_types/vector_types.dart";
 import "../lang.dart";
+import "../property_fields/anchor_prop.dart";
 import "../property_fields/string_prop.dart";
 import "marker_base.dart";
 
@@ -49,7 +50,11 @@ class MarkerPOI extends Marker {
           hintStyle: const TextStyle(fontStyle: FontStyle.italic),
           onFinished: (String? result) => icon = result,
         ),
-        Text("$propertyAnchor: ${anchor ?? propertyNull}"),
+        PropertyAnchor(
+          label: propertyAnchor,
+          initialVector: anchor,
+          onFinished: (Vector2i? result) => setState(() => anchor = result),
+        ),
       ];
 
   @override

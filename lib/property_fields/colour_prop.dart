@@ -10,13 +10,11 @@ import "wrapper.dart";
 class PropertyColour extends StatelessWidget {
   final String label;
   final Color? initialColour;
-  final Color defaultColour;
   final void Function(Color colour) onChanged;
 
   const PropertyColour({
     required this.label,
     required this.initialColour,
-    this.defaultColour = Colors.grey,
     required this.onChanged,
     super.key,
   });

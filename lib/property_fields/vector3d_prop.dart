@@ -25,17 +25,17 @@ class PropertyVector3d extends StatelessWidget {
         FieldDouble(
           label: "X",
           number: vector.x,
-          onFinished: (result) => vector.x = result ?? 0,
+          onFinished: (double? result) => vector.x = result ?? 0,
         ),
         FieldDouble(
           label: "Y",
           number: vector.y,
-          onFinished: (result) => vector.y = result ?? 0,
+          onFinished: (double? result) => vector.y = result ?? 0,
         ),
         FieldDouble(
           label: "Z",
           number: vector.z,
-          onFinished: (result) => vector.z = result ?? 0,
+          onFinished: (double? result) => vector.z = result ?? 0,
         ),
       ],
     );

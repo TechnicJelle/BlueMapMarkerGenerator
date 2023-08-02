@@ -54,6 +54,10 @@ const String invalidCharacter = "Invalid character";
 const String hex = "Hex";
 const String colourPickerTitle = "Pick a colour";
 
+// Anchor picker
+const String anchorPickerTitle = "Select anchor pixel";
+const String anchorPickerUpload = "Upload marker icon";
+
 //Load Save Buttons
 const String loadButtonTooltip = "Load Marker Set (Ctrl+O)";
 const String saveButtonTooltip = "Save Marker Set (Ctrl+S)";
