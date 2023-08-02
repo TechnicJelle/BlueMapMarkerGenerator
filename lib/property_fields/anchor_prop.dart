@@ -1,3 +1,4 @@
+import "dart:async";
 import "dart:io";
 import "dart:ui" as ui show Image;
 
@@ -92,8 +93,12 @@ class _Dialog extends StatefulWidget {
 class _DialogState extends State<_Dialog> {
   late Vector2i vector;
   Uint8List? imageBytes;
-  Vector2i? imageSize;
+  Size? imageSize;
+
   final imageAreaKey = GlobalKey();
+  final viewportAreaKey = GlobalKey();
+
+  final controller = TransformationController();
 
   @override
   void initState() {
@@ -127,10 +132,27 @@ class _DialogState extends State<_Dialog> {
                 }
 
                 ui.Image img = await decodeImageFromList(bytes);
-                imageSize = Vector2i(img.width, img.height);
+                imageSize = Size(img.width.toDouble(), img.height.toDouble());
 
                 setState(() {
                   imageBytes = bytes;
+                });
+
+                Timer(const Duration(milliseconds: 100), () {
+                  //Ideally this wouldn't be a timer, but oh well...
+                  Size viewportSize = viewportAreaKey.currentContext!.size!;
+                  Size halfViewportSize = viewportSize / 2.0;
+                  Size scaledImageSize =
+                      imageSize! * controller.value.getMaxScaleOnAxis();
+                  Size halfScaledImageSize = scaledImageSize / 2.0;
+
+                  setState(() {
+                    controller.value.setTranslationRaw(
+                      halfViewportSize.width - halfScaledImageSize.width,
+                      halfViewportSize.height - halfScaledImageSize.height,
+                      0,
+                    );
+                  });
                 });
               },
               icon: const Icon(Icons.upload),
@@ -138,21 +160,30 @@ class _DialogState extends State<_Dialog> {
             )
           else
             Flexible(
+              key: viewportAreaKey,
               child: InteractiveViewer(
-                minScale: 1,
+                transformationController: controller,
+                minScale: double.minPositive,
                 maxScale: double.infinity,
+                constrained: false,
+                boundaryMargin: const EdgeInsets.all(1000),
                 child: GestureDetector(
                   onTapDown: (TapDownDetails details) {
+                    Size imageAreaSize = imageAreaKey.currentContext!.size!;
+
+                    Size factor = Size(
+                      imageAreaSize.width / imageSize!.width,
+                      imageAreaSize.height / imageSize!.height,
+                    );
+
                     Offset tapPos = details.localPosition;
-                    Size widgetSize = imageAreaKey.currentContext!.size!;
 
-                    double x = tapPos.dx * (imageSize!.x / widgetSize.width);
-                    double y = tapPos.dy * (imageSize!.y / widgetSize.height);
+                    double x = tapPos.dx * factor.width;
+                    double y = tapPos.dy * factor.height;
 
-                    Vector2i clickPos = Vector2i(x.toInt(), y.toInt());
                     setState(() {
-                      vector.x = clickPos.x;
-                      vector.y = clickPos.y;
+                      vector.x = x.truncate();
+                      vector.y = y.truncate();
                     });
                   },
                   child: Image.memory(
