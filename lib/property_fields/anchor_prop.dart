@@ -1,10 +1,11 @@
 import "dart:async";
 import "dart:io";
-import "dart:ui" as ui show Image;
+import "dart:ui" as ui show Image, FragmentShader;
 
 import "package:file_picker/file_picker.dart";
 import "package:flutter/foundation.dart";
 import "package:flutter/material.dart";
+import "package:flutter_shaders/flutter_shaders.dart";
 
 import "../custom_types/vector_types.dart";
 import "../input_fields/int_field.dart";
@@ -186,10 +187,30 @@ class _DialogState extends State<_Dialog> {
                       vector.y = y.truncate();
                     });
                   },
-                  child: Image.memory(
-                    key: imageAreaKey,
-                    imageBytes!,
-                    filterQuality: FilterQuality.none,
+                  child: ShaderBuilder(
+                    assetKey: "assets/shaders/checker.frag",
+                    (context, shader, child) => CustomPaint(
+                      painter: _ShaderPainter(
+                        shader: shader,
+                      ),
+                      child: child,
+                    ),
+                    child: ShaderBuilder(
+                      assetKey: "assets/shaders/grid.frag",
+                      (context, shader, child) => CustomPaint(
+                        foregroundPainter: _GridShaderPainter(
+                          controller: controller,
+                          shader: shader,
+                        ),
+                        child: child,
+                      ),
+                      child: Image.memory(
+                        key: imageAreaKey,
+                        imageBytes!,
+                        filterQuality: FilterQuality.none,
+                        // color: Colors.transparent,
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -224,5 +245,41 @@ class _DialogState extends State<_Dialog> {
         ),
       ],
     );
+  }
+}
+
+class _ShaderPainter extends CustomPainter {
+  final ui.FragmentShader shader;
+
+  _ShaderPainter({required this.shader});
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    shader.setFloat(0, size.width);
+    shader.setFloat(1, size.height);
+
+    final paint = Paint()..shader = shader;
+    canvas.drawRect(
+      Rect.fromLTWH(0, 0, size.width, size.height),
+      paint,
+    );
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) {
+    return false;
+  }
+}
+
+class _GridShaderPainter extends _ShaderPainter {
+  final TransformationController controller;
+
+  _GridShaderPainter({required this.controller, required super.shader});
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    shader.setFloat(2, controller.value.getMaxScaleOnAxis());
+    shader.setFloat(3, 0.9);
+    super.paint(canvas, size);
   }
 }
