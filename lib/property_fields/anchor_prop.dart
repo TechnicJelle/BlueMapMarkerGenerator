@@ -30,40 +30,35 @@ class PropertyAnchor extends StatelessWidget {
     return PropertyWrapper(
       label: label,
       children: [
-        IndexedStack(
-          index: initialVector == null ? 0 : 1,
-          children: [
-            OutlinedButton.icon(
-              onPressed: () => showPopup(context),
-              icon: Icon(
-                Icons.highlight_alt,
+        if (initialVector == null) //no IndexedStack, due to focus issues
+          OutlinedButton.icon(
+            onPressed: () => showPopup(context),
+            icon: Icon(
+              Icons.highlight_alt,
+              color: textColour,
+            ),
+            label: Text(
+              propertyNull,
+              style: TextStyle(
                 color: textColour,
-              ),
-              label: Text(
-                propertyNull,
-                style: TextStyle(
-                  color: textColour,
-                  fontStyle: FontStyle.italic,
-                ),
+                fontStyle: FontStyle.italic,
               ),
             ),
-            ElevatedButton.icon(
-              onPressed: () => showPopup(context),
-              style:
-                  ElevatedButton.styleFrom(backgroundColor: Colors.grey[700]),
-              icon: Icon(
-                Icons.highlight_alt,
+          )
+        else
+          ElevatedButton.icon(
+            onPressed: () => showPopup(context),
+            icon: Icon(
+              Icons.highlight_alt,
+              color: textColour,
+            ),
+            label: Text(
+              "X: ${initialVector?.x}   Y: ${initialVector?.y}",
+              style: TextStyle(
                 color: textColour,
               ),
-              label: Text(
-                "X: ${initialVector?.x}   Y: ${initialVector?.y}",
-                style: TextStyle(
-                  color: textColour,
-                ),
-              ),
-            )
-          ],
-        )
+            ),
+          )
       ],
     );
   }

@@ -64,6 +64,11 @@ class TechApp extends MaterialApp {
                     borderRadius: BorderRadius.all(Radius.circular(4)),
                   ),
                 ),
+                elevatedButtonTheme: ElevatedButtonThemeData(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: secondaryColour,
+                  ),
+                ),
               ),
               child: child!,
             );
