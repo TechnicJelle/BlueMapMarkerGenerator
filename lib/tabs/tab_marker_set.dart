@@ -48,8 +48,7 @@ class _MarkerSetTabState extends State<MarkerSetTab> {
     const double totalHeight = singleHeight * 3;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor:
-            Theme.of(context).colorScheme.secondary.withOpacity(0.7),
+        backgroundColor: Theme.of(context).colorScheme.surfaceVariant,
         toolbarHeight: totalHeight,
         centerTitle: true,
         title: SizedBox(

@@ -44,6 +44,7 @@ class TechApp extends MaterialApp {
             colorScheme: ColorScheme.light(
               primary: primaryColour,
               secondary: secondaryColour,
+              surfaceVariant: lighten(secondaryColour, 0.075),
             ),
           ),
           darkTheme: ThemeData(
@@ -51,6 +52,7 @@ class TechApp extends MaterialApp {
             colorScheme: ColorScheme.dark(
               primary: primaryColour,
               secondary: secondaryColour,
+              surfaceVariant: lighten(secondaryColour, 0.075),
             ),
           ),
           builder: (BuildContext context, Widget? child) {
@@ -67,4 +69,13 @@ class TechApp extends MaterialApp {
             );
           },
         );
+}
+
+Color lighten(Color color, [double amount = .1]) {
+  assert(amount >= 0.0 && amount <= 1.0);
+
+  final hsl = HSLColor.fromColor(color);
+  final hslLight = hsl.withLightness((hsl.lightness + amount).clamp(0.0, 1.0));
+
+  return hslLight.toColor();
 }
