@@ -26,6 +26,7 @@ const String propertyNull = "auto";
 const String propertySorting = "Sorting";
 //  Shared Markers
 const String propertyDetail = "Detail";
+const String propertyClasses = "Classes";
 //  Marker Set
 const String propertyToggleable = "Toggleable";
 const String propertyDefaultHidden = "Default Hidden";

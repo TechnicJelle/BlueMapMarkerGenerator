@@ -5,6 +5,7 @@ import "wrapper.dart";
 class PropertyString extends StatelessWidget {
   final String label;
   final String hint;
+  final TextStyle? labelStyle;
   final TextStyle? hintStyle;
   final void Function(String? result) onFinished;
 
@@ -13,15 +14,18 @@ class PropertyString extends StatelessWidget {
   PropertyString({
     required this.label,
     required this.hint,
+    String? text,
+    this.labelStyle,
     this.hintStyle,
     required this.onFinished,
     super.key,
-  }) : _controller = TextEditingController();
+  }) : _controller = TextEditingController(text: text);
 
   @override
   Widget build(BuildContext context) {
     return PropertyWrapper(
       label: label,
+      labelStyle: labelStyle,
       children: [
         ConstrainedBox(
           constraints: const BoxConstraints(minWidth: 50, maxHeight: 32),

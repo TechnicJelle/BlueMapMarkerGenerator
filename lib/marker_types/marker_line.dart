@@ -96,7 +96,15 @@ class MarkerLine extends Marker {
           onChanged: (Color result) =>
               setState(() => lineColor = Colour.fromColor(result)),
         ),
-        const Text("$propertyLine:"),
+        Row(
+          children: [
+            const Text("$propertyLine:"),
+            IconButton(
+              onPressed: () => setState(() => line.add(Vector3d(0, 0, 0))),
+              icon: const Icon(Icons.add),
+            ),
+          ],
+        ),
         for (int i = 0; i < line.length; i++)
           Wrap(
             crossAxisAlignment: WrapCrossAlignment.center,
@@ -123,10 +131,6 @@ class MarkerLine extends Marker {
               ),
             ],
           ),
-        IconButton(
-          onPressed: () => setState(() => line.add(Vector3d(0, 0, 0))),
-          icon: const Icon(Icons.add),
-        ),
       ];
 
   @override
