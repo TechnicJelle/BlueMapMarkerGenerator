@@ -48,26 +48,29 @@ class _TabAddState extends State<TabAdd> {
             child: Column(
               children: [
                 const Text(addMarkerSetTabHint),
-                TextFormField(
-                  controller: labelController,
-                  autofocus: true,
-                  decoration: const InputDecoration(labelText: propertyLabel),
-                  textInputAction: TextInputAction.next,
-                  textCapitalization: TextCapitalization.words,
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  validator: (String? s) {
-                    if (s == null || s.trim().isEmpty) {
-                      return cannotBeEmpty;
-                    }
-                    return null;
-                  },
-                  onChanged: (String s) {
-                    idController.text = s
-                        .toLowerCase()
-                        .replaceAll(regexLabelToID, " ")
-                        .trim()
-                        .replaceAll(regexMultipleSpaces, "-");
-                  },
+                Tooltip(
+                  message: tooltipLabelMarkerSet,
+                  child: TextFormField(
+                    controller: labelController,
+                    autofocus: true,
+                    decoration: const InputDecoration(labelText: propertyLabel),
+                    textInputAction: TextInputAction.next,
+                    textCapitalization: TextCapitalization.words,
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    validator: (String? s) {
+                      if (s == null || s.trim().isEmpty) {
+                        return cannotBeEmpty;
+                      }
+                      return null;
+                    },
+                    onChanged: (String s) {
+                      idController.text = s
+                          .toLowerCase()
+                          .replaceAll(regexLabelToID, " ")
+                          .trim()
+                          .replaceAll(regexMultipleSpaces, "-");
+                    },
+                  ),
                 ),
                 Focus(
                   canRequestFocus: false,

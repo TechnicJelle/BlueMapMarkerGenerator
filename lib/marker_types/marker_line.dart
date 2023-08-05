@@ -20,10 +20,13 @@ class MarkerLine extends Marker {
   static const _jsonKeyLineWidth = "line-width";
   static const _jsonKeyLineColor = "line-color";
 
-  static const int minLinePoints = 2;
+  static const int _minLinePoints = 2;
 
   @override
   IconData get displayIcon => Icons.line_axis;
+
+  @override
+  String get tooltipType => tooltipTypeLine;
 
   List<Vector3d> line;
   String? detail;
@@ -34,14 +37,14 @@ class MarkerLine extends Marker {
   Colour? lineColor;
 
   MarkerLine({
-    required super.position,
-    required super.label,
-    required this.line,
     super.sorting,
     super.listed,
     super.minDistance,
     super.maxDistance,
-  }) : super(type: typeLine);
+  })  : line = [
+          for (int i = 0; i < _minLinePoints; i++) Vector3d(0, 0, 0),
+        ],
+        super(type: typeLine);
 
   @override
   MarkerLine.fromJson(super.json)
@@ -62,28 +65,33 @@ class MarkerLine extends Marker {
   List<Widget> getProperties(StateSetter setState) => [
         PropertyString(
           label: propertyDetail,
+          tooltip: tooltipDetailLine,
           hint: label,
           onFinished: (String? result) => detail = result,
         ),
         PropertyString(
           label: propertyLink,
+          tooltip: tooltipLink,
           hint: propertyNull,
           hintStyle: const TextStyle(fontStyle: FontStyle.italic),
           onFinished: (String? result) => link = result, //TODO: validate URL
         ),
         PropertyBool(
           label: propertyNewTab,
+          tooltip: tooltipNewTab,
           state: newTab,
           onChanged: (bool? result) => setState(() => newTab = result ?? false),
         ),
         PropertyBool(
           label: propertyDepthTest,
+          tooltip: tooltipDepthTest,
           state: depthTest,
           onChanged: (bool? result) =>
               setState(() => depthTest = result ?? false),
         ),
         PropertyDouble(
           label: propertyLineWidth,
+          tooltip: tooltipLineWidth,
           hint: propertyNull,
           hintStyle: const TextStyle(fontStyle: FontStyle.italic),
           number: lineWidth,
@@ -92,13 +100,17 @@ class MarkerLine extends Marker {
         ),
         PropertyColour(
           label: propertyLineColor,
+          tooltip: tooltipLineColor,
           initialColour: lineColor?.toColor(),
           onChanged: (Color result) =>
               setState(() => lineColor = Colour.fromColor(result)),
         ),
         Row(
           children: [
-            const Text("$propertyLine:"),
+            const Tooltip(
+              message: tooltipLine,
+              child: Text("$propertyLine:"),
+            ),
             IconButton(
               onPressed: () => setState(() => line.add(Vector3d(0, 0, 0))),
               icon: const Icon(Icons.add),
@@ -111,11 +123,12 @@ class MarkerLine extends Marker {
             children: [
               PropertyVector3d(
                 label: padToMax(i + 1, line.length),
+                tooltip: "",
                 labelStyle: const TextStyle(fontFamily: monospaceFont),
                 vector: line[i],
               ),
               Visibility(
-                visible: line.length > minLinePoints,
+                visible: line.length > _minLinePoints,
                 child: Focus(
                   descendantsAreTraversable: false,
                   child: IconButton(

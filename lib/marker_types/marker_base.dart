@@ -30,13 +30,12 @@ abstract class Marker {
 
   Marker({
     required this.type,
-    required this.position,
-    required this.label,
+    this.label = ">!!This should never appear!!<",
     this.sorting,
     this.listed,
     this.minDistance,
     this.maxDistance,
-  }) {
+  }) : position = Vector3d(0, 0, 0) {
     WebUnloadConfirmationPopup.activate();
   }
 
@@ -55,7 +54,10 @@ abstract class Marker {
       spacing: 16,
       runSpacing: 8,
       children: [
-        Icon(displayIcon),
+        Tooltip(
+          message: tooltipType,
+          child: Icon(displayIcon),
+        ),
         Wrap(
           direction: Axis.vertical,
           spacing: 12,
@@ -64,10 +66,13 @@ abstract class Marker {
               crossAxisAlignment: WrapCrossAlignment.center,
               spacing: 4,
               children: [
-                PropertyLabel(
-                  label: label,
-                  onChanged: (s) => label = s,
-                  onFinished: (s) => setState(() => label = s),
+                Tooltip(
+                  message: tooltipLabelMarker,
+                  child: PropertyLabel(
+                    label: label,
+                    onChanged: (s) => label = s,
+                    onFinished: (s) => setState(() => label = s),
+                  ),
                 ),
                 Text(
                   "($id)",
@@ -79,9 +84,14 @@ abstract class Marker {
                 ),
               ],
             ),
-            PropertyVector3d(label: propertyPosition, vector: position),
+            PropertyVector3d(
+              label: propertyPosition,
+              tooltip: tooltipPosition,
+              vector: position,
+            ),
             PropertyInt(
               label: propertySorting,
+              tooltip: tooltipSortingMarker,
               hint: propertyNull,
               hintStyle: const TextStyle(fontStyle: FontStyle.italic),
               number: sorting,
@@ -90,6 +100,7 @@ abstract class Marker {
             ),
             PropertyBool(
               label: propertyListed,
+              tooltip: tooltipListed,
               state: listed,
               onChanged: (bool? result) => setState(
                 () => listed = result ?? false,
@@ -97,6 +108,7 @@ abstract class Marker {
             ),
             PropertyDouble(
               label: propertyMinDistance,
+              tooltip: tooltipDistance,
               hint: propertyNull,
               hintStyle: const TextStyle(fontStyle: FontStyle.italic),
               number: minDistance,
@@ -105,6 +117,7 @@ abstract class Marker {
             ),
             PropertyDouble(
               label: propertyMaxDistance,
+              tooltip: tooltipDistance,
               hint: propertyNull,
               hintStyle: const TextStyle(fontStyle: FontStyle.italic),
               number: maxDistance,
@@ -120,6 +133,8 @@ abstract class Marker {
   }
 
   IconData get displayIcon;
+
+  String get tooltipType;
 
   List<Widget> getProperties(StateSetter setState);
 

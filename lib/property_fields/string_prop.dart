@@ -4,6 +4,7 @@ import "wrapper.dart";
 
 class PropertyString extends StatelessWidget {
   final String label;
+  final String tooltip;
   final String hint;
   final TextStyle? labelStyle;
   final TextStyle? hintStyle;
@@ -13,6 +14,7 @@ class PropertyString extends StatelessWidget {
 
   PropertyString({
     required this.label,
+    required this.tooltip,
     required this.hint,
     String? text,
     this.labelStyle,
@@ -26,6 +28,7 @@ class PropertyString extends StatelessWidget {
     return PropertyWrapper(
       label: label,
       labelStyle: labelStyle,
+      tooltip: tooltip,
       children: [
         ConstrainedBox(
           constraints: const BoxConstraints(minWidth: 50, maxHeight: 32),

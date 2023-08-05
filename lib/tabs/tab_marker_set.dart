@@ -74,7 +74,10 @@ class _MarkerSetTabState extends State<MarkerSetTab> {
               //   ),
               // ),
               CheckboxListTile(
-                title: const Text(propertyToggleable),
+                title: const Tooltip(
+                  message: tooltipToggleable,
+                  child: Text(propertyToggleable),
+                ),
                 value: markerSet.toggleable,
                 tristate: true,
                 fillColor: markerSet.toggleable == null
@@ -85,7 +88,10 @@ class _MarkerSetTabState extends State<MarkerSetTab> {
                 }),
               ),
               CheckboxListTile(
-                title: const Text(propertyDefaultHidden),
+                title: const Tooltip(
+                  message: tooltipDefaultHidden,
+                  child: Text(propertyDefaultHidden),
+                ),
                 value: markerSet.defaultHidden,
                 tristate: true,
                 fillColor: markerSet.defaultHidden == null
@@ -98,8 +104,11 @@ class _MarkerSetTabState extends State<MarkerSetTab> {
               ConstrainedBox(
                 constraints: const BoxConstraints(maxHeight: singleHeight),
                 child: ListTile(
-                  leading: Text(propertySorting,
-                      style: Theme.of(context).textTheme.titleMedium),
+                  leading: Tooltip(
+                    message: tooltipSortingMarkerSet,
+                    child: Text(propertySorting,
+                        style: Theme.of(context).textTheme.titleMedium),
+                  ),
                   titleAlignment: ListTileTitleAlignment.center,
                   title: FieldInt(
                     hint: propertyNull,

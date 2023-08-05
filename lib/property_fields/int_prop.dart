@@ -5,6 +5,7 @@ import "wrapper.dart";
 
 class PropertyInt extends StatelessWidget {
   final String label;
+  final String tooltip;
   final String hint;
   final int? number;
   final bool nullable;
@@ -13,6 +14,7 @@ class PropertyInt extends StatelessWidget {
 
   const PropertyInt({
     required this.label,
+    required this.tooltip,
     required this.hint,
     required this.number,
     this.nullable = false,
@@ -25,6 +27,7 @@ class PropertyInt extends StatelessWidget {
   Widget build(BuildContext context) {
     return PropertyWrapper(
       label: label,
+      tooltip: tooltip,
       children: [
         FieldInt(
           hint: hint,

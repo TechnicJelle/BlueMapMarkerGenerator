@@ -17,14 +17,15 @@ class MarkerPOI extends Marker {
   @override
   IconData get displayIcon => Icons.place;
 
+  @override
+  String get tooltipType => tooltipTypePOI;
+
   String? detail;
   String? icon;
   Vector2i? anchor;
   List<String> classes;
 
   MarkerPOI({
-    required super.position,
-    required super.label,
     super.sorting,
     super.listed,
     super.minDistance,
@@ -48,11 +49,13 @@ class MarkerPOI extends Marker {
   List<Widget> getProperties(StateSetter setState) => [
         PropertyString(
           label: propertyDetail,
+          tooltip: tooltipDetailPOI,
           hint: label,
           onFinished: (String? result) => detail = result,
         ),
         PropertyString(
           label: propertyIcon,
+          tooltip: tooltipIcon,
           hint: propertyNull,
           hintStyle: const TextStyle(fontStyle: FontStyle.italic),
           onFinished: (String? result) => icon = result,

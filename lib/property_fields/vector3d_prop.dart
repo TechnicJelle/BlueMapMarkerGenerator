@@ -6,13 +6,15 @@ import "wrapper.dart";
 
 class PropertyVector3d extends StatelessWidget {
   final String label;
-  final Vector3d vector;
   final TextStyle? labelStyle;
+  final String tooltip;
+  final Vector3d vector;
 
   const PropertyVector3d({
     required this.label,
-    required this.vector,
     this.labelStyle,
+    required this.tooltip,
+    required this.vector,
     super.key,
   });
 
@@ -21,6 +23,7 @@ class PropertyVector3d extends StatelessWidget {
     return PropertyWrapper(
       label: label,
       labelStyle: labelStyle,
+      tooltip: tooltip,
       children: [
         FieldDouble(
           label: "X",

@@ -22,7 +22,10 @@ class PropertyClasses extends StatelessWidget {
       children: [
         Row(
           children: [
-            const Text("$propertyClasses:"),
+            const Tooltip(
+              message: tooltipClasses,
+              child: Text("$propertyClasses:"),
+            ),
             IconButton(
               onPressed: () => setState(() => classes.add("")),
               icon: const Icon(Icons.add),
@@ -36,6 +39,7 @@ class PropertyClasses extends StatelessWidget {
               PropertyString(
                 label: padToMax(i + 1, classes.length),
                 labelStyle: const TextStyle(fontFamily: monospaceFont),
+                tooltip: "",
                 hint: " " * 20,
                 text: classes[i],
                 onFinished: (String? result) {

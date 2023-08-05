@@ -9,11 +9,13 @@ import "wrapper.dart";
 
 class PropertyColour extends StatelessWidget {
   final String label;
+  final String tooltip;
   final Color? initialColour;
   final void Function(Color colour) onChanged;
 
   const PropertyColour({
     required this.label,
+    required this.tooltip,
     required this.initialColour,
     required this.onChanged,
     super.key,
@@ -24,6 +26,7 @@ class PropertyColour extends StatelessWidget {
     Color pickerColor = initialColour ?? getRandomColour();
     return PropertyWrapper(
       label: label,
+      tooltip: tooltip,
       children: [
         IndexedStack(
           index: initialColour == null ? 0 : 1,

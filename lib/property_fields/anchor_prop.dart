@@ -29,6 +29,7 @@ class PropertyAnchor extends StatelessWidget {
     Color? textColour = Theme.of(context).textTheme.bodyLarge?.color;
     return PropertyWrapper(
       label: label,
+      tooltip: tooltipAnchor,
       children: [
         if (initialVector == null) //no IndexedStack, due to focus issues
           OutlinedButton.icon(

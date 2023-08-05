@@ -1,6 +1,5 @@
 import "package:flutter/material.dart";
 
-import "custom_types/vector_types.dart";
 import "lang.dart";
 import "marker_set.dart";
 import "marker_types/marker_base.dart";
@@ -40,22 +39,14 @@ class DialogAddMarker extends StatelessWidget {
               autofocus: true,
               decoration: const InputDecoration(labelText: addMarkerMarkerType),
               items: [
-                DropdownMenuItem(
-                  value: MarkerPOI(
-                    position: Vector3d(0, 0, 0),
-                    label: addMarkerTypePOI,
-                  ),
+                _MarkerMenuItem(
+                  tooltip: tooltipTypePOI,
+                  value: MarkerPOI(),
                   child: const Text(addMarkerTypePOI),
                 ),
-                DropdownMenuItem(
-                  value: MarkerLine(
-                    position: Vector3d(0, 0, 0),
-                    label: addMarkerTypeLine,
-                    line: [
-                      for (int i = 0; i < MarkerLine.minLinePoints; i++)
-                        Vector3d(0, 0, 0),
-                    ],
-                  ),
+                _MarkerMenuItem(
+                  tooltip: tooltipTypeLine,
+                  value: MarkerLine(),
                   child: const Text(addMarkerTypeLine),
                 ),
               ],
@@ -68,26 +59,29 @@ class DialogAddMarker extends StatelessWidget {
               },
               onChanged: (Marker? m) => marker = m,
             ),
-            TextFormField(
-              autofocus: false,
-              decoration: const InputDecoration(labelText: propertyLabel),
-              textInputAction: TextInputAction.next,
-              textCapitalization: TextCapitalization.words,
-              autovalidateMode: AutovalidateMode.onUserInteraction,
-              validator: (String? s) {
-                if (s == null || s.trim().isEmpty) {
-                  return cannotBeEmpty;
-                }
-                return null;
-              },
-              onChanged: (String s) {
-                marker?.label = s;
-                idController.text = s
-                    .toLowerCase()
-                    .replaceAll(regexLabelToID, " ")
-                    .trim()
-                    .replaceAll(regexMultipleSpaces, "-");
-              },
+            Tooltip(
+              message: tooltipLabelMarker,
+              child: TextFormField(
+                autofocus: false,
+                decoration: const InputDecoration(labelText: propertyLabel),
+                textInputAction: TextInputAction.next,
+                textCapitalization: TextCapitalization.words,
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                validator: (String? s) {
+                  if (s == null || s.trim().isEmpty) {
+                    return cannotBeEmpty;
+                  }
+                  return null;
+                },
+                onChanged: (String s) {
+                  marker?.label = s;
+                  idController.text = s
+                      .toLowerCase()
+                      .replaceAll(regexLabelToID, " ")
+                      .trim()
+                      .replaceAll(regexMultipleSpaces, "-");
+                },
+              ),
             ),
             Focus(
               canRequestFocus: false,
@@ -137,6 +131,25 @@ class DialogAddMarker extends StatelessWidget {
           child: const Text(add),
         ),
       ],
+    );
+  }
+}
+
+class _MarkerMenuItem<T extends Marker> extends DropdownMenuItem<T> {
+  final String tooltip;
+
+  const _MarkerMenuItem({
+    super.key,
+    required this.tooltip,
+    required super.value,
+    required super.child,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Tooltip(
+      message: tooltip,
+      child: super.build(context),
     );
   }
 }

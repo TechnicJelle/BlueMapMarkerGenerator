@@ -2,11 +2,13 @@ import "package:flutter/material.dart";
 
 class PropertyWrapper extends StatelessWidget {
   final String label;
+  final String tooltip;
   final TextStyle? labelStyle;
   final List<Widget> children;
 
   const PropertyWrapper({
     required this.label,
+    required this.tooltip,
     this.labelStyle,
     required this.children,
     super.key,
@@ -20,7 +22,10 @@ class PropertyWrapper extends StatelessWidget {
       alignment: WrapAlignment.start,
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
-        Text("$label:", style: labelStyle),
+        Tooltip(
+          message: tooltip,
+          child: Text("$label:", style: labelStyle),
+        ),
         ...children,
       ],
     );
