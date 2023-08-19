@@ -5,6 +5,7 @@ import "marker_set.dart";
 import "marker_types/marker_base.dart";
 import "marker_types/marker_line.dart";
 import "marker_types/marker_poi.dart";
+import "marker_types/marker_shape.dart";
 
 // ignore: must_be_immutable
 class DialogAddMarker extends StatelessWidget {
@@ -48,6 +49,11 @@ class DialogAddMarker extends StatelessWidget {
                   tooltip: tooltipTypeLine,
                   value: MarkerLine(),
                   child: const Text(addMarkerTypeLine),
+                ),
+                _MarkerMenuItem(
+                  tooltip: tooltipTypeShape,
+                  value: MarkerShape(),
+                  child: const Text(addMarkerTypeShape),
                 ),
               ],
               autovalidateMode: AutovalidateMode.onUserInteraction,

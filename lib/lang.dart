@@ -30,6 +30,19 @@ const String propertyDetail = "Detail";
 const String propertyClasses = "Classes";
 const String tooltipClasses =
     "A list of CSS classes that will be added to the marker-element. Useful if you want to style them with custom css or use them in a custom script.";
+const String propertyLink = "Link";
+const String propertyNewTab = "New Tab";
+const String tooltipNewTab =
+    "Whether the above link should be opened in a new tab or not.";
+const String propertyDepthTest = "Depth Test";
+const String tooltipDepthTest =
+    "Whether the line should be drawn above all other (hires) terrain. If disabled, hires tiles will be able to cover the line if they are in front of it";
+const String propertyLineWidth = "Line Width";
+const String tooltipLineWidth = "The width of the line in pixels";
+const String propertyLineColor = "Line Color";
+const String tooltipLineColor = "The colour of the line";
+const String propertyFillColor = "Fill Color";
+const String tooltipFillColor = "The colour of the fill";
 
 //  Marker Set
 const String tooltipLabelMarkerSet =
@@ -61,7 +74,7 @@ const String tooltipDistance =
 
 //  Marker Poi
 const String tooltipTypePOI =
-    "The POI Marker is the most basic marker. It’s a simple icon-image that can be placed anywhere on the map. When clicked, it shows its label (or detail, if set).";
+    "The POI Marker is the most basic marker. It's a simple icon-image that can be placed anywhere on the map. When clicked, it shows its label (or detail, if set).";
 const String tooltipDetailPOI =
     "The text that is shown when you click on the icon. This property allows using any HTML tags. It defaults to the label of the marker.";
 const String propertyIcon = "Icon";
@@ -72,26 +85,28 @@ const String tooltipAnchor =
     "Could also be called \"offset\". It's basically the pixel on the marker-image, that is placed (anchored) at the marker's position. Usually you'd want this to be the middle of the marker-image, but, for example, if you have a needle as your icon, you'd want this to be the tip of the needle.";
 
 //  Marker Line
-const String propertyLine = "Line";
 const String tooltipTypeLine =
-    "Line Markers do what their name suggests. They are used to draw a line on the map. If you click on that line, it shows the marker’s detail.";
+    "Line Markers do what their name suggests. They are used to draw a line on the map. If you click on that line, it shows the marker's detail.";
+const String propertyLine = "Line";
 const String tooltipLine =
     "The list of positions that define this line. The line will be drawn between the positions, in their order.";
 const String tooltipDetailLine =
     "The text that is shown when you click on the line. This property allows using any html-tags.";
-const String propertyLink = "Link";
-const String tooltipLink =
+const String tooltipLinkLine =
     "An optional url that is opened when you click on the line. Disabled if empty.";
-const String propertyNewTab = "New Tab";
-const String tooltipNewTab =
-    "Whether the above link should be opened in a new tab or not.";
-const String propertyDepthTest = "Depth Test";
-const String tooltipDepthTest =
-    "Whether the line should be drawn above all other (hires) terrain. If disabled, hires tiles will be able to cover the line if they are in front of it";
-const String propertyLineWidth = "Line Width";
-const String tooltipLineWidth = "The width of the line in pixels";
-const String propertyLineColor = "Line Color";
-const String tooltipLineColor = "The colour of the line";
+
+//  Marker Shape
+const String tooltipTypeShape =
+    "A Shape Marker is any flat shape (polygon) placed somewhere on the map. You can use it to mark areas, for example. If you click on the shape, it shows the marker's detail.";
+const String propertyShape = "Shape";
+const String tooltipShape =
+    "The list of x,z positions (without y) that define this shape. The shape will be drawn between the positions, in their order. The last position is automatically connected to the first position.";
+const String propertyShapeY = "Shape Y";
+const String tooltipShapeY = "The Y-position of the shape.";
+const String tooltipDetailShape =
+    "The text that is shown when you click on the shape. This property allows using any html-tags.";
+const String tooltipLinkShape =
+    "An optional url that is opened when you click on the shape. Disabled if empty.";
 
 //Text field error hints
 const String cannotBeEmpty = "Can't be empty";
@@ -175,3 +190,4 @@ const String addMarkerTitle = "Add Marker";
 const String addMarkerMarkerType = "Type";
 const String addMarkerTypePOI = "POI";
 const String addMarkerTypeLine = "Line";
+const String addMarkerTypeShape = "Shape";

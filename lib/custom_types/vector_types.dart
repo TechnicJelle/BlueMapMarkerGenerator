@@ -20,6 +20,28 @@ class Vector2i {
   }
 }
 
+class Vector2d {
+  double x;
+  double z;
+
+  Vector2d(this.x, this.z);
+
+  @override
+  String toString() => "Vector2d($x, $z)";
+
+  Map<String, dynamic> toJson() => {
+        "x": x,
+        "z": z,
+      };
+
+  static Vector2d fromJson(Map<String, dynamic> json) {
+    return Vector2d(
+      json["x"],
+      json["z"],
+    );
+  }
+}
+
 class Vector3d {
   double x;
   double y;

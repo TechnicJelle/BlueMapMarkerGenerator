@@ -10,6 +10,7 @@ import "../property_fields/label_prop.dart";
 import "../property_fields/vector3d_prop.dart";
 import "marker_line.dart";
 import "marker_poi.dart";
+import "marker_shape.dart";
 
 abstract class Marker {
   static const _jsonKeyType = "type";
@@ -154,6 +155,8 @@ abstract class Marker {
         return MarkerPOI.fromJson(json);
       case MarkerLine.typeLine:
         return MarkerLine.fromJson(json);
+      case MarkerShape.typeShape:
+        return MarkerShape.fromJson(json);
       default:
         throw Exception("Unknown marker type: ${json[_jsonKeyType]}");
     }
