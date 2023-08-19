@@ -127,6 +127,8 @@ Make sure to replace the path here with the correct path to the .conf file!""";
 
 //Add Marker Set Tab
 const String addMarkerSetTabHint = "Add a new Marker Set";
+const String repoLink = "Click to visit the source GitHub repository";
+const String tooltipRepoLink = "Feel free to open an issue or pull request!";
 
 //Marker Set Tab
 const String deleteMarker = "Delete Marker";

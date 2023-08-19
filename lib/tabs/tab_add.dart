@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:url_launcher/url_launcher.dart";
 
 import "../lang.dart";
 import "tab_marker_set.dart";
@@ -109,6 +110,22 @@ class _TabAddState extends State<TabAdd> {
                   onPressed: () => validateAndAdd(),
                   child: const Text(add),
                 ),
+                Expanded(child: Container()),
+                Tooltip(
+                  message: tooltipRepoLink,
+                  child: TextButton(
+                    onPressed: () async {
+                      final Uri url = Uri.parse(
+                          "https://github.com/TechnicJelle/BlueMapMarkerGenerator");
+                      if (!await launchUrl(url,
+                          mode: LaunchMode.externalApplication)) {
+                        throw Exception("Could not launch $url");
+                      }
+                    },
+                    child: const Text(repoLink),
+                  ),
+                ),
+                const SizedBox(height: 8),
               ],
             ),
           ),
