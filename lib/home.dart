@@ -4,8 +4,10 @@ import "dart:io";
 import "package:file_picker/file_picker.dart";
 import "package:file_saver/file_saver.dart";
 import "package:flutter/foundation.dart";
+import "package:flutter/gestures.dart";
 import "package:flutter/material.dart";
 import "package:flutter/services.dart";
+import "package:url_launcher/url_launcher.dart";
 import "package:web_unload_confirmation_popup/web_unload_confirmation_popup.dart";
 
 import "code_block.dart";
@@ -31,6 +33,12 @@ class _MyHomeState extends State<MyHome> {
 
   @override
   Widget build(BuildContext context) {
+    ThemeData scrollbarTheme = Theme.of(context).copyWith(
+        scrollbarTheme: ScrollbarThemeData(
+      thickness: MaterialStateProperty.all(2),
+      thumbVisibility: MaterialStateProperty.all(true),
+      interactive: false,
+    ));
     return CallbackShortcuts(
       bindings: {
         const SingleActivator(LogicalKeyboardKey.keyS, control: true): () =>
@@ -64,6 +72,32 @@ class _MyHomeState extends State<MyHome> {
             title: const Text(appName, maxLines: 2),
             actions: [
               IconButton(
+                icon: const Icon(Icons.help_outline),
+                tooltip: helpTitle,
+                onPressed: () => {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) => AlertDialog(
+                      title: const Text(helpTitle),
+                      content: Theme(
+                        data: scrollbarTheme,
+                        child: SingleChildScrollView(
+                          controller: PrimaryScrollController.of(context),
+                          child: const _Help(),
+                        ),
+                      ),
+                      actions: [
+                        TextButton(
+                          onPressed: () => Navigator.pop(context),
+                          child: const Text(understood),
+                        ),
+                      ],
+                    ),
+                  )
+                },
+              ),
+              const SizedBox(width: 16),
+              IconButton(
                 icon: const Icon(Icons.upload_file),
                 tooltip: loadButtonTooltip,
                 onPressed: () async {
@@ -93,31 +127,26 @@ class _MyHomeState extends State<MyHome> {
                 },
               ),
               IconButton(
-                icon: const Icon(Icons.save_alt),
+                icon: const Icon(Icons.save),
                 tooltip: saveButtonTooltip,
                 onPressed: () async {
                   if (showTutorial) {
                     bool? show = await showDialog<bool>(
                       context: context,
                       builder: (BuildContext context) => AlertDialog(
-                        title: const Text(usageInformationTitle),
+                        title: const Text(installInstructionsTitle),
                         content: Theme(
-                          data: Theme.of(context).copyWith(
-                            scrollbarTheme: ScrollbarThemeData(
-                              thickness: MaterialStateProperty.all(2),
-                              thumbVisibility: MaterialStateProperty.all(true),
-                              interactive: false,
-                            ),
-                          ),
+                          data: scrollbarTheme,
                           child: SingleChildScrollView(
                             controller: PrimaryScrollController.of(context),
-                            child: const UsageInformation(),
+                            child: const _UsageInformation(),
                           ),
                         ),
                         actions: [
                           TextButton(
                             onPressed: () => Navigator.pop(context, false),
-                            child: const Text(usageInformationDoNotShowAgain),
+                            child:
+                                const Text(installInstructionsDoNotShowAgain),
                           ),
                           ElevatedButton(
                             onPressed: () => Navigator.pop(context, true),
@@ -230,8 +259,8 @@ class _MyHomeState extends State<MyHome> {
   }
 }
 
-class UsageInformation extends StatelessWidget {
-  const UsageInformation({super.key});
+class _UsageInformation extends StatelessWidget {
+  const _UsageInformation();
 
   @override
   Widget build(BuildContext context) {
@@ -239,7 +268,7 @@ class UsageInformation extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: [
-        Text(usageInformationText1),
+        Text(installInstructionsText1),
         SizedBox(
           width: double.infinity,
           child: CodeBlock(
@@ -251,16 +280,77 @@ marker-sets: {
             copy: false,
           ),
         ),
-        Text(usageInformationText2),
+        Text(installInstructionsText2),
         SizedBox(
           width: double.infinity,
           child: CodeBlock(
-            """include required(file("$usageInformationPathTo$_fileName.$_fileExtension"))""",
+            """include required(file("$installInstructionsPathTo$_fileName.$_fileExtension"))""",
             copy: true,
           ),
         ),
-        Text(usageInformationText3),
+        Text(installInstructionsText3),
       ],
     );
+  }
+}
+
+class _Help extends StatelessWidget {
+  const _Help();
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text.rich(TextSpan(
+          children: [
+            const TextSpan(text: helpText1),
+            _link(
+              helpText1Link,
+              "https://bluemap.bluecolored.de/wiki/customization/Markers.html",
+            ),
+            const TextSpan(text: helpText2),
+            _link(
+              helpText2Link,
+              "https://bluecolo.red/map-discord",
+            ),
+            const TextSpan(text: helpText3),
+            _link(
+              helpText3link,
+              "https://discord.com/channels/665868367416131594/863844716047106068",
+            ),
+            const TextSpan(text: helpText4),
+          ],
+        )),
+        const SizedBox(height: 32),
+        Text(
+          installInstructionsTitle,
+          style: Theme.of(context).textTheme.titleLarge,
+        ),
+        const SizedBox(height: 24),
+        const _UsageInformation(),
+      ],
+    );
+  }
+
+  static TextSpan _link(String text, String sUrl) {
+    return TextSpan(
+      text: text,
+      style: const TextStyle(
+        color: Colors.blue,
+        decoration: TextDecoration.underline,
+      ),
+      recognizer: _tapLink(sUrl),
+    );
+  }
+
+  static TapGestureRecognizer _tapLink(String sUrl) {
+    return TapGestureRecognizer()
+      ..onTap = () async {
+        final Uri url = Uri.parse(sUrl);
+        if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
+          throw Exception("Could not launch $url");
+        }
+      };
   }
 }

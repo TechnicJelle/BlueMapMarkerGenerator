@@ -113,16 +113,35 @@ const String saveButtonTooltip = "Save Marker Set (Ctrl+S)";
 //Error Dialog
 const String errorOpeningFile = "Error while opening file:";
 
-//Usage Information Dialog
-const String usageInformationTitle = "Usage Information";
-const String usageInformationDoNotShowAgain = "Don't show again this session";
-const String usageInformationText1 = """
-To use the marker file that will download after this dialog, place it somewhere sensible.
+//Help Dialog
+const String helpTitle = "Help";
+const String helpText1 = """
+This tool allows you to create marker sets for BlueMap.
+Marker sets are used to place markers on the map, like POIs, lines or shapes.
+This can be used to mark important locations on the map, like homes or shops, or to draw lines on the map, like roads.
+Shapes can be used for things like borders or regions.
+
+For more detailed information on BlueMap Markers, check the """;
+const String helpText1Link = "BlueMap Wiki";
+const String helpText2 =
+    ".\n\nIf you need help with this tool, please join the ";
+const String helpText2Link = "BlueMap Discord server";
+const String helpText3 = " and ask your questions in ";
+const String helpText3link = "#3rd-party-support";
+const String helpText4 = ". You're welcome to ping me, @TechnicJelle.";
+
+//Installation Instructions Dialog
+const String installInstructionsTitle = "Installation Instructions";
+const String installInstructionsDoNotShowAgain =
+    "Don't show again this session";
+const String installInstructionsText1 = """
+To use the marker file that this program generates, you must save it somewhere sensible on your server.
+Do not save it in BlueMap's maps configuration directory , as BlueMap will then try to load it as a map, which will not work.
 Then, in your map's .conf file, replace this:""";
-const String usageInformationText2 = """
+const String installInstructionsText2 = """
 With this:""";
-const String usageInformationPathTo = "path/to/";
-const String usageInformationText3 = """
+const String installInstructionsPathTo = "path/to/";
+const String installInstructionsText3 = """
 Make sure to replace the path here with the correct path to the .conf file!""";
 
 //Add Marker Set Tab
