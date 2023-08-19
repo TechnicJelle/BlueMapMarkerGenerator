@@ -343,17 +343,13 @@ class _Help extends StatelessWidget {
         color: Colors.blue,
         decoration: TextDecoration.underline,
       ),
-      recognizer: _tapLink(sUrl),
+      recognizer: TapGestureRecognizer()
+        ..onTap = () async {
+          final Uri url = Uri.parse(sUrl);
+          if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
+            throw Exception("Could not launch $url");
+          }
+        },
     );
-  }
-
-  static TapGestureRecognizer _tapLink(String sUrl) {
-    return TapGestureRecognizer()
-      ..onTap = () async {
-        final Uri url = Uri.parse(sUrl);
-        if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
-          throw Exception("Could not launch $url");
-        }
-      };
   }
 }
