@@ -216,7 +216,8 @@ class _MyHomeState extends State<MyHome> {
       },
     };
     String string = encoder.convert(json);
-    string = string.substring(1, string.length - 1).replaceAll("\n\t", "\n");
+    string = installInstructionsFilePrefix +
+        string.substring(1, string.length - 1).replaceAll("\n\t", "\n");
 
     FileSaver.instance.saveFile(
       name: _fileName,
@@ -243,6 +244,8 @@ class _MyHomeState extends State<MyHome> {
       File file = File(result.files.single.path!);
       string = await file.readAsString();
     }
+
+    string = string.replaceAll(RegExp(r"^#.*\n", multiLine: true), "");
 
     Map<String, dynamic> json = jsonDecode("{$string}");
 

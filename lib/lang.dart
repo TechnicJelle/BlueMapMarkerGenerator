@@ -144,6 +144,22 @@ const String installInstructionsPathTo = "path/to/";
 const String installInstructionsText3 = """
 Make sure to replace the path here with the correct path to the .conf file!""";
 
+//Installation Instructions File Prefix
+const String installInstructionsFilePrefix = r"""
+#       / ========================================================= \
+#       |  Generated with BlueMap Marker Generator by TechnicJelle  |
+#       \ ========================================================= /
+# 
+# This file is not a full BlueMap map config, but only the marker sets collection.
+# To use this, you can either just copy the contents of this file directly into your map's .conf file,
+# or you can make the BlueMap map config automatically load this .conf file,
+# by saving it somewhere sensible on your server, and replacing the already present
+# (empty) "marker-sets" collection with the following line in your map's .conf file:
+#
+#  include required(file("path/to/markers.conf"))
+#
+""";
+
 //Add Marker Set Tab
 const String addMarkerSetTabHint = "Add a new Marker Set";
 const String repoLink = "Click to visit the source GitHub repository";
