@@ -155,7 +155,13 @@ class _MarkerMenuItem<T extends Marker> extends DropdownMenuItem<T> {
   Widget build(BuildContext context) {
     return Tooltip(
       message: tooltip,
-      child: super.build(context),
+      child: Row(
+        children: [
+          Icon(value?.displayIcon, size: 20),
+          const SizedBox(width: 8),
+          super.build(context),
+        ],
+      ),
     );
   }
 }
