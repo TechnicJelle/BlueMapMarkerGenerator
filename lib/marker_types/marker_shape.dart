@@ -84,7 +84,7 @@ class MarkerShape extends Marker {
         PropertyString(
           label: propertyLink,
           tooltip: tooltipLinkShape,
-          hint: propertyNull,
+          hint: propertyNone,
           hintStyle: const TextStyle(fontStyle: FontStyle.italic),
           onFinished: (String? result) => link = result, //TODO: validate URL
         ),
@@ -104,7 +104,7 @@ class MarkerShape extends Marker {
         PropertyDouble(
           label: propertyLineWidth,
           tooltip: tooltipLineWidth,
-          hint: propertyNull,
+          hint: propertyAuto,
           hintStyle: const TextStyle(fontStyle: FontStyle.italic),
           number: lineWidth,
           nullable: true,

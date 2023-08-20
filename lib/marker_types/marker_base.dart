@@ -93,7 +93,7 @@ abstract class Marker {
             PropertyInt(
               label: propertySorting,
               tooltip: tooltipSortingMarker,
-              hint: propertyNull,
+              hint: propertyAuto,
               hintStyle: const TextStyle(fontStyle: FontStyle.italic),
               number: sorting,
               nullable: true,
@@ -110,7 +110,7 @@ abstract class Marker {
             PropertyDouble(
               label: propertyMinDistance,
               tooltip: tooltipDistance,
-              hint: propertyNull,
+              hint: propertyAuto,
               hintStyle: const TextStyle(fontStyle: FontStyle.italic),
               number: minDistance,
               nullable: true,
@@ -119,7 +119,7 @@ abstract class Marker {
             PropertyDouble(
               label: propertyMaxDistance,
               tooltip: tooltipDistance,
-              hint: propertyNull,
+              hint: propertyAuto,
               hintStyle: const TextStyle(fontStyle: FontStyle.italic),
               number: maxDistance,
               nullable: true,

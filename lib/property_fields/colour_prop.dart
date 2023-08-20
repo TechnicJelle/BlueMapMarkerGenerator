@@ -41,7 +41,7 @@ class PropertyColour extends StatelessWidget {
                 color: Theme.of(context).textTheme.bodyLarge?.color,
               ),
               label: Text(
-                propertyNull,
+                propertyAuto,
                 style: TextStyle(
                   color: Theme.of(context).textTheme.bodyLarge?.color,
                   fontStyle: FontStyle.italic,

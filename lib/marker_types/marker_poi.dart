@@ -56,7 +56,7 @@ class MarkerPOI extends Marker {
         PropertyString(
           label: propertyIcon,
           tooltip: tooltipIcon,
-          hint: propertyNull,
+          hint: propertyAuto,
           hintStyle: const TextStyle(fontStyle: FontStyle.italic),
           onFinished: (String? result) => icon = result,
         ),

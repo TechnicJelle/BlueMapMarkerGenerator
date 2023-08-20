@@ -111,7 +111,7 @@ class _MarkerSetTabState extends State<MarkerSetTab> {
                   ),
                   titleAlignment: ListTileTitleAlignment.center,
                   title: FieldInt(
-                    hint: propertyNull,
+                    hint: propertyAuto,
                     number: markerSet.sorting,
                     nullable: true,
                     textAlign: TextAlign.right,

@@ -22,7 +22,8 @@ const String confirm = "Confirm";
 //  Shared
 const String propertyID = "ID";
 const String propertyLabel = "Label";
-const String propertyNull = "auto";
+const String propertyAuto = "auto";
+const String propertyNone = "none";
 const String propertySorting = "Sorting";
 
 //  Shared Markers

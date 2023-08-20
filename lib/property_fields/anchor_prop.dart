@@ -39,7 +39,7 @@ class PropertyAnchor extends StatelessWidget {
               color: textColour,
             ),
             label: Text(
-              propertyNull,
+              propertyAuto,
               style: TextStyle(
                 color: textColour,
                 fontStyle: FontStyle.italic,

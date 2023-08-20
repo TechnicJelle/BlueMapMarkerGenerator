@@ -74,7 +74,7 @@ class MarkerLine extends Marker {
         PropertyString(
           label: propertyLink,
           tooltip: tooltipLinkLine,
-          hint: propertyNull,
+          hint: propertyNone,
           hintStyle: const TextStyle(fontStyle: FontStyle.italic),
           onFinished: (String? result) => link = result, //TODO: validate URL
         ),
@@ -94,7 +94,7 @@ class MarkerLine extends Marker {
         PropertyDouble(
           label: propertyLineWidth,
           tooltip: tooltipLineWidth,
-          hint: propertyNull,
+          hint: propertyAuto,
           hintStyle: const TextStyle(fontStyle: FontStyle.italic),
           number: lineWidth,
           nullable: true,
